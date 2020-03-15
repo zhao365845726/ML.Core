@@ -1,0 +1,8 @@
+/Users/mltechnology/Desktop/03._GitHub/ML.Core/ML.Core/ML.Core/bin/Debug/netstandard2.1/ML.Core.deps.json
+/Users/mltechnology/Desktop/03._GitHub/ML.Core/ML.Core/ML.Core/bin/Debug/netstandard2.1/ML.Core.dll
+/Users/mltechnology/Desktop/03._GitHub/ML.Core/ML.Core/ML.Core/bin/Debug/netstandard2.1/ML.Core.pdb
+/Users/mltechnology/Desktop/03._GitHub/ML.Core/ML.Core/ML.Core/obj/Debug/netstandard2.1/ML.Core.csprojAssemblyReference.cache
+/Users/mltechnology/Desktop/03._GitHub/ML.Core/ML.Core/ML.Core/obj/Debug/netstandard2.1/ML.Core.AssemblyInfoInputs.cache
+/Users/mltechnology/Desktop/03._GitHub/ML.Core/ML.Core/ML.Core/obj/Debug/netstandard2.1/ML.Core.AssemblyInfo.cs
+/Users/mltechnology/Desktop/03._GitHub/ML.Core/ML.Core/ML.Core/obj/Debug/netstandard2.1/ML.Core.dll
+/Users/mltechnology/Desktop/03._GitHub/ML.Core/ML.Core/ML.Core/obj/Debug/netstandard2.1/ML.Core.pdb
