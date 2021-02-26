@@ -4,4 +4,22 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Config\" />
+    <Folder Include="Data\" />
+    <Folder Include="DateTime\" />
+    <Folder Include="Log\" />
+    <Folder Include="Document\" />
+    <Folder Include="File\" />
+    <Folder Include="Extension\" />
+    <Folder Include="Http\" />
+    <Folder Include="Json\" />
+    <Folder Include="Model\" />
+    <Folder Include="System\" />
+    <Folder Include="Web\" />
+    <Folder Include="Windows\" />
+    <Folder Include="Security\" />
+    <Folder Include="Xml\" />
+  </ItemGroup>
+
 </Project>
