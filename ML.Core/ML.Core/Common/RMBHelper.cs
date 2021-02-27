@@ -1,12 +1,12 @@
 ﻿//=====================================================================================
-// All Rights Reserved , Copyright © MLTechnology 2017
+// All Rights Reserved , Copyright © MLTechnology 2017-Now
 //=====================================================================================
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ML.Core.Common
+namespace ML.Core
 {
     /// <summary>
     /// 转换人民币大小金额

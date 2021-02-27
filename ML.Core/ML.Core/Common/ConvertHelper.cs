@@ -1,7 +1,10 @@
-﻿using System;
+﻿//=====================================================================================
+// All Rights Reserved , Copyright © MLTechnology 2017-Now
+//=====================================================================================
+using System;
 using System.Text;
 
-namespace ML.Core.Common
+namespace ML.Core
 {
     /// <summary>
     /// 处理数据类型转换，数制转换、编码转换相关的类

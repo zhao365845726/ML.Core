@@ -1,9 +1,12 @@
-﻿using System;
+﻿//=====================================================================================
+// All Rights Reserved , Copyright © MLTechnology 2017-Now
+//=====================================================================================
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 
-namespace ML.Core.Common
+namespace ML.Core
 {
     /// <summary>
     /// 执行命令

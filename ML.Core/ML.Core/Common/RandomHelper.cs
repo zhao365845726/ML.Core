@@ -1,6 +1,9 @@
-﻿using System;
+﻿//=====================================================================================
+// All Rights Reserved , Copyright © MLTechnology 2017-Now
+//=====================================================================================
+using System;
 
-namespace ML.Core.Common
+namespace ML.Core
 {
     /// <summary>
     /// 使用Random类生成伪随机数
