@@ -1,4 +1,7 @@
-﻿using System;
+﻿//=====================================================================================
+// All Rights Reserved , Copyright © MLTechnology 2017-Now
+//=====================================================================================
+using System;
 using System.Text;
 using System.Net.Sockets;
 using System.Net.Mail;

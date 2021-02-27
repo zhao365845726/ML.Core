@@ -1,5 +1,5 @@
 ﻿//=====================================================================================
-// All Rights Reserved , Copyright © MLTechnology 2017-2021
+// All Rights Reserved , Copyright © MLTechnology 2017-Now
 //=====================================================================================
 using System;
 using System.Collections.Generic;

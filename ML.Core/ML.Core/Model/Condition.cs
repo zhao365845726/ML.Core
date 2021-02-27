@@ -1,4 +1,7 @@
-﻿//using System;
+﻿//=====================================================================================
+// All Rights Reserved , Copyright © MLTechnology 2017-Now
+//=====================================================================================
+//using System;
 //using System.Collections;
 //using System.Collections.Generic;
 //using System.Data.Common;

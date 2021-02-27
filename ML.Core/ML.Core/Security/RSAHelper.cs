@@ -1,4 +1,7 @@
-﻿using Org.BouncyCastle.Crypto;
+﻿//=====================================================================================
+// All Rights Reserved , Copyright © MLTechnology 2017-Now
+//=====================================================================================
+using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using System;

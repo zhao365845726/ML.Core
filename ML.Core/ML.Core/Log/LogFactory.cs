@@ -1,4 +1,7 @@
-﻿using log4net;
+﻿//=====================================================================================
+// All Rights Reserved , Copyright © MLTechnology 2017-Now
+//=====================================================================================
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.IO;
