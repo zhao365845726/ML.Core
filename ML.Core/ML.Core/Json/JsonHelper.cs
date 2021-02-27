@@ -17,10 +17,21 @@ namespace ML.Core
     /// </summary>
     public static class JsonHelper
     {
+        /// <summary>
+        /// 把json字符串转换为Object对象
+        /// </summary>
+        /// <param name="Json"></param>
+        /// <returns></returns>
         public static object ToJson(this string Json)
         {
             return JsonConvert.DeserializeObject(Json);
         }
+
+        /// <summary>
+        /// 把对象转换为JSON字符串
+        /// </summary>
+        /// <param name="obj">对象</param>
+        /// <returns>JSON字符串</returns>
         public static string ToJson(this object obj)
         {
             if (obj == null)
@@ -29,6 +40,12 @@ namespace ML.Core
             }
             return JsonConvert.SerializeObject(obj);
         }
+
+        /// <summary>
+        /// 将json字符串转换为DataTable
+        /// </summary>
+        /// <param name="strJson"></param>
+        /// <returns></returns>
         public static DataTable JsonToDataTable(this string strJson)
         {
             #region
@@ -82,10 +99,24 @@ namespace ML.Core
             return tb;
             #endregion
         }
+
+        /// <summary>
+        /// 将json文本转换为List实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Json"></param>
+        /// <returns></returns>
         public static List<T> JonsToList<T>(this string Json)
         {
             return JsonConvert.DeserializeObject<List<T>>(Json);
         }
+
+        /// <summary>
+        /// 把Json文本转为实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Json"></param>
+        /// <returns></returns>
         public static T JsonToEntity<T>(this string Json)
         {
             try
@@ -96,6 +127,29 @@ namespace ML.Core
             {
                 return default(T);
             }
+        }
+
+        /// <summary>
+        /// 将json文本转换为字典
+        /// </summary>
+        /// <param name="jsonStr"></param>
+        /// <returns></returns>
+        public static IDictionary<string, object> LoadJsonStr(string jsonStr)
+        {
+            var data = JsonConvert.DeserializeObject<IDictionary<string, object>>(jsonStr);
+            return data;
+        }
+
+        /// <summary>
+        /// 将json byte转换为字典
+        /// </summary>
+        /// <param name="jsonByte"></param>
+        /// <returns></returns>
+        public static IDictionary<string, object> LoadJsonByte(byte[] jsonByte)
+        {
+            string result = Encoding.Default.GetString(jsonByte);
+            var data = JsonConvert.DeserializeObject<IDictionary<string, object>>(result);
+            return data;
         }
     }
 }
