@@ -205,41 +205,41 @@ namespace ML.Core
         #endregion
 
         #region 创建目录
-        /// <summary>
-        /// 创建目录
-        /// </summary>
-        /// <param name="dir">要创建的目录路径包括目录名</param>
-        public static void CreateDir(string dir)
-        {
-            if (dir.Length == 0) return;
-            if (!Directory.Exists(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir))
-                Directory.CreateDirectory(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir);
-        }
+        ///// <summary>
+        ///// 创建目录
+        ///// </summary>
+        ///// <param name="dir">要创建的目录路径包括目录名</param>
+        //public static void CreateDir(string dir)
+        //{
+        //    if (dir.Length == 0) return;
+        //    if (!Directory.Exists(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir))
+        //        Directory.CreateDirectory(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir);
+        //}
         #endregion
 
         #region 删除目录
-        /// <summary>
-        /// 删除目录
-        /// </summary>
-        /// <param name="dir">要删除的目录路径和名称</param>
-        public static void DeleteDir(string dir)
-        {
-            if (dir.Length == 0) return;
-            if (Directory.Exists(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir))
-                Directory.Delete(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir);
-        }
+        ///// <summary>
+        ///// 删除目录
+        ///// </summary>
+        ///// <param name="dir">要删除的目录路径和名称</param>
+        //public static void DeleteDir(string dir)
+        //{
+        //    if (dir.Length == 0) return;
+        //    if (Directory.Exists(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir))
+        //        Directory.Delete(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir);
+        //}
         #endregion
 
         #region 删除文件
-        /// <summary>
-        /// 删除文件
-        /// </summary>
-        /// <param name="file">要删除的文件路径和名称</param>
-        public static void DeleteFile(string file)
-        {
-            if (File.Exists(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + file))
-                File.Delete(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + file);
-        }
+        ///// <summary>
+        ///// 删除文件
+        ///// </summary>
+        ///// <param name="file">要删除的文件路径和名称</param>
+        //public static void DeleteFile(string file)
+        //{
+        //    if (File.Exists(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + file))
+        //        File.Delete(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + file);
+        //}
         #endregion
 
         #region 删除文件
@@ -260,52 +260,52 @@ namespace ML.Core
         #endregion
 
         #region 创建文件
-        /// <summary>
-        /// 创建文件
-        /// </summary>
-        /// <param name="dir">带后缀的文件名</param>
-        /// <param name="pagestr">文件内容</param>
-        public static void CreateFile(string dir, string pagestr)
-        {
-            dir = dir.Replace("/", "\\");
-            if (dir.IndexOf("\\") > -1)
-                CreateDir(dir.Substring(0, dir.LastIndexOf("\\")));
-            System.IO.StreamWriter sw = new System.IO.StreamWriter(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir, false, System.Text.Encoding.GetEncoding("GB2312"));
-            sw.Write(pagestr);
-            sw.Close();
-        }
+        ///// <summary>
+        ///// 创建文件
+        ///// </summary>
+        ///// <param name="dir">带后缀的文件名</param>
+        ///// <param name="pagestr">文件内容</param>
+        //public static void CreateFile(string dir, string pagestr)
+        //{
+        //    dir = dir.Replace("/", "\\");
+        //    if (dir.IndexOf("\\") > -1)
+        //        CreateDir(dir.Substring(0, dir.LastIndexOf("\\")));
+        //    System.IO.StreamWriter sw = new System.IO.StreamWriter(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir, false, System.Text.Encoding.GetEncoding("GB2312"));
+        //    sw.Write(pagestr);
+        //    sw.Close();
+        //}
         #endregion
 
         #region 移动文件(剪贴--粘贴)
-        /// <summary>
-        /// 移动文件(剪贴--粘贴)
-        /// </summary>
-        /// <param name="dir1">要移动的文件的路径及全名(包括后缀)</param>
-        /// <param name="dir2">文件移动到新的位置,并指定新的文件名</param>
-        public static void MoveFile(string dir1, string dir2)
-        {
-            dir1 = dir1.Replace("/", "\\");
-            dir2 = dir2.Replace("/", "\\");
-            if (File.Exists(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir1))
-                File.Move(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir1, System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir2);
-        }
+        ///// <summary>
+        ///// 移动文件(剪贴--粘贴)
+        ///// </summary>
+        ///// <param name="dir1">要移动的文件的路径及全名(包括后缀)</param>
+        ///// <param name="dir2">文件移动到新的位置,并指定新的文件名</param>
+        //public static void MoveFile(string dir1, string dir2)
+        //{
+        //    dir1 = dir1.Replace("/", "\\");
+        //    dir2 = dir2.Replace("/", "\\");
+        //    if (File.Exists(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir1))
+        //        File.Move(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir1, System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir2);
+        //}
         #endregion
 
         #region 复制文件
-        /// <summary>
-        /// 复制文件
-        /// </summary>
-        /// <param name="dir1">要复制的文件的路径已经全名(包括后缀)</param>
-        /// <param name="dir2">目标位置,并指定新的文件名</param>
-        public static void CopyFile(string dir1, string dir2)
-        {
-            dir1 = dir1.Replace("/", "\\");
-            dir2 = dir2.Replace("/", "\\");
-            if (File.Exists(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir1))
-            {
-                File.Copy(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir1, System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir2, true);
-            }
-        }
+        ///// <summary>
+        ///// 复制文件
+        ///// </summary>
+        ///// <param name="dir1">要复制的文件的路径已经全名(包括后缀)</param>
+        ///// <param name="dir2">目标位置,并指定新的文件名</param>
+        //public static void CopyFile(string dir1, string dir2)
+        //{
+        //    dir1 = dir1.Replace("/", "\\");
+        //    dir2 = dir2.Replace("/", "\\");
+        //    if (File.Exists(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir1))
+        //    {
+        //        File.Copy(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir1, System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir2, true);
+        //    }
+        //}
         #endregion
 
         #region 根据时间得到目录名 / 格式:yyyyMMdd 或者 HHmmssff
@@ -713,27 +713,27 @@ namespace ML.Core
         #endregion
 
         #region 将文件移动到指定目录
-        /// <summary>
-        /// 将文件移动到指定目录
-        /// </summary>
-        /// <param name="sourceFilePath">需要移动的源文件的绝对路径</param>
-        /// <param name="descDirectoryPath">移动到的目录的绝对路径</param>
-        public static void Move(string sourceFilePath, string descDirectoryPath)
-        {
-            //获取源文件的名称
-            string sourceFileName = GetFileName(sourceFilePath);
+        ///// <summary>
+        ///// 将文件移动到指定目录
+        ///// </summary>
+        ///// <param name="sourceFilePath">需要移动的源文件的绝对路径</param>
+        ///// <param name="descDirectoryPath">移动到的目录的绝对路径</param>
+        //public static void Move(string sourceFilePath, string descDirectoryPath)
+        //{
+        //    //获取源文件的名称
+        //    string sourceFileName = GetFileName(sourceFilePath);
 
-            if (IsExistDirectory(descDirectoryPath))
-            {
-                //如果目标中存在同名文件,则删除
-                if (IsExistFile(descDirectoryPath + "\\" + sourceFileName))
-                {
-                    DeleteFile(descDirectoryPath + "\\" + sourceFileName);
-                }
-                //将文件移动到指定目录
-                File.Move(sourceFilePath, descDirectoryPath + "\\" + sourceFileName);
-            }
-        }
+        //    if (IsExistDirectory(descDirectoryPath))
+        //    {
+        //        //如果目标中存在同名文件,则删除
+        //        if (IsExistFile(descDirectoryPath + "\\" + sourceFileName))
+        //        {
+        //            DeleteFile(descDirectoryPath + "\\" + sourceFileName);
+        //        }
+        //        //将文件移动到指定目录
+        //        File.Move(sourceFilePath, descDirectoryPath + "\\" + sourceFileName);
+        //    }
+        //}
         #endregion
 
         #region 从文件的绝对路径中获取文件名( 不包含扩展名 )
@@ -763,29 +763,29 @@ namespace ML.Core
         #endregion
 
         #region 清空指定目录
-        /// <summary>
-        /// 清空指定目录下所有文件及子目录,但该目录依然保存.
-        /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>
-        public static void ClearDirectory(string directoryPath)
-        {
-            directoryPath = HttpContext.Current.Server.MapPath(directoryPath);
-            if (IsExistDirectory(directoryPath))
-            {
-                //删除目录中所有的文件
-                string[] fileNames = GetFileNames(directoryPath);
-                for (int i = 0; i < fileNames.Length; i++)
-                {
-                    DeleteFile(fileNames[i]);
-                }
-                //删除目录中所有的子目录
-                string[] directoryNames = GetDirectories(directoryPath);
-                for (int i = 0; i < directoryNames.Length; i++)
-                {
-                    DeleteDirectory(directoryNames[i]);
-                }
-            }
-        }
+        ///// <summary>
+        ///// 清空指定目录下所有文件及子目录,但该目录依然保存.
+        ///// </summary>
+        ///// <param name="directoryPath">指定目录的绝对路径</param>
+        //public static void ClearDirectory(string directoryPath)
+        //{
+        //    directoryPath = HttpContext.Current.Server.MapPath(directoryPath);
+        //    if (IsExistDirectory(directoryPath))
+        //    {
+        //        //删除目录中所有的文件
+        //        string[] fileNames = GetFileNames(directoryPath);
+        //        for (int i = 0; i < fileNames.Length; i++)
+        //        {
+        //            DeleteFile(fileNames[i]);
+        //        }
+        //        //删除目录中所有的子目录
+        //        string[] directoryNames = GetDirectories(directoryPath);
+        //        for (int i = 0; i < directoryNames.Length; i++)
+        //        {
+        //            DeleteDirectory(directoryNames[i]);
+        //        }
+        //    }
+        //}
         #endregion
 
         #region 清空文件内容
@@ -804,28 +804,28 @@ namespace ML.Core
         #endregion
 
         #region 删除指定目录
-        /// <summary>
-        /// 删除指定目录及其所有子目录
-        /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>
-        public static void DeleteDirectory(string directoryPath)
-        {
-            directoryPath = HttpContext.Current.Server.MapPath(directoryPath);
-            if (IsExistDirectory(directoryPath))
-            {
-                Directory.Delete(directoryPath, true);
-            }
-        }
+        ///// <summary>
+        ///// 删除指定目录及其所有子目录
+        ///// </summary>
+        ///// <param name="directoryPath">指定目录的绝对路径</param>
+        //public static void DeleteDirectory(string directoryPath)
+        //{
+        //    directoryPath = HttpContext.Current.Server.MapPath(directoryPath);
+        //    if (IsExistDirectory(directoryPath))
+        //    {
+        //        Directory.Delete(directoryPath, true);
+        //    }
+        //}
         #endregion
 
-        /// <summary>
-        /// 本地路径
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static string MapPath(string path)
-        {
-            return HttpContext.Current.Server.MapPath(path);
-        }
+        ///// <summary>
+        ///// 本地路径
+        ///// </summary>
+        ///// <param name="path"></param>
+        ///// <returns></returns>
+        //public static string MapPath(string path)
+        //{
+        //    return HttpContext.Current.Server.MapPath(path);
+        //}
     }
 }

@@ -6,3 +6,11 @@
 /Users/mltechnology/Desktop/03._GitHub/ML.Core/ML.Core/ML.Core/obj/Debug/netstandard2.1/ML.Core.AssemblyInfo.cs
 /Users/mltechnology/Desktop/03._GitHub/ML.Core/ML.Core/ML.Core/obj/Debug/netstandard2.1/ML.Core.dll
 /Users/mltechnology/Desktop/03._GitHub/ML.Core/ML.Core/ML.Core/obj/Debug/netstandard2.1/ML.Core.pdb
+E:\_GitHub\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.AssemblyInfoInputs.cache
+E:\_GitHub\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.AssemblyInfo.cs
+E:\_GitHub\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.csproj.CoreCompileInputs.cache
+E:\_GitHub\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.dll
+E:\_GitHub\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.pdb
+E:\_GitHub\ML.Core\ML.Core\ML.Core\bin\Debug\netstandard2.1\ML.Core.deps.json
+E:\_GitHub\ML.Core\ML.Core\ML.Core\bin\Debug\netstandard2.1\ML.Core.dll
+E:\_GitHub\ML.Core\ML.Core\ML.Core\bin\Debug\netstandard2.1\ML.Core.pdb

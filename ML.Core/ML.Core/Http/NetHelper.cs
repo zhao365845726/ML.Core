@@ -149,28 +149,28 @@ namespace ML.Core
         #endregion
 
         #region 获得当前页面客户端的IP
-        /// <summary>    
-        /// 获得当前页面客户端的IP    
-        /// </summary>    
-        /// <returns>当前页面客户端的IP</returns>    
-        public static string GetIPAddress()
-        {
-            string result = String.Empty;
-            result = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-            if (string.IsNullOrEmpty(result))
-            {
-                result = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
-            }
-            if (string.IsNullOrEmpty(result))
-            {
-                result = HttpContext.Current.Request.UserHostAddress;
-            }
-            if (string.IsNullOrEmpty(result) || result == "::1")
-            {
-                return "127.0.0.1";
-            }
-            return result;
-        }
+        ///// <summary>    
+        ///// 获得当前页面客户端的IP    
+        ///// </summary>    
+        ///// <returns>当前页面客户端的IP</returns>    
+        //public static string GetIPAddress()
+        //{
+        //    string result = String.Empty;
+        //    result = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+        //    if (string.IsNullOrEmpty(result))
+        //    {
+        //        result = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+        //    }
+        //    if (string.IsNullOrEmpty(result))
+        //    {
+        //        result = HttpContext.Current.Request.UserHostAddress;
+        //    }
+        //    if (string.IsNullOrEmpty(result) || result == "::1")
+        //    {
+        //        return "127.0.0.1";
+        //    }
+        //    return result;
+        //}
         #endregion
 
         #region 获取远程客户机的IP地址

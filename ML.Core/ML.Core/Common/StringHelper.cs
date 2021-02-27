@@ -385,18 +385,18 @@ namespace ML.Core
         #endregion
 
         #region 根据配置对指定字符串进行 MD5 加密
-        /// <summary>
-        /// 根据配置对指定字符串进行 MD5 加密
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public static string GetMD5(string s)
-        {
-            //md5加密
-            s = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(s, "md5").ToString();
+        ///// <summary>
+        ///// 根据配置对指定字符串进行 MD5 加密
+        ///// </summary>
+        ///// <param name="s"></param>
+        ///// <returns></returns>
+        //public static string GetMD5(string s)
+        //{
+        //    //md5加密
+        //    s = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(s, "md5").ToString();
 
-            return s.ToLower().Substring(8, 16);
-        }
+        //    return s.ToLower().Substring(8, 16);
+        //}
         #endregion
 
         #region 得到字符串长度，一个汉字长度为2
