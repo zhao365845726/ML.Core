@@ -3,5 +3,6 @@
 ################################################################################
 
 /ML.Core/.vs/ML.Core/v16
-/ML.Core/obj/*.*
-/ML.Core/bin/*.*
+/ML.Core/ML.Core/obj
+/ML.Core/ML.Core/bin/Debug
+/ML.Core/ML.Core/obj

@@ -52,7 +52,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "0.1.0-beta1",
     "restore": {
       "projectUniqueName": "E:\\_GitHub\\ML.Core\\ML.Core\\ML.Core\\ML.Core.csproj",
       "projectName": "ML.Core",
