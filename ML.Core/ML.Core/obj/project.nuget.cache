@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Dimh+JTof5xuLjY2cZL5F95lRea8HEGsX07UdhCh55rbcNceotz+bzW9d2+EMFEnt4ABAj+gebB0zN1kOL6RZA==",
+  "dgSpecHash": "/Mrb7bCU0B9uNQaPPci+faeq8Z1XINK6OcJ5WelskgWSzMyRD5+6yEqlN/ogDm5j6No/sSvftjAjs7iqAlMpKA==",
   "success": true,
-  "projectFilePath": "E:\\_GitHub\\ML.Core\\ML.Core\\ML.Core\\ML.Core.csproj",
+  "projectFilePath": "C:\\Code\\02-Github\\ML.Core\\ML.Core\\ML.Core\\ML.Core.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Administrator\\.nuget\\packages\\newtonsoft.json\\13.0.1-beta1\\newtonsoft.json.13.0.1-beta1.nupkg.sha512"
+    "C:\\Users\\Marty\\.nuget\\packages\\newtonsoft.json\\13.0.1-beta1\\newtonsoft.json.13.0.1-beta1.nupkg.sha512"
   ],
   "logs": []
 }

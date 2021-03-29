@@ -804,18 +804,18 @@ namespace ML.Core
         #endregion
 
         #region 删除指定目录
-        ///// <summary>
-        ///// 删除指定目录及其所有子目录
-        ///// </summary>
-        ///// <param name="directoryPath">指定目录的绝对路径</param>
-        //public static void DeleteDirectory(string directoryPath)
-        //{
-        //    directoryPath = HttpContext.Current.Server.MapPath(directoryPath);
-        //    if (IsExistDirectory(directoryPath))
-        //    {
-        //        Directory.Delete(directoryPath, true);
-        //    }
-        //}
+        /// <summary>
+        /// 删除指定目录及其所有子目录
+        /// </summary>
+        /// <param name="directoryPath">指定目录的绝对路径</param>
+        public static void DeleteDirectory(string directoryPath)
+        {
+            directoryPath = Path.Combine(directoryPath, "");
+            if (IsExistDirectory(directoryPath))
+            {
+                Directory.Delete(directoryPath, true);
+            }
+        }
         #endregion
 
         ///// <summary>
