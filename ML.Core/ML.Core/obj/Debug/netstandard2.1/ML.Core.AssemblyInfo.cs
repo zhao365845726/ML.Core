@@ -20,7 +20,6 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyProductAttribute("ML.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ML.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.2.0")]
-[assembly: System.Reflection.AssemblyMetadataAttribute("RepositoryUrl", " https://github.com/zhao365845726/ML.Core ")]
 
 // 由 MSBuild WriteCodeFragment 类生成。
 
