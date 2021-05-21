@@ -14,3 +14,12 @@ E:\_GitHub\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.pdb
 E:\_GitHub\ML.Core\ML.Core\ML.Core\bin\Debug\netstandard2.1\ML.Core.deps.json
 E:\_GitHub\ML.Core\ML.Core\ML.Core\bin\Debug\netstandard2.1\ML.Core.dll
 E:\_GitHub\ML.Core\ML.Core\ML.Core\bin\Debug\netstandard2.1\ML.Core.pdb
+C:\Code\02-Github\ML.Core\ML.Core\ML.Core\bin\Debug\netstandard2.1\ML.Core.deps.json
+C:\Code\02-Github\ML.Core\ML.Core\ML.Core\bin\Debug\netstandard2.1\ML.Core.dll
+C:\Code\02-Github\ML.Core\ML.Core\ML.Core\bin\Debug\netstandard2.1\ML.Core.pdb
+C:\Code\02-Github\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Code\02-Github\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.AssemblyInfoInputs.cache
+C:\Code\02-Github\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.AssemblyInfo.cs
+C:\Code\02-Github\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.csproj.CoreCompileInputs.cache
+C:\Code\02-Github\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.dll
+C:\Code\02-Github\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.pdb

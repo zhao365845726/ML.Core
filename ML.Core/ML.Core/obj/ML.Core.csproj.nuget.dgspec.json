@@ -5,7 +5,7 @@
   },
   "projects": {
     "C:\\Code\\02-Github\\ML.Core\\ML.Core\\ML.Core\\ML.Core.csproj": {
-      "version": "1.0.2-beta1",
+      "version": "1.0.3-beta1",
       "restore": {
         "projectUniqueName": "C:\\Code\\02-Github\\ML.Core\\ML.Core\\ML.Core\\ML.Core.csproj",
         "projectName": "ML.Core",
@@ -13,8 +13,12 @@
         "packagesPath": "C:\\Users\\Marty\\.nuget\\packages\\",
         "outputPath": "C:\\Code\\02-Github\\ML.Core\\ML.Core\\ML.Core\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\Marty\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -27,6 +31,7 @@
         },
         "frameworks": {
           "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
             "projectReferences": {}
           }
         },
@@ -38,10 +43,19 @@
       },
       "frameworks": {
         "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
           "dependencies": {
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.1-beta1, )"
+            },
+            "Portable.BouncyCastle": {
+              "target": "Package",
+              "version": "[1.8.9, )"
+            },
+            "Senparc.Ncf.Core": {
+              "target": "Package",
+              "version": "[0.6.127.39-beta1, )"
             }
           },
           "imports": [
@@ -59,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-preview.3.21202.5\\RuntimeIdentifierGraph.json"
         }
       }
     }
