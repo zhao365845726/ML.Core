@@ -15,11 +15,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("MLTechnology")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("ML.Core")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.3.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.3-beta1")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.4.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.4-beta1")]
 [assembly: System.Reflection.AssemblyProductAttribute("ML.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ML.Core")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.0.3.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("1.0.4.0")]
 [assembly: System.Reflection.AssemblyMetadataAttribute("RepositoryUrl", " https://github.com/zhao365845726/ML.Core ")]
 
 // 由 MSBuild WriteCodeFragment 类生成。

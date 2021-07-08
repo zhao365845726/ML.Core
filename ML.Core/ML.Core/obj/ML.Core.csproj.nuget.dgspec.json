@@ -5,7 +5,7 @@
   },
   "projects": {
     "C:\\Code\\02-Github\\ML.Core\\ML.Core\\ML.Core\\ML.Core.csproj": {
-      "version": "1.0.3-beta1",
+      "version": "1.0.4-beta1",
       "restore": {
         "projectUniqueName": "C:\\Code\\02-Github\\ML.Core\\ML.Core\\ML.Core\\ML.Core.csproj",
         "projectName": "ML.Core",
@@ -73,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-preview.3.21202.5\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }
