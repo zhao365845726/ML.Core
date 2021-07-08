@@ -22,3 +22,4 @@ C:\Code\02-Github\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.Assem
 C:\Code\02-Github\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.csproj.CoreCompileInputs.cache
 C:\Code\02-Github\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.dll
 C:\Code\02-Github\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.pdb
+C:\Code\02-Github\ML.Core\ML.Core\ML.Core\obj\Debug\netstandard2.1\ML.Core.csproj.AssemblyReference.cache

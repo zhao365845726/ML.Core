@@ -49,7 +49,7 @@ namespace ML.Core
             this._logFileLocation = logFilePath;
         }
 
-        private void Log(string logMessage)
+        public void Log(string logMessage)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(_logFileLocation));
             File.AppendAllText(_logFileLocation,
