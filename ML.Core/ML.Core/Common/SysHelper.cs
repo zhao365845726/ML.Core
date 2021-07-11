@@ -6,6 +6,10 @@ using System;
 using System.Web;
 using System.Threading;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
 
 namespace ML.Core
 {
@@ -63,6 +67,128 @@ namespace ML.Core
         public static string GetMachineName()
         {
             return Environment.GetEnvironmentVariable("COMPUTERNAME");
+        }
+
+        public static List<string> GetMacAddress(string separator = "-")
+        {
+            //IPGlobalProperties computerProperties = IPGlobalProperties.GetIPGlobalProperties();
+            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+
+            //Console.WriteLine("Interface information for {0}.{1}     ",
+            //    computerProperties.HostName, computerProperties.DomainName);
+            if (nics == null || nics.Length < 1)
+            {
+                Console.WriteLine("  No network interfaces found.");
+                return new List<string>();
+            }
+
+            Console.WriteLine("  Number of interfaces .................... : {0}", nics.Length);
+            var macAddress = new List<string>();
+
+            foreach (NetworkInterface adapter in nics.Where(c =>
+                c.NetworkInterfaceType != NetworkInterfaceType.Loopback && c.OperationalStatus == OperationalStatus.Up))
+            {
+                //Console.WriteLine();
+                //Console.WriteLine(adapter.Name + "," + adapter.Description);
+                //Console.WriteLine(String.Empty.PadLeft(adapter.Description.Length, '='));
+                //Console.WriteLine("  Interface type .......................... : {0}", adapter.NetworkInterfaceType);
+                //Console.Write("  Physical address ........................ : ");
+                //PhysicalAddress address = adapter.GetPhysicalAddress();
+                //byte[] bytes = address.GetAddressBytes();
+                //for (int i = 0; i < bytes.Length; i++)
+                //{
+                //    // Display the physical address in hexadecimal.
+                //    Console.Write("{0}", bytes[i].ToString("X2"));
+                //    // Insert a hyphen after each byte, unless we are at the end of the 
+                //    // address.
+                //    if (i != bytes.Length - 1)
+                //    {
+                //        Console.Write("-");
+                //    }
+                //}
+
+                //Console.WriteLine();
+
+                IPInterfaceProperties properties = adapter.GetIPProperties();
+
+                var unicastAddresses = properties.UnicastAddresses;
+                if (unicastAddresses.Any(temp => temp.Address.AddressFamily == AddressFamily.InterNetwork))
+                {
+                    var address = adapter.GetPhysicalAddress();
+                    if (string.IsNullOrEmpty(separator))
+                    {
+                        macAddress.Add(address.ToString());
+                    }
+                    else
+                    {
+                        macAddress.Add(string.Join(separator, address.GetAddressBytes()));
+                    }
+                }
+            }
+
+            return macAddress;
+        }
+
+        public static Dictionary<string,string> GetMacAddressDic(string separator = "-")
+        {
+            //IPGlobalProperties computerProperties = IPGlobalProperties.GetIPGlobalProperties();
+            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+
+            //Console.WriteLine("Interface information for {0}.{1}     ",
+            //    computerProperties.HostName, computerProperties.DomainName);
+            if (nics == null || nics.Length < 1)
+            {
+                Console.WriteLine("  No network interfaces found.");
+                return null;
+            }
+
+            Console.WriteLine("  Number of interfaces .................... : {0}", nics.Length);
+            Dictionary<string, string> macAddress = new Dictionary<string, string>();
+
+            foreach (NetworkInterface adapter in nics.Where(c =>
+                c.NetworkInterfaceType != NetworkInterfaceType.Loopback && c.OperationalStatus == OperationalStatus.Up))
+            {
+                //Console.WriteLine();
+                //Console.WriteLine(adapter.Name + "," + adapter.Description);
+                //Console.WriteLine(String.Empty.PadLeft(adapter.Description.Length, '='));
+                //Console.WriteLine("  Interface type .......................... : {0}", adapter.NetworkInterfaceType);
+                //Console.Write("  Physical address ........................ : ");
+                //PhysicalAddress address = adapter.GetPhysicalAddress();
+                //byte[] bytes = address.GetAddressBytes();
+                //for (int i = 0; i < bytes.Length; i++)
+                //{
+                //    // Display the physical address in hexadecimal.
+                //    Console.Write("{0}", bytes[i].ToString("X2"));
+                //    // Insert a hyphen after each byte, unless we are at the end of the 
+                //    // address.
+                //    if (i != bytes.Length - 1)
+                //    {
+                //        Console.Write("-");
+                //    }
+                //}
+
+                //Console.WriteLine();
+
+                IPInterfaceProperties properties = adapter.GetIPProperties();
+
+                var unicastAddresses = properties.UnicastAddresses;
+                if (unicastAddresses.Any(temp => temp.Address.AddressFamily == AddressFamily.InterNetwork))
+                {
+
+                    var address = adapter.GetPhysicalAddress();
+                    var name = adapter.Name;
+                    if (string.IsNullOrEmpty(separator))
+                    {
+                        macAddress.Add(name,address.ToString());
+                    }
+                    else
+                    {
+                        macAddress.Add(name,string.Join(separator, address.GetAddressBytes()));
+                    }
+                }
+            }
+
+            return macAddress;
         }
         #endregion
     }
