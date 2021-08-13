@@ -411,15 +411,21 @@ namespace ML.Core
             {
                 foreach (string d in directories)
                 {
-                    foreach(KeyValuePair<string,string> item in dicExclude)
+                    bool isExist = false;
+                    foreach (KeyValuePair<string, string> item in dicExclude)
                     {
                         if (item.Key.Equals("FOLDER"))
                         {
-                            if (d.Equals(item.Value))
+                            if (d.Contains(item.Value))
                             {
-                                continue;
+                                isExist = true;
+                                break;
                             }
                         }
+                    }
+                    if (isExist)
+                    {
+                        continue;
                     }
                     CopyFolder(d, varToDirectory + d.Substring(d.LastIndexOf("\\")));
                 }
@@ -429,15 +435,21 @@ namespace ML.Core
             {
                 foreach (string s in files)
                 {
+                    bool isExist = false;
                     foreach (KeyValuePair<string, string> item in dicExclude)
                     {
                         if (item.Key.Equals("FILE"))
                         {
-                            if (s.Equals(item.Value))
+                            if (s.Contains(item.Value))
                             {
-                                continue;
+                                isExist = true;
+                                break;
                             }
                         }
+                    }
+                    if (isExist)
+                    {
+                        continue;
                     }
                     File.Copy(s, varToDirectory + s.Substring(s.LastIndexOf("\\")), true);
                 }

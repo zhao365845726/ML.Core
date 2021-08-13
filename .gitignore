@@ -9,3 +9,8 @@
 /ML.Core/.vs/ML.Core/DesignTimeBuild
 /ML.Core/ConsoleApp1/bin/Debug/netstandard2.1
 /ML.Core/ConsoleApp1/obj
+/ML.Core/ML.Core.Test/bin/Debug/netstandard2.1
+/ML.Core/ML.Core.Test/obj
+/ML.Core/ML.Core.TestTests/obj/Debug/netcoreapp3.1
+/ML.Core/ML.CoreTests/bin/Debug/netstandard2.1
+/ML.Core/ML.CoreTests/obj
