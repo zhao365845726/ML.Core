@@ -6,6 +6,7 @@ using System.Text;
 using System.IO;
 using System.Data;
 using System.Web;
+using System.Collections.Generic;
 
 namespace ML.Core
 {
@@ -387,6 +388,57 @@ namespace ML.Core
             {
                 foreach (string s in files)
                 {
+                    File.Copy(s, varToDirectory + s.Substring(s.LastIndexOf("\\")), true);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 复制文件夹(递归)
+        /// </summary>
+        /// <param name="varFromDirectory">源文件夹路径</param>
+        /// <param name="varToDirectory">目标文件夹路径</param>
+        /// <param name="dicExclude">排除</param>
+        public static void CopyFolder(string varFromDirectory, string varToDirectory, Dictionary<string, string> dicExclude)
+        {
+            Directory.CreateDirectory(varToDirectory);
+
+            if (!Directory.Exists(varFromDirectory)) return;
+
+            string[] directories = Directory.GetDirectories(varFromDirectory);
+
+            if (directories.Length > 0)
+            {
+                foreach (string d in directories)
+                {
+                    foreach(KeyValuePair<string,string> item in dicExclude)
+                    {
+                        if (item.Key.Equals("FOLDER"))
+                        {
+                            if (d.Equals(item.Value))
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                    CopyFolder(d, varToDirectory + d.Substring(d.LastIndexOf("\\")));
+                }
+            }
+            string[] files = Directory.GetFiles(varFromDirectory);
+            if (files.Length > 0)
+            {
+                foreach (string s in files)
+                {
+                    foreach (KeyValuePair<string, string> item in dicExclude)
+                    {
+                        if (item.Key.Equals("FILE"))
+                        {
+                            if (s.Equals(item.Value))
+                            {
+                                continue;
+                            }
+                        }
+                    }
                     File.Copy(s, varToDirectory + s.Substring(s.LastIndexOf("\\")), true);
                 }
             }
