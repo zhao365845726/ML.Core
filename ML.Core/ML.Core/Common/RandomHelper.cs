@@ -13,6 +13,16 @@ namespace ML.Core
         //随机数对象
         private Random _random;
 
+        /// <summary>
+        /// 随机字符集
+        /// </summary>
+        private char[] constant =
+          {
+            '0','1','2','3','4','5','6','7','8','9',
+            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+            'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
+          };
+
         #region 构造函数
         /// <summary>
         /// 构造函数
@@ -76,5 +86,61 @@ namespace ML.Core
             }
         }
         #endregion
+
+        /// <summary>
+        /// 根据Guid获取唯一数字序列，19位
+        /// </summary>
+        /// <returns></returns>
+        public long LongId()
+        {
+            byte[] value = Guid.NewGuid().ToByteArray();
+            return BitConverter.ToInt64(value, 0);
+        }
+
+        /// <summary>
+        /// 获取随机字符串
+        /// </summary>
+        /// <param name="Length"></param>
+        /// <returns></returns>
+        public string GenerateRandomNumber(int Length)
+        {
+            System.Text.StringBuilder newRandom = new System.Text.StringBuilder(62);
+            Random rd = new Random();
+            for (int i = 0; i < Length; i++)
+            {
+                newRandom.Append(constant[rd.Next(62)]);
+            }
+            return newRandom.ToString();
+        }
+
+        /// <summary>
+        /// 生成退款订单号
+        /// </summary>
+        /// <returns></returns>
+        public string GetRefundOrder()
+        {
+            return "R" + GetCommonOrder();
+        }
+
+        /// <summary>
+        /// 生成支付订单号
+        /// </summary>
+        /// <returns></returns>
+        public string GetPayOrder()
+        {
+            return "P" + GetCommonOrder();
+        }
+
+        /// <summary>
+        /// 生成公共的订单号
+        /// </summary>
+        /// <returns></returns>
+        public string GetCommonOrder()
+        {
+            DateTimeHelper dth = new DateTimeHelper();
+            string strRand = GenerateRandomNumber(5);
+            int strCurTime = (int)dth.TimeSpan();
+            return strRand + strCurTime.ToString();
+        }
     }
 }
