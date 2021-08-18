@@ -1,21 +1,21 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ML.Core;
+﻿using ML.Core;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ML.Core.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class DirFileHelperTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void CopyFolderTest()
         {
-            string a = "1";
-            string b = "2";
-            Assert.Equals(a, b);
-            //Assert.Fail();
+            //string strPath = @"E:\_Laboratory\NUnitTest\1.txt";
+            //var isExist = DirFileHelper.IsExistFile(strPath);
+            //Assert.IsTrue(isExist);
+            Console.WriteLine("Hello");
         }
     }
 }
