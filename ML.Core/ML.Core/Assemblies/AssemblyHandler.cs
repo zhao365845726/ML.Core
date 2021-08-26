@@ -13,6 +13,7 @@ namespace ML.Core.Assemblies
     {
         private string path = string.Empty;
         public AssemblyResult assemblyResult;
+        public AssemblyDictionaryResult assemblyDictionaryResult;
 
         public AssemblyHandler(string packagePath)
         {
@@ -270,6 +271,44 @@ namespace ML.Core.Assemblies
             }
 
             return assemblyResult;
+        }
+
+        /// <summary>
+        /// 获取类方法列表
+        /// </summary>
+        /// <param name="assemblyName"></param>
+        /// <param name="className"></param>
+        /// <returns></returns>
+        public AssemblyDictionaryResult GetAssemblyDictionaryResult(string assemblyName, string filterWords)
+        {
+            AssemblyDictionaryResult assemblyDictionaryResult = new AssemblyDictionaryResult();
+            GetAssemblyNameList(assemblyName);
+            assemblyDictionaryResult.AssemblyName = assemblyResult.AssemblyName;
+            if (assemblyResult.AssemblyName.Count > 0)
+            {
+                Dictionary<string, List<string>> dicClass = new Dictionary<string, List<string>>();
+                foreach (var assemblyItem in assemblyResult.AssemblyName)
+                {
+                    //将程序集和类列表
+                    dicClass.Add(assemblyItem, GetClassNameList(assemblyItem, filterWords));
+                    List<Dictionary<string, List<string>>> lstDicProperties = new List<Dictionary<string, List<string>>>();
+                    List<Dictionary<string, List<string>>> lstDicMethod = new List<Dictionary<string, List<string>>>();
+                    foreach (var classItem in assemblyResult.ClassName)
+                    {
+                        Dictionary<string, List<string>> dicProperties = new Dictionary<string, List<string>>();
+                        Dictionary<string, List<string>> dicMethod = new Dictionary<string, List<string>>();
+                        dicProperties.Add(classItem, GetClassPropertiesInfoList(assemblyItem, classItem));
+                        dicProperties.Add(classItem, GetClassMethodsInfoList(assemblyItem, classItem));
+                        lstDicProperties.Add(dicProperties);
+                        lstDicMethod.Add(dicMethod);
+                    }
+                    assemblyDictionaryResult.Properties = lstDicProperties;
+                    assemblyDictionaryResult.Methods = lstDicMethod;
+                }
+                assemblyDictionaryResult.ClassName = dicClass;
+            }
+
+            return assemblyDictionaryResult;
         }
     }
 }
