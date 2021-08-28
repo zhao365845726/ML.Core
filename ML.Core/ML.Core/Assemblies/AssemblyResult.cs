@@ -36,10 +36,14 @@ namespace ML.Core.Assemblies
         /// 程序集名称
         /// </summary>
         public List<string> AssemblyName { get; set; }
+        ///// <summary>
+        ///// 类名
+        ///// </summary>
+        //public Dictionary<string, List<string>> ClassName { get; set; }
         /// <summary>
         /// 类名
         /// </summary>
-        public Dictionary<string, List<string>> ClassName { get; set; }
+        public Dictionary<string, Dictionary<string, DatabaseClassAttribute>> ClassName { get; set; }
         /// <summary>
         /// 类的属性
         /// </summary>

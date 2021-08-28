@@ -134,6 +134,34 @@ namespace ML.Core.Assemblies
         }
 
         /// <summary>
+        /// 获取程序集中的类名称
+        /// </summary>
+        /// <param name="assemblyName">程序集</param>
+        /// <returns></returns>
+        public Dictionary<string,DatabaseClassAttribute> GetClassNameDictionary(string assemblyName, string filterWords)
+        {
+            if (!String.IsNullOrEmpty(assemblyName))
+            {
+                //assemblyName = path + assemblyName;
+                Assembly assembly = Assembly.LoadFrom(assemblyName);
+                Type[] ts = assembly.GetTypes();
+                Dictionary<string, DatabaseClassAttribute> dicClass = new Dictionary<string, DatabaseClassAttribute>();
+                List<string> classList = new List<string>();
+                foreach (Type t in ts)
+                {
+                    //classList.Add(t.Name);
+                    if (t.FullName.Contains(filterWords))
+                    {
+                        dicClass.Add(t.FullName,GetClassAttributeInfoList(assemblyName,t.FullName));
+                    }
+                }
+                assemblyResult.ClassName = classList;
+                return dicClass;
+            }
+            return new Dictionary<string, DatabaseClassAttribute>();
+        }
+
+        /// <summary>
         /// 获取类信息
         /// </summary>
         /// <param name="assemblyName"></param>
@@ -236,6 +264,27 @@ namespace ML.Core.Assemblies
         }
 
         /// <summary>
+        /// 获取类属性注解列表
+        /// </summary>
+        /// <param name="assemblyName"></param>
+        /// <param name="className"></param>
+        /// <returns></returns>
+        public DatabaseClassAttribute GetClassAttributeInfoList(string assemblyName, string className)
+        {
+            if (!String.IsNullOrEmpty(assemblyName) && !String.IsNullOrEmpty(className))
+            {
+                Assembly assembly = Assembly.LoadFrom(assemblyName);
+                Type type = assembly.GetType(className, true, true);
+                if (type != null)
+                {
+                    DatabaseClassAttribute databaseClassAttribute = (DatabaseClassAttribute)type.GetCustomAttribute(typeof(DatabaseClassAttribute), true);
+                    return databaseClassAttribute;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
         /// 获取类的自定义属性
         /// </summary>
         /// <param name="t"></param>
@@ -300,11 +349,6 @@ namespace ML.Core.Assemblies
         public AssemblyResult GetAssemblyResult(string assemblyName, string filterWords)
         {
             GetAssemblyNameList(assemblyName);
-            //GetClassNameList(assemblyName, filterWords);
-            //GetClassPropertiesInfoList(assemblyName, className);
-            //GetClassMethodsInfoList(assemblyName, className);
-
-
             if (assemblyResult.AssemblyName.Count > 0)
             {
                 foreach (var assemblyItem in assemblyResult.AssemblyName)
@@ -334,15 +378,15 @@ namespace ML.Core.Assemblies
             assemblyDictionaryResult.AssemblyName = assemblyResult.AssemblyName;
             if (assemblyResult.AssemblyName.Count > 0)
             {
-                Dictionary<string, List<string>> dicClass = new Dictionary<string, List<string>>();
+                Dictionary<string, Dictionary<string, DatabaseClassAttribute>> dicClass = new Dictionary<string, Dictionary<string, DatabaseClassAttribute>>();
                 foreach (var assemblyItem in assemblyResult.AssemblyName)
                 {
-                    //将程序集和类列表
-                    dicClass.Add(assemblyItem, GetClassNameList(assemblyItem, filterWords));
+                    //将程序集和类字典
+                    dicClass.Add(assemblyItem, GetClassNameDictionary(assemblyItem, filterWords));
                     List<Dictionary<string, List<string>>> lstDicProperties = new List<Dictionary<string, List<string>>>();
                     List<Dictionary<string, Dictionary<string, DatabaseAttribute>>> lstDicPropertiesAttributes = new List<Dictionary<string, Dictionary<string, DatabaseAttribute>>>();
                     List<Dictionary<string, List<string>>> lstDicMethod = new List<Dictionary<string, List<string>>>();
-                    //获取类的属性
+                    //获取类的属性列表
                     foreach (var classItem in assemblyResult.ClassName)
                     {
                         Dictionary<string, List<string>> dicProperties = new Dictionary<string, List<string>>();
@@ -356,7 +400,7 @@ namespace ML.Core.Assemblies
                         dicPropertiesAttribute.Add(classItem, GetClassPropertiesAttributeInfoList(assemblyItem, classItem));
                         lstDicPropertiesAttributes.Add(dicPropertiesAttribute);
                     }
-                    //获取类的方法
+                    //获取类的方法列表
                     foreach (var classItem in assemblyResult.ClassName)
                     {
                         Dictionary<string, List<string>> dicMethod = new Dictionary<string, List<string>>();
