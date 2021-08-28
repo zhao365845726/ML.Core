@@ -1,6 +1,7 @@
 ﻿using System;
 using ML.Core;
 using System.Collections.Generic;
+using ML.Core.Assemblies;
 
 namespace ConsoleApp1
 {
@@ -8,8 +9,20 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            TestCopyFolder();
+            GetAssemblyDictionaryResult();
+            //TestCopyFolder();
             Console.ReadLine();
+        }
+
+        public static void GetAssemblyDictionaryResult()
+        {
+            //string path = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"/nuget/";
+            ////string path = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+
+            string path = @"F:\local_dll";
+            Console.WriteLine(path);
+            AssemblyHandler assemblyHandler = new AssemblyHandler(path);
+            var aa = assemblyHandler.GetAssemblyDictionaryResult("P-AutoMate_TaskScheduler", "P_AutoMate_TaskScheduler.DatabaseModel");
         }
 
         static void TestCopyFolder()

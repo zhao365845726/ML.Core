@@ -208,6 +208,54 @@ namespace ML.Core.Assemblies
         }
 
         /// <summary>
+        /// 获取类属性注解列表
+        /// </summary>
+        /// <param name="assemblyName"></param>
+        /// <param name="className"></param>
+        /// <returns></returns>
+        public Dictionary<string, DatabaseAttribute> GetClassPropertiesAttributeInfoList(string assemblyName, string className)
+        {
+            if (!String.IsNullOrEmpty(assemblyName) && !String.IsNullOrEmpty(className))
+            {
+                Assembly assembly = Assembly.LoadFrom(assemblyName);
+                Type type = assembly.GetType(className, true, true);
+                if (type != null)
+                {
+                    //类的属性
+                    Dictionary<string, DatabaseAttribute> propertieAttributeList = new Dictionary<string, DatabaseAttribute>();
+                    PropertyInfo[] propertyInfo = type.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                    foreach (PropertyInfo p in propertyInfo)
+                    {
+                        DatabaseAttribute databaseAttribute = (DatabaseAttribute)Attribute.GetCustomAttribute(p, typeof(DatabaseAttribute));
+                        propertieAttributeList.Add(p.ToString(),databaseAttribute);
+                    }
+                    return propertieAttributeList;
+                }
+            }
+            return new Dictionary<string, DatabaseAttribute>();
+        }
+
+        /// <summary>
+        /// 获取类的自定义属性
+        /// </summary>
+        /// <param name="t"></param>
+        public Dictionary<string,DatabaseAttribute> GetClassPropertiesAttribute(Type t)
+        {
+            var Properties = t.GetProperties();
+            Dictionary<string, DatabaseAttribute> dicRes = new Dictionary<string, DatabaseAttribute>();
+            foreach (var item in Properties)
+            {
+                DatabaseAttribute MyAttributes = (DatabaseAttribute)Attribute.GetCustomAttribute(item, typeof(DatabaseAttribute));
+                if (MyAttributes == null)
+                {
+                    continue;
+                }
+                dicRes.Add(item.Name, MyAttributes);
+            }
+            return dicRes;
+        }
+
+        /// <summary>
         /// 获取类方法列表
         /// </summary>
         /// <param name="assemblyName"></param>
@@ -292,6 +340,7 @@ namespace ML.Core.Assemblies
                     //将程序集和类列表
                     dicClass.Add(assemblyItem, GetClassNameList(assemblyItem, filterWords));
                     List<Dictionary<string, List<string>>> lstDicProperties = new List<Dictionary<string, List<string>>>();
+                    List<Dictionary<string, Dictionary<string, DatabaseAttribute>>> lstDicPropertiesAttributes = new List<Dictionary<string, Dictionary<string, DatabaseAttribute>>>();
                     List<Dictionary<string, List<string>>> lstDicMethod = new List<Dictionary<string, List<string>>>();
                     //获取类的属性
                     foreach (var classItem in assemblyResult.ClassName)
@@ -299,6 +348,13 @@ namespace ML.Core.Assemblies
                         Dictionary<string, List<string>> dicProperties = new Dictionary<string, List<string>>();
                         dicProperties.Add(classItem, GetClassPropertiesInfoList(assemblyItem, classItem));
                         lstDicProperties.Add(dicProperties);
+                    }
+                    //获取类的属性注解
+                    foreach (var classItem in assemblyResult.ClassName)
+                    {
+                        Dictionary<string, Dictionary<string, DatabaseAttribute>> dicPropertiesAttribute = new Dictionary<string, Dictionary<string, DatabaseAttribute>>();
+                        dicPropertiesAttribute.Add(classItem, GetClassPropertiesAttributeInfoList(assemblyItem, classItem));
+                        lstDicPropertiesAttributes.Add(dicPropertiesAttribute);
                     }
                     //获取类的方法
                     foreach (var classItem in assemblyResult.ClassName)
@@ -308,6 +364,7 @@ namespace ML.Core.Assemblies
                         lstDicMethod.Add(dicMethod);
                     }
                     assemblyDictionaryResult.Properties = lstDicProperties;
+                    assemblyDictionaryResult.PropertiesAttributes = lstDicPropertiesAttributes;
                     assemblyDictionaryResult.Methods = lstDicMethod;
                 }
                 assemblyDictionaryResult.ClassName = dicClass;

@@ -45,6 +45,10 @@ namespace ML.Core.Assemblies
         /// </summary>
         public List<Dictionary<string, List<string>>> Properties { get; set; }
         /// <summary>
+        /// 类的属性
+        /// </summary>
+        public List<Dictionary<string, Dictionary<string, DatabaseAttribute>>> PropertiesAttributes { get; set; }
+        /// <summary>
         /// 类的方法
         /// </summary>
         public List<Dictionary<string, List<string>>> Methods { get; set; }
