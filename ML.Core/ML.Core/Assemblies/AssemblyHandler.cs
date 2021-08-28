@@ -293,13 +293,18 @@ namespace ML.Core.Assemblies
                     dicClass.Add(assemblyItem, GetClassNameList(assemblyItem, filterWords));
                     List<Dictionary<string, List<string>>> lstDicProperties = new List<Dictionary<string, List<string>>>();
                     List<Dictionary<string, List<string>>> lstDicMethod = new List<Dictionary<string, List<string>>>();
+                    //获取类的属性
                     foreach (var classItem in assemblyResult.ClassName)
                     {
                         Dictionary<string, List<string>> dicProperties = new Dictionary<string, List<string>>();
-                        Dictionary<string, List<string>> dicMethod = new Dictionary<string, List<string>>();
                         dicProperties.Add(classItem, GetClassPropertiesInfoList(assemblyItem, classItem));
-                        dicProperties.Add(classItem, GetClassMethodsInfoList(assemblyItem, classItem));
                         lstDicProperties.Add(dicProperties);
+                    }
+                    //获取类的方法
+                    foreach (var classItem in assemblyResult.ClassName)
+                    {
+                        Dictionary<string, List<string>> dicMethod = new Dictionary<string, List<string>>();
+                        dicMethod.Add(classItem, GetClassMethodsInfoList(assemblyItem, classItem));
                         lstDicMethod.Add(dicMethod);
                     }
                     assemblyDictionaryResult.Properties = lstDicProperties;
