@@ -12,21 +12,41 @@ namespace ML.Core
         public const string EVENTFH = "@";  //事件符号
         public const string BINDFH = "";  //属性绑定符号
 
+        /// <summary>
+        /// 根据元素生成
+        /// </summary>
+        /// <param name="ele">元素对象</param>
+        /// <returns></returns>
         public string GeneralByElement(MLElement ele)
         {
             string strAttribute = string.Empty;
             string strEvent = string.Empty;
-            foreach (KeyValuePair<string,string> pair in ele.DicAttribute)
+            if(ele.DicAttribute.Count > 0)
             {
-                strAttribute += $" {BINDFH}{pair.Key}={YHDOUBLE}{pair.Value}{YHDOUBLE}";
+                foreach (KeyValuePair<string, string> pair in ele.DicAttribute)
+                {
+                    strAttribute += $" {BINDFH}{pair.Key}={YHDOUBLE}{pair.Value}{YHDOUBLE}";
+                }
             }
-            foreach (KeyValuePair<string, string> pair in ele.DicEvents)
+            if(ele.DicEvents.Count > 0)
             {
-                strEvent += $" {EVENTFH}{pair.Key}={YHDOUBLE}{pair.Value}{YHDOUBLE}";
+                foreach (KeyValuePair<string, string> pair in ele.DicEvents)
+                {
+                    strEvent += $" {EVENTFH}{pair.Key}={YHDOUBLE}{pair.Value}{YHDOUBLE}";
+                }
             }
             return SetTag(ele.SpaceNumber, ele.TagName, $"{strAttribute}{strEvent}", ele.Content,ele.TagSwitch);
         }
 
+        /// <summary>
+        /// 设置标签
+        /// </summary>
+        /// <param name="iSpace">缩进</param>
+        /// <param name="key">元素</param>
+        /// <param name="attribute">属性</param>
+        /// <param name="content">内容</param>
+        /// <param name="tagSwitch">元素闭合类型</param>
+        /// <returns></returns>
         public string SetTag(int iSpace, string key, string attribute, string content, TagSwitch tagSwitch)
         {
             StringBuilder sb = new StringBuilder();
@@ -57,6 +77,100 @@ namespace ML.Core
             return sb.ToString();
         }
 
+        /// <summary>
+        /// 生成Html标记
+        /// </summary>
+        /// <param name="iSpace">缩进</param>
+        /// <param name="tagName">标签名</param>
+        /// <param name="tagSwitch">标签闭合类型</param>
+        /// <returns></returns>
+        public string BuildHtml(int iSpace, string tagName, TagSwitch tagSwitch)
+        {
+            Dictionary<string, string> dicAttr = new Dictionary<string, string>();
+            Dictionary<string, string> dicEvent = new Dictionary<string, string>();
+            MLElement element = new MLElement()
+            {
+                TagName = tagName,
+                SpaceNumber = iSpace,
+                Content = string.Empty,
+                DicAttribute = dicAttr,
+                DicEvents = dicEvent,
+                TagSwitch = tagSwitch
+            };
+            return GeneralByElement(element);
+        }
+
+        /// <summary>
+        /// 生成Html标记
+        /// </summary>
+        /// <param name="iSpace">缩进</param>
+        /// <param name="tagName">标签名</param>
+        /// <param name="content">内容</param>
+        /// <param name="tagSwitch">标签闭合类型</param>
+        /// <returns></returns>
+        public string BuildHtml(int iSpace, string tagName, string content, TagSwitch tagSwitch)
+        {
+            Dictionary<string, string> dicAttr = new Dictionary<string, string>();
+            Dictionary<string, string> dicEvent = new Dictionary<string, string>();
+            MLElement element = new MLElement()
+            {
+                TagName = tagName,
+                SpaceNumber = iSpace,
+                Content = content,
+                DicAttribute = dicAttr,
+                DicEvents = dicEvent,
+                TagSwitch = tagSwitch
+            };
+            return GeneralByElement(element);
+        }
+
+        /// <summary>
+        /// 生成Html标记
+        /// </summary>
+        /// <param name="iSpace">缩进</param>
+        /// <param name="tagName">标签名</param>
+        /// <param name="content">内容</param>
+        /// <param name="attribute">属性</param>
+        /// <param name="tagSwitch">标签闭合类型</param>
+        /// <returns></returns>
+        public string BuildHtml(int iSpace, string tagName, string content, string attribute, TagSwitch tagSwitch)
+        {
+            Dictionary<string, string> dicAttr = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(attribute))
+            {
+                string[] saAttribute = attribute.Split('&');
+                if (saAttribute.Length > 0)
+                {
+                    for (int i = 0; i < saAttribute.Length; i++)
+                    {
+                        string[] saTemp = saAttribute[i].Split('=');
+                        dicAttr.Add(saTemp[0], saTemp[1]);
+                    }
+                }
+            }
+            Dictionary<string, string> dicEvent = new Dictionary<string, string>();
+            MLElement element = new MLElement()
+            {
+                TagName = tagName,
+                SpaceNumber = iSpace,
+                Content = content,
+                DicAttribute = dicAttr,
+                DicEvents = dicEvent,
+                TagSwitch = tagSwitch
+            };
+            return GeneralByElement(element);
+        }
+
+        /// <summary>
+        /// 生成Html标记
+        /// </summary>
+        /// <param name="iSpace">缩进</param>
+        /// <param name="tagName">标签名</param>
+        /// <param name="content">内容</param>
+        /// <param name="attribute">属性</param>
+        /// <param name="events">事件</param>
+        /// <param name="tagSwitch">标签闭合类型</param>
+        /// <returns></returns>
         public string BuildHtml(int iSpace, string tagName, string content, string attribute, string events, TagSwitch tagSwitch)
         {
             Dictionary<string, string> dicAttr = new Dictionary<string, string>();
@@ -98,6 +212,9 @@ namespace ML.Core
         }
     }
 
+    /// <summary>
+    /// 元素对象
+    /// </summary>
     public class MLElement
     {
         public string TagName { get; set; }
