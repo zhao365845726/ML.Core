@@ -153,6 +153,7 @@ namespace ML.Core.Assemblies
                     if (t.FullName.Contains(filterWords))
                     {
                         dicClass.Add(t.FullName,GetClassAttributeInfoList(assemblyName,t.FullName));
+                        classList.Add(t.FullName);
                     }
                 }
                 assemblyResult.ClassName = classList;
