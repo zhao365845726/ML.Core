@@ -13,5 +13,6 @@ namespace ML.Core.Html
         public TagSwitch TagSwitch { get; set; }
         public Dictionary<string, string> DicAttribute { get; set; }
         public Dictionary<string, string> DicEvents { get; set; }
+        public string CustomData { get; set; }
     }
 }

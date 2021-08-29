@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using ML.Core.Enum;
+using ML.Core.Html;
 
 namespace ML.Core
 {
@@ -36,6 +37,37 @@ namespace ML.Core
                 }
             }
             return SetTag(ele.SpaceNumber, ele.TagName, $"{strAttribute}{strEvent}", ele.Content,ele.TagSwitch);
+        }
+
+        /// <summary>
+        /// 根据元素生成
+        /// </summary>
+        /// <param name="ele">元素对象</param>
+        /// <returns></returns>
+        public string GeneralByElement(Element ele)
+        {
+            string strAttribute = string.Empty;
+            string strEvent = string.Empty;
+            string strCustomData = string.Empty;
+            if (ele.DicAttribute.Count > 0)
+            {
+                foreach (KeyValuePair<string, string> pair in ele.DicAttribute)
+                {
+                    strAttribute += $" {BINDFH}{pair.Key}={YHDOUBLE}{pair.Value}{YHDOUBLE}";
+                }
+            }
+            if (ele.DicEvents.Count > 0)
+            {
+                foreach (KeyValuePair<string, string> pair in ele.DicEvents)
+                {
+                    strEvent += $" {EVENTFH}{pair.Key}={YHDOUBLE}{pair.Value}{YHDOUBLE}";
+                }
+            }
+            if (!string.IsNullOrEmpty(ele.CustomData))
+            {
+                strCustomData = ele.CustomData;
+            }
+            return SetTag(ele.SpaceNumber, ele.TagName, $"{strAttribute}{strEvent}{strCustomData}", ele.Content, ele.TagSwitch);
         }
 
         /// <summary>
@@ -206,6 +238,57 @@ namespace ML.Core
                 Content = content,
                 DicAttribute = dicAttr,
                 DicEvents = dicEvent,
+                TagSwitch = tagSwitch
+            };
+            return GeneralByElement(element);
+        }
+
+        /// <summary>
+        /// 生成Html标记
+        /// </summary>
+        /// <param name="iSpace">缩进</param>
+        /// <param name="tagName">标签名</param>
+        /// <param name="content">内容</param>
+        /// <param name="attribute">属性</param>
+        /// <param name="events">事件</param>
+        /// <param name="tagSwitch">标签闭合类型</param>
+        /// <returns></returns>
+        public string BuildHtml(int iSpace, string tagName, string content, string attribute, string events,string customData, TagSwitch tagSwitch)
+        {
+            Dictionary<string, string> dicAttr = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(attribute))
+            {
+                string[] saAttribute = attribute.Split('&');
+                if (saAttribute.Length > 0)
+                {
+                    for (int i = 0; i < saAttribute.Length; i++)
+                    {
+                        string[] saTemp = saAttribute[i].Split('=');
+                        dicAttr.Add(saTemp[0], saTemp[1]);
+                    }
+                }
+            }
+            Dictionary<string, string> dicEvent = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(events))
+            {
+                string[] saEvent = events.Split('&');
+                if (saEvent.Length > 0)
+                {
+                    for (int i = 0; i < saEvent.Length; i++)
+                    {
+                        string[] saTemp = saEvent[i].Split('=');
+                        dicEvent.Add(saTemp[0], saTemp[1]);
+                    }
+                }
+            }
+            Element element = new Element()
+            {
+                TagName = tagName,
+                SpaceNumber = iSpace,
+                Content = content,
+                DicAttribute = dicAttr,
+                DicEvents = dicEvent,
+                CustomData = customData,
                 TagSwitch = tagSwitch
             };
             return GeneralByElement(element);
