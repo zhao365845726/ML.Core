@@ -21,6 +21,7 @@
             v0.1 创世
             v1.0.11 优化底层的复制目录的方法
             v1.0.21 增加Html帮助类
+            v1.0.50 增加程序集解析,自定义属性
         </PackageReleaseNotes>
         <RepositoryUrl> https://github.com/zhao365845726/ML.Core </RepositoryUrl>
         <Configurations>Debug;Release;Test</Configurations>
