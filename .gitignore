@@ -18,3 +18,4 @@
 /ML.Core/ML.CoreTests/bin/Release/netstandard2.1
 /ML.Core/ML.CoreTests/Properties/PublishProfiles
 /ML.Core/ML.Blend/obj
+/ML.Core/ML.Blend/bin/Debug
