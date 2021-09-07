@@ -27,3 +27,7 @@ https://cloud.baidu.com/apiexplorer/index.html?Product=GWSE-DJAQ8YwekkQ&Api=GWAI
 
 https://developer.qiniu.com/sms
 
+## 网易云信参考地址
+
+https://app.yunxin.163.com/
+
