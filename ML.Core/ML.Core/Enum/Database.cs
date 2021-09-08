@@ -12,6 +12,7 @@ namespace ML.Core.Enum
         DATE = 4,
         TIME = 5,
         DATETIME = 6,
+        DECIMAL = 7,
     }
 
     public enum FormControllerType
@@ -22,7 +23,7 @@ namespace ML.Core.Enum
         RADIO = 4,
         CHECK = 5,
         PICKER = 6,
-
+        NUMBER = 7,
     }
 
     public enum ListColumnType
