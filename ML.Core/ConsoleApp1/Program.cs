@@ -19,7 +19,7 @@ namespace ConsoleApp1
 
             //string path = @"F:\local_dll";
             string path = @"F:\local_dll\P_NetConfChina\netstandard2.1";
-            Console.WriteLine(path);
+            //Console.WriteLine(path);
             AssemblyHandler assemblyHandler = new AssemblyHandler(path);
             var aa = assemblyHandler.GetAssemblyDictionaryResult("P-NetConfChina", "P_NetConfChina.DatabaseModel");
         }

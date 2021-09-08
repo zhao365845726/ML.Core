@@ -6,6 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ML.Core" Version="1.0.53-beta1" />
+    <ProjectReference Include="..\ML.Core\ML.Core.csproj" />
   </ItemGroup>
 </Project>

@@ -152,7 +152,12 @@ namespace ML.Core.Assemblies
                     //classList.Add(t.Name);
                     if (t.FullName.Contains(filterWords))
                     {
-                        dicClass.Add(t.FullName,GetClassAttributeInfoList(assemblyName,t.FullName));
+                        var classAttributeInfoList = GetClassAttributeInfoList(assemblyName, t.FullName);
+                        if(classAttributeInfoList == null)
+                        {
+                            continue;
+                        }
+                        dicClass.Add(t.FullName, classAttributeInfoList);
                         classList.Add(t.FullName);
                     }
                 }
@@ -370,7 +375,7 @@ namespace ML.Core.Assemblies
         /// 获取类方法列表
         /// </summary>
         /// <param name="assemblyName"></param>
-        /// <param name="className"></param>
+        /// <param name="filterWords"></param>
         /// <returns></returns>
         public AssemblyDictionaryResult GetAssemblyDictionaryResult(string assemblyName, string filterWords)
         {
