@@ -1,59 +1,69 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
-        <LangVersion>8.0</LangVersion>
-        <Version>1.0.50-beta1</Version>
-        <AssemblyName>ML.Core</AssemblyName>
-        <RootNamespace>ML.Core</RootNamespace>
-        <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
-        <Description>ML.Core</Description>
-        <Copyright>MLTechnology</Copyright>
-        <PackageTags>MLTechnology,Core,Class,Library</PackageTags>
-        <Authors>MLTechnology</Authors>
-        <Owners>MLTechnology</Owners>
-        <PackageLicenseUrl>https://github.com/zhao365845726/ML.Core/blob/master/LICENSE</PackageLicenseUrl>
-        <Title>ML.Core</Title>
-        <ProjectUrl> https://github.com/zhao365845726/ML.Core </ProjectUrl>
-        <PackageProjectUrl>https://github.com/zhao365845726/ML.Core</PackageProjectUrl>
-        <PackageIconUrl>http://image.milisx.com/logox200.png</PackageIconUrl>
-        <PackageReleaseNotes>
-            v0.1 创世
-            v1.0.11 优化底层的复制目录的方法
-            v1.0.21 增加Html帮助类
-            v1.0.50 增加程序集解析,自定义属性
-        </PackageReleaseNotes>
-        <RepositoryUrl> https://github.com/zhao365845726/ML.Core </RepositoryUrl>
-        <Configurations>Debug;Release;Test</Configurations>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+    <Version>1.0.52-beta1</Version>
+    <AssemblyName>ML.Core</AssemblyName>
+    <RootNamespace>ML.Core</RootNamespace>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <Description>ML.Core</Description>
+    <Copyright>MLTechnology</Copyright>
+    <PackageTags>MLTechnology,Core,Class,Library</PackageTags>
+    <Authors>MLTechnology</Authors>
+    <Owners>MLTechnology</Owners>
+    <PackageLicenseUrl>https://github.com/zhao365845726/ML.Core/blob/master/LICENSE</PackageLicenseUrl>
+    <Title>ML.Core</Title>
+    <ProjectUrl> https://github.com/zhao365845726/ML.Core </ProjectUrl>
+    <PackageProjectUrl>https://github.com/zhao365845726/ML.Core</PackageProjectUrl>
+    <PackageIconUrl>http://image.milisx.com/logox200.png</PackageIconUrl>
+    <PackageReleaseNotes>
+      v0.1 创世
+      v1.0.11 优化底层的复制目录的方法
+      v1.0.21 增加Html帮助类
+      v1.0.50 增加程序集解析,自定义属性
+    </PackageReleaseNotes>
+    <RepositoryUrl> https://github.com/zhao365845726/ML.Core </RepositoryUrl>
+    <Configurations>Debug;Release;Test</Configurations>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <OutputPath>..\..\BuildOutPut</OutputPath>
-        <DocumentationFile>..\..\BuildOutPut\ML.Core.XML</DocumentationFile>
-        <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-        <Optimize>true</Optimize>
-        <DebugType>pdbonly</DebugType>
-        <ErrorReport>prompt</ErrorReport>
-        <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\BuildOutPut</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\ML.Core.XML</DocumentationFile>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>F:\local_nuget</OutputPath>
+    <DocumentationFile>..\..\BuildOutPut\ML.Core.XML</DocumentationFile>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <Compile Remove="Document\**" />
-        <Compile Remove="Extension\**" />
-        <Compile Remove="System\**" />
-        <EmbeddedResource Remove="Document\**" />
-        <EmbeddedResource Remove="Extension\**" />
-        <EmbeddedResource Remove="System\**" />
-        <None Remove="Document\**" />
-        <None Remove="Extension\**" />
-        <None Remove="System\**" />
-    </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Document\**" />
+    <Compile Remove="Extension\**" />
+    <Compile Remove="System\**" />
+    <EmbeddedResource Remove="Document\**" />
+    <EmbeddedResource Remove="Extension\**" />
+    <EmbeddedResource Remove="System\**" />
+    <None Remove="Document\**" />
+    <None Remove="Extension\**" />
+    <None Remove="System\**" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1-beta1" />
-        <PackageReference Include="Portable.BouncyCastle" Version="1.8.9" />
-        <PackageReference Include="Senparc.Ncf.Core" Version="0.6.127.39-beta1" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.10" />
+    <PackageReference Include="Senparc.Ncf.Core" Version="0.6.129.2-beta3" />
+  </ItemGroup>
 
 </Project>
