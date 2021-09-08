@@ -5,4 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="ML.Core" Version="1.0.53-beta1" />
+  </ItemGroup>
 </Project>
