@@ -8,9 +8,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ML.CoreTests", "ML.CoreTest
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ML.Blend", "ML.Blend\ML.Blend.csproj", "{6A3E2D99-F845-44A4-B4E3-0238231524B4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp2", "ConsoleApp2\ConsoleApp2.csproj", "{9C94B5EB-A3C6-40C0-8C23-5E3CB5589922}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{3EFA9C2C-572D-4079-8519-005AEBA8E0B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{3EFA9C2C-572D-4079-8519-005AEBA8E0B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,10 +28,6 @@ Global
 		{6A3E2D99-F845-44A4-B4E3-0238231524B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A3E2D99-F845-44A4-B4E3-0238231524B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A3E2D99-F845-44A4-B4E3-0238231524B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C94B5EB-A3C6-40C0-8C23-5E3CB5589922}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C94B5EB-A3C6-40C0-8C23-5E3CB5589922}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C94B5EB-A3C6-40C0-8C23-5E3CB5589922}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C94B5EB-A3C6-40C0-8C23-5E3CB5589922}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3EFA9C2C-572D-4079-8519-005AEBA8E0B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3EFA9C2C-572D-4079-8519-005AEBA8E0B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EFA9C2C-572D-4079-8519-005AEBA8E0B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
