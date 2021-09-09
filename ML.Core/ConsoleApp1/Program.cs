@@ -7,8 +7,8 @@ namespace ConsoleApp1
 {
     class Program
     {
-        private static string accessKeyId = "LTAI5tQHVByLs6riFbSG2AYg";
-        private static string accessKeySecret = "PxSbw0mphpjMwpN32ct3yZRbc1Tt4U";
+        private static string accessKeyId = "--";
+        private static string accessKeySecret = "--";
         private static string endpoint = "oss-cn-beijing.aliyuncs.com";
 
         static void Main(string[] args)
