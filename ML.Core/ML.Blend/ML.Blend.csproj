@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.1;netstandard2.0;netcoreapp2.0</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
     <Version>0.0.5-beta1</Version>
     <AssemblyName>ML.Blend</AssemblyName>
@@ -39,10 +39,18 @@
     <PackageReference Include="AlibabaCloud.SDK.Alidns20150109" Version="2.0.1" />
     <!--阿里云对象存储OSS-->
     <PackageReference Include="Aliyun.OSS.SDK.NetCore" Version="2.13.0" />
+    <!--腾讯云-->
+    <PackageReference Include="TencentCloudSDK" Version="3.0.361" />
+    <!--腾讯云对象存储-->
+    <PackageReference Include="Tencent.QCloud.Cos.Sdk" Version="5.4.23" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'TargetFramework'">
+    <!--腾讯云对象存储-->
+    <!--<PackageReference Include="Tencent.QCloud.Cos.Sdk.NetCore" Version="5.4.2" />-->
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Cloud\Tencent\" />
     <Folder Include="Cloud\Baidu\" />
     <Folder Include="Cloud\Qiniu\" />
     <Folder Include="Unified\" />

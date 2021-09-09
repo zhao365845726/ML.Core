@@ -31,3 +31,8 @@ https://developer.qiniu.com/sms
 
 https://app.yunxin.163.com/
 
+
+## 预编译条件参考
+
+https://docs.microsoft.com/zh-cn/dotnet/csharp/language-reference/preprocessor-directives
+
