@@ -2,17 +2,22 @@
 using System;
 using ML.Blend.Cloud.Aliyun;
 using ML.Blend.Cloud.Aliyun.ObjectStorageService;
+using System.IO;
+using Newtonsoft.Json;
+using System.Text;
+using System.Collections.Generic;
 
 namespace ConsoleApp1
 {
     class Program
     {
-        private static string accessKeyId = "--";
-        private static string accessKeySecret = "--";
-        private static string endpoint = "oss-cn-beijing.aliyuncs.com";
+        private static string accessKeyId = string.Empty;
+        private static string accessKeySecret = string.Empty;
+        private static string endpoint = string.Empty;
 
         static void Main(string[] args)
         {
+            Init(@"E:\_GitHub\ML.Core\ML.Core\ConsoleApp1\config.json");
             Download_FlowType();
             //Upload_SimpleFile();
             //Bucket_Delete();
@@ -28,7 +33,7 @@ namespace ConsoleApp1
             var client = download.CreateOssClient(endpoint);
             string bucketName = $"mltechnology-sandbox";
             string objectName = $"robot/foreend/20210909160455.json";
-            string downloadFileName = @"\\MLServer\Robot3\2.json";
+            string downloadFileName = @"\\MLServer\Robot3\3.json";
             download.FlowType(client, bucketName, objectName, downloadFileName);
         }
 
@@ -57,6 +62,20 @@ namespace ConsoleApp1
             var client = bucket.CreateOssClient(endpoint);
             string bucketName = $"test-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
             bucket.Create(client, bucketName);
+        }
+
+        static void Init(string filePath)
+        {
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            string text = File.ReadAllText(filePath, Encoding.GetEncoding("UTF-8"));
+            //var jsonObj = JsonConvert.DeserializeObject<JsonApp>(text);
+            //var pageObj = JsonConvert.DeserializeObject<Page>(text);
+            var model = JsonConvert.DeserializeObject<IDictionary<string, object>>(text);
+            ConsoleApp1.Model.Aliyun aliyun = JsonConvert.DeserializeObject<ConsoleApp1.Model.Aliyun>(model["aliyun"].ToString());
+            accessKeyId = aliyun.accessKeyId;
+            accessKeySecret = aliyun.accessKeySecret;
+            endpoint = aliyun.defaultEndPoint;
+
         }
 
         public static void GetAssemblyDictionaryResult()
