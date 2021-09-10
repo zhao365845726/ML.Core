@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;netstandard2.0;netcoreapp2.0</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
-    <Version>0.0.5-beta1</Version>
+    <Version>0.0.6-beta1</Version>
     <AssemblyName>ML.Blend</AssemblyName>
     <RootNamespace>ML.Blend</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -45,13 +45,7 @@
     <PackageReference Include="Tencent.QCloud.Cos.Sdk" Version="5.4.23" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'TargetFramework'">
-    <!--腾讯云对象存储-->
-    <!--<PackageReference Include="Tencent.QCloud.Cos.Sdk.NetCore" Version="5.4.2" />-->
-  </ItemGroup>
-
   <ItemGroup>
-    <Folder Include="Cloud\Baidu\" />
     <Folder Include="Cloud\Qiniu\" />
     <Folder Include="Unified\" />
   </ItemGroup>
