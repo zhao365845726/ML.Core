@@ -7,7 +7,7 @@ using AlibabaCloud.OpenApiClient.Models;
 namespace ML.Blend.Cloud.Baidu
 {
     /// <summary>
-    /// 阿里云基类
+    /// 百度云基类
     /// 参考地址：https://next.api.aliyun.com/api/Alidns/2015-01-09/AddCustomLine?params={}&sdkStyle=dara&lang=CSHARP
     /// </summary>
     public class Base

@@ -50,4 +50,16 @@
     <Folder Include="Unified\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="BceSdkDotNet">
+      <HintPath>..\..\lib\bce-dotnet-sdk-1.0.4\BceSdkDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\lib\bce-dotnet-sdk-1.0.4\thirdparty\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\lib\bce-dotnet-sdk-1.0.4\thirdparty\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

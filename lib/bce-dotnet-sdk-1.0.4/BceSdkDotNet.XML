@@ -1,0 +1,2316 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BceSdkDotNet</name>
+    </assembly>
+    <members>
+        <member name="T:BaiduBce.Auth.DefaultBceSessionCredentials">
+            <summary>
+            Default implementation of the Credentials interface that allows callers to pass in the BCE access key and secret
+            access in the constructor.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Auth.DefaultBceSessionCredentials.SessionToken">
+            <summary>
+            The BCE session token.
+            </summary>
+        </member>
+        <member name="M:BaiduBce.Auth.DefaultBceSessionCredentials.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructs a new SessionCredentials object, with the specified access key id, secret key and session token.
+            </summary>
+            <param name="accessKeyId"> the BCE access key id. </param>
+            <param name="secretKey"> the BCE secret access key. </param>
+            <param name="sessionToken"> the BCE session token. </param>
+            <exception cref="T:System.ArgumentNullException">
+            The accessKeyId, secretKey or sessionToken should not be null or empty.
+            </exception>
+        </member>
+        <member name="T:BaiduBce.Auth.DefaultBceCredentials">
+            <summary>
+            Default implementation of the Credentials interface that allows callers to pass in the BCE access key and secret
+            access in the constructor.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Auth.DefaultBceCredentials.AccessKeyId">
+            <summary>
+            The BCE access key ID.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Auth.DefaultBceCredentials.SecretKey">
+            <summary>
+            The BCE secret access key.
+            </summary>
+        </member>
+        <member name="M:BaiduBce.Auth.DefaultBceCredentials.#ctor(System.String,System.String)">
+            <summary>
+            Constructs a new Credentials object, with the specified access key id and secret key.
+            </summary>
+            <param name="accessKeyId"> the BCE access key id. </param>
+            <param name="secretKey">   the BCE secret access key.
+            </param>
+            <exception cref="T:System.ArgumentNullException"> The accessKeyId, secretKey should not be null or empty. </exception>
+        </member>
+        <member name="T:BaiduBce.Auth.IBceSessionCredentials">
+            <summary>
+            Provides access to the BCE credentials used for accessing BCE services: BCE access key ID, secret access key and
+            session token. These credentials are used to securely sign requests to BCE services.
+            
+            <para>
+            A basic implementation of this interface is provided in <seealso cref="T:BaiduBce.Auth.DefaultBceSessionCredentials"/>,
+            but callers are free to provide their own implementation, for example, to load BCE credentials from an encrypted
+            file.
+            </para>
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Auth.IBceSessionCredentials.SessionToken">
+            <summary>
+            Returns the BCE session token for this credentials object.
+            </summary>
+            <returns> the BCE session token for this credentials object. </returns>
+        </member>
+        <member name="T:BaiduBce.Auth.IBceCredentials">
+            <summary>
+            Provides access to the BCE credentials used for accessing BCE services: BCE access key ID and secret access key.
+            These credentials are used to securely sign requests to BCE services.
+            
+            <para>
+            A basic implementation of this interface is provided in <seealso cref="T:BaiduBce.Auth.DefaultBceCredentials"/>, but callers
+            are free to provide their own implementation, for example, to load BCE credentials from an encrypted file.
+            </para>
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Auth.IBceCredentials.AccessKeyId">
+            <summary>
+            Returns the BCE access key ID for this credentials object.
+            </summary>
+            <returns> the BCE access key ID for this credentials object. </returns>
+        </member>
+        <member name="P:BaiduBce.Auth.IBceCredentials.SecretKey">
+            <summary>
+            Returns the BCE secret access key for this credentials object.
+            </summary>
+            <returns> the BCE secret access key for this credentials object. </returns>
+        </member>
+        <member name="T:BaiduBce.Auth.BceV1Signer">
+            <summary>
+            The V1 implementation of Signer with the BCE signing protocol.
+            </summary>
+        </member>
+        <member name="M:BaiduBce.Auth.BceV1Signer.Sign(BaiduBce.Internal.InternalRequest)">
+            <summary>
+            Sign the given request. Modifies the passed-in request to apply the signature.
+            </summary>
+            <param name="request">     the request to sign. </param>
+        </member>
+        <member name="T:BaiduBce.Auth.ISigner">
+            <summary>
+            A strategy for applying cryptographic signatures to a request, proving that the request was made by someone in
+            possession of the given set of credentials without transmitting the secret key over the wire.
+            </summary>
+        </member>
+        <member name="M:BaiduBce.Auth.ISigner.Sign(BaiduBce.Internal.InternalRequest)">
+            <summary>
+            Sign the given request. Modifies the passed-in request to apply the signature.
+            </summary>
+            <param name="request">     the request to sign. </param>
+        </member>
+        <member name="T:BaiduBce.Auth.SignOptions">
+            <summary>
+            Options for signing the request.
+            
+            <para>
+            There are 3 options available:
+            <table>
+            <tr>
+            <th>Option</th>
+            <th>Description</th>
+            </tr>
+            <tr>
+            <td>headersToSign</td>
+            <td>The set of headers to be signed. If this option is not set or set to null, only the following headers are signed
+            <ul>
+            <li>Host</li>
+            <li>Content-Length</li>
+            <li>Content-Type</li>
+            <li>Content-MD5</li>
+            <li>All headers starts with "x-bce-"</li>
+            </ul>
+            </td>
+            </tr>
+            <tr>
+            <td>timestamp</td>
+            <td>The time when the signature was created. If this option is not set or set to null, the signer will use the time
+            when the sign method is invoked.</td>
+            </tr>
+            <tr>
+            <td>expirationInSeconds</td>
+            <td>The time until the signature will expire, which starts from the timestamp. By default, it is set to 1800 (half an
+            hour). </td>
+            </tr>
+            *
+            </table>
+            </para>
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Auth.SignOptions.HeadersToSign">
+            <summary>
+            The set of headers to be signed.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Auth.SignOptions.Timestamp">
+            <summary>
+            The time when the signature was created.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Auth.SignOptions.ExpirationInSeconds">
+            <summary>
+            The time until the signature will expire.
+            </summary>
+        </member>
+        <member name="M:BaiduBce.Auth.SignOptions.#ctor">
+            <summary>
+            The default sign options, which is {headersToSign:null, timestamp:null, expirationInSeconds:1800}.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.BceClientBase">
+            <summary>
+            Abstract base class for BCE service clients.
+            
+            <para>
+            Responsible for basic client capabilities that are the same across all BCE SDK Java clients
+            (ex: setting the client endpoint).
+            
+            </para>
+            <para>
+            Subclass names should be in the form of "com.baidubce.services.xxx.XxxClient", while "xxx" is the service ID and
+            "Xxx" is the capitalized service ID.
+            </para>
+            </summary>
+        </member>
+        <member name="F:BaiduBce.BceClientBase.serviceEndpointFormat">
+            <summary>
+            The default service domain format for BCE.
+            </summary>
+        </member>
+        <member name="F:BaiduBce.BceClientBase.config">
+            <summary>
+            The client configuration for this client.
+            </summary>
+        </member>
+        <member name="F:BaiduBce.BceClientBase.httpClient">
+            <summary>
+            Responsible for sending HTTP requests to services.
+            </summary>
+        </member>
+        <member name="M:BaiduBce.BceClientBase.#ctor(BaiduBce.BceClientConfiguration,System.String)">
+            <summary>
+            Constructs a new AbstractBceClient with the specified client configuration.
+            
+            <para>
+            The constructor will extract serviceId from the class name automatically.
+            And if there is no endpoint specified in the client configuration, the constructor will create a default one.
+            
+            </para>
+            </summary>
+            <param name="config"> the client configuration. The constructor makes a copy of this parameter so that it is
+                safe to change the configuration after then. </param>
+            <param name="serviceEndpointFormat"> the service domain name format. </param>
+        </member>
+        <member name="M:BaiduBce.BceClientBase.ComputeEndpoint(BaiduBce.BceClientConfiguration)">
+            <summary>
+            Returns the default target service endpoint.
+            
+            </summary>
+            <returns> the computed service endpoint </returns>
+            <exception cref="T:System.FormatException"> if the endpoint specified in the client configuration is not a valid URI. </exception>
+        </member>
+        <member name="M:BaiduBce.BceClientBase.FillRequestBodyForJson(BaiduBce.Internal.InternalRequest,System.String)">
+            <summary>
+            Converts the json string into UTF-8 string and set it as the content of internalRequest, which will be
+            used as the http request body. Content-Length and Content-Type ard set accordingly.
+            </summary>
+            <param name="internalRequest">The request used to build the http request</param>
+            <param name="json">The json string to be set as content</param>
+        </member>
+        <member name="M:BaiduBce.BceClientBase.ToObject``1(System.Net.HttpWebResponse)">
+            <summary>
+            convert httpWebResponse to BceResponse
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="httpWebResponse"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BaiduBce.BceClientConfiguration">
+            <summary>
+            Basic client configurations for BCE clients.
+            </summary>
+        </member>
+        <member name="F:BaiduBce.BceClientConfiguration.DefaultTimeoutInMillis">
+            <summary>
+            The default timeout for creating new connections.
+            </summary>
+        </member>
+        <member name="F:BaiduBce.BceClientConfiguration.DefaultReadWriteTimeoutInMillis">
+            <summary>
+            The default timeout for reading from a connected socket.
+            </summary>
+        </member>
+        <member name="F:BaiduBce.BceClientConfiguration.DefaultSocketBufferSizeInBytes">
+            <summary>
+            The default socket buffer size.
+            </summary>
+        </member>
+        <member name="F:BaiduBce.BceClientConfiguration.DefaultSigner">
+            <summary>
+            The default Signer.
+            </summary>
+        </member>
+        <member name="F:BaiduBce.BceClientConfiguration.DefaultUserAgent">
+            <summary>
+            The default UserAgent.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.BceClientConfiguration.Credentials">
+            <summary>
+            The BCE credentials used by the client to sign HTTP requests.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.BceClientConfiguration.Region">
+            <summary>
+            The region of service. This value is used by the client to construct the endpoint URL automatically, and is
+            ignored if endpoint is not null.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.BceClientConfiguration.Endpoint">
+            <summary>
+            The service endpoint URL to which the client will connect.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.BceClientConfiguration.Protocol">
+            <summary>
+            The protocol (HTTP/HTTPS) to use when connecting to BCE services.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.BceClientConfiguration.TimeoutInMillis">
+            <summary>
+            The connection timeout in milliseconds. A value of -1 means infinity, and is not recommended.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.BceClientConfiguration.ReadWriteTimeoutInMillis">
+            <summary>
+            The socket timeout (SO_TIMEOUT) in milliseconds, which is a maximum period inactivity between two consecutive
+            data packets. A value of -1 means infinity, and is not recommended.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.BceClientConfiguration.ConnectionLimit">
+            <summary>
+            The maximum number of open HTTP connections.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.BceClientConfiguration.SocketBufferSizeInBytes">
+            <summary>
+            The optional size (in bytes) for the low level TCP socket buffer. This is an advanced option for advanced users
+            who want to tune low level TCP parameters to try and squeeze out more performance. Ignored if not positive.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.BceClientConfiguration.RetryPolicy">
+            <summary>
+            The retry policy for failed requests.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.BceServiceException">
+            <summary>
+            Extension of BceClientException that represents an error response returned by a BCE service.
+            Receiving an exception of this type indicates that the caller's request was correctly transmitted to the service,
+            but for some reason, the service was not able to process it, and returned an error response instead.
+            
+            <para>
+            BceServiceException provides callers several pieces of information that can be used to obtain more information
+            about the error and why it occurred. In particular, the errorType field can be used to determine if the caller's
+            request was invalid, or the service encountered an error on the server side while processing it.
+            </para>
+            </summary>
+        </member>
+        <member name="P:BaiduBce.BceServiceException.RequestId">
+            <summary>
+            The unique BCE identifier for the service request the caller made. The BCE request ID can uniquely identify
+            the BCE request, and is used for reporting an error to BCE support team.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.BceServiceException.ErrorCode">
+            <summary>
+            The BCE error code represented by this exception.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.BceServiceException.ErrorMessage">
+            <summary>
+            The error message as returned by the service.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.BceServiceException.StatusCode">
+            <summary>
+            The HTTP status code that was returned with this error.
+            </summary>
+        </member>
+        <member name="M:BaiduBce.BceServiceException.CreateFromHttpWebResponse(System.Net.HttpWebResponse)">
+            <summary>
+            convert HttpWebResponse to BceServiceException
+            </summary>
+            <param name="response">the input HttpWebResponse</param>
+            <returns></returns>
+        </member>
+        <member name="T:BaiduBce.BceClientException">
+            <summary>
+            Base exception class for any errors that occur on the client side when attempting to access a BCE service API.
+            
+            <para>
+            For example, there is no network connection available or the network request is timeout, or the server returns an
+            invalid response that the client is unable to parse, etc
+            
+            </para>
+            <para>
+            Error responses from services will be handled as BceServiceExceptions.
+            
+            </para>
+            </summary>
+        </member>
+        <member name="T:BaiduBce.BceConstants">
+            <summary>
+            Common constants used by the whole SDK.
+            </summary>
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.Continue">
+            <tt>100 Continue</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.SwitchingProtocol">
+            <tt>101 Switching Protocols</tt> (HTTP/1.1 - RFC 2616)
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.Processing">
+            <tt>102 Processing</tt> (WebDAV - RFC 2518) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.Ok">
+            <tt>200 OK</tt> (HTTP/1.0 - RFC 1945) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.Created">
+            <tt>201 Created</tt> (HTTP/1.0 - RFC 1945) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.Accepted">
+            <tt>202 Accepted</tt> (HTTP/1.0 - RFC 1945) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.NonAuthoritativeInformation">
+            <tt>203 Non Authoritative Information</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.NoContent">
+            <tt>204 No Content</tt> (HTTP/1.0 - RFC 1945) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.ResetContent">
+            <tt>205 Reset Content</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.PartialContent">
+            <tt>206 Partial Content</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.MultiStatus">
+            <tt>207 Multi-Status</tt> (WebDAV - RFC 2518) or <tt>207 Partial Update
+            OK</tt> (HTTP/1.1 - draft-ietf-http-v11-spec-rev-01?)
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.MutlipleChoices">
+            <tt>300 Mutliple Choices</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.MovedPermanently">
+            <tt>301 Moved Permanently</tt> (HTTP/1.0 - RFC 1945) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.MovedTemporarily">
+            <tt>302 Moved Temporarily</tt> (Sometimes <tt>Found</tt>) (HTTP/1.0 - RFC 1945) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.SeeOther">
+            <tt>303 See Other</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.NotModified">
+            <tt>304 Not Modified</tt> (HTTP/1.0 - RFC 1945) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.UseProxy">
+            <tt>305 Use Proxy</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.TemporaryRedirect">
+            <tt>307 Temporary Redirect</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.BadRequest">
+            <tt>400 Bad Request</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.Unauthorized">
+            <tt>401 Unauthorized</tt> (HTTP/1.0 - RFC 1945) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.PaymentRequired">
+            <tt>402 Payment Required</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.Forbidden">
+            <tt>403 Forbidden</tt> (HTTP/1.0 - RFC 1945) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.NotFound">
+            <tt>404 Not Found</tt> (HTTP/1.0 - RFC 1945) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.MethodNotAllowed">
+            <tt>405 Method Not Allowed</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.NotAcceptable">
+            <tt>406 Not Acceptable</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.ProxyAuthenticationRequired">
+            <tt>407 Proxy Authentication Required</tt> (HTTP/1.1 - RFC 2616)
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.RequestTimeout">
+            <tt>408 Request Timeout</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.Conflict">
+            <tt>409 Conflict</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.Gone">
+            <tt>410 Gone</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.LengthRequired">
+            <tt>411 Length Required</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.PreconditionFailed">
+            <tt>412 Precondition Failed</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.RequestEntityTooLarge">
+            <tt>413 Request Entity Too Large</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.RequestUriTooLong">
+            <tt>414 Request-URI Too Long</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.UnsupportedMediaType">
+            <tt>415 Unsupported Media Type</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.RequestedRangeNotSatisfiable">
+            <tt>416 Requested Range Not Satisfiable</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.ExpectationFailed">
+            <tt>417 Expectation Failed</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.InsufficientSpaceOnResource">
+            Static constant for a 419 error.
+            <tt>419 Insufficient Space on Resource</tt>
+            (WebDAV - draft-ietf-webdav-protocol-05?)
+            or <tt>419 Proxy Reauthentication Required</tt>
+            (HTTP/1.1 drafts?)
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.MethodFailure">
+            Static constant for a 420 error.
+            <tt>420 Method Failure</tt>
+            (WebDAV - draft-ietf-webdav-protocol-05?)
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.UnprocessableEntity">
+            <tt>422 Unprocessable Entity</tt> (WebDAV - RFC 2518) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.Locked">
+            <tt>423 Locked</tt> (WebDAV - RFC 2518) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.FailedDependency">
+            <tt>424 Failed Dependency</tt> (WebDAV - RFC 2518) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.InternalServerError">
+            <tt>500 Server Error</tt> (HTTP/1.0 - RFC 1945) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.NotImplemented">
+            <tt>501 Not Implemented</tt> (HTTP/1.0 - RFC 1945) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.BadGateway">
+            <tt>502 Bad Gateway</tt> (HTTP/1.0 - RFC 1945) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.ServiceUnavailable">
+            <tt>503 Service Unavailable</tt> (HTTP/1.0 - RFC 1945) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.GatewayTimeout">
+            <tt>504 Gateway Timeout</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.HttpVersionNotSupported">
+            <tt>505 HTTP Version Not Supported</tt> (HTTP/1.1 - RFC 2616) 
+        </member>
+        <member name="F:BaiduBce.BceConstants.HttpStatusCode.InsufficientStorage">
+            <tt>507 Insufficient Storage</tt> (WebDAV - RFC 2518) 
+        </member>
+        <member name="M:BaiduBce.Http.BceHttpClient.Execute(BaiduBce.Internal.InternalRequest)">
+            <summary>
+            Executes the request and returns the result.
+            </summary>
+            <param name="request">          The BCE request to send to the remote server </param>
+            <exception cref="T:BaiduBce.BceClientException">  If any errors are encountered on the client while making the
+                        request or handling the response. </exception>
+            <exception cref="T:BaiduBce.BceServiceException"> If any errors occurred in BCE while processing the request. </exception>
+        </member>
+        <member name="M:BaiduBce.Http.BceHttpClient.CreateHttpWebRequest(BaiduBce.Internal.InternalRequest)">
+            <summary>
+            Creates HttpClient method object based on the specified request and
+            populates any parameters, headers, etc. from the internal request.
+            </summary>
+            <param name="request"> The request to convert to an HttpClient method object. </param>
+            <returns> The converted HttpClient method object with any parameters, headers, etc. from the original request set. </returns>
+        </member>
+        <member name="M:BaiduBce.Http.BceHttpClient.AddRange(System.Net.HttpWebRequest,System.Int64[])">
+            <summary>
+            defaulst addRange method only take int32 args, can not work if a file is bigger than 2G
+            </summary>
+            <param name="httpWebRequest"></param>
+            <param name="range"></param>
+        </member>
+        <member name="T:BaiduBce.Internal.InternalRequest">
+            <summary>
+            Represents a request being sent to a BCE Service, including the
+            parameters being sent as part of the request, the endpoint to which the
+            request should be sent, etc.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Internal.InternalRequest.Parameters">
+            <summary>
+            Map of the parameters being sent as part of this request.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Internal.InternalRequest.Headers">
+            <summary>
+            Map of the headers included in this request
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Internal.InternalRequest.Uri">
+            <summary>
+            The service endpoint to which this request should be sent
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Internal.InternalRequest.HttpMethod">
+            <summary>
+            The HTTP method to use when sending this request.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Internal.InternalRequest.Content">
+            <summary>
+            An optional stream from which to read the request payload.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Internal.InternalRequest.StartPosition">
+            <summary>
+            The start position of the Content Stream
+            </summary>
+        </member>
+        <member name="T:BaiduBce.DefaultRetryPolicy">
+            <summary>
+            Retry policy that can be configured on a specific service client using <seealso cref="T:BaiduBce.BceClientConfiguration"/>. This class is
+            immutable, therefore safe to be shared by multiple clients.
+            </summary>
+            <seealso cref= "T:BaiduBce.BceClientConfiguration"/>
+        </member>
+        <member name="P:BaiduBce.DefaultRetryPolicy.MaxErrorRetry">
+            <summary>
+            Non-negative integer indicating the max retry count.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.DefaultRetryPolicy.MaxDelayInMillis">
+            <summary>
+            Max delay time in millis.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.DefaultRetryPolicy.ScaleFactorInMillis">
+            <summary>
+            Base sleep time (milliseconds) for general exceptions. *
+            </summary>
+        </member>
+        <member name="M:BaiduBce.DefaultRetryPolicy.#ctor">
+            <summary>
+            Constructs a new DefaultRetryPolicy.
+            </summary>
+        </member>
+        <member name="M:BaiduBce.DefaultRetryPolicy.GetDelayBeforeNextRetryInMillis(System.Exception,System.Int32)">
+            <summary>
+            Returns the delay (in milliseconds) before next retry attempt. A negative value indicates that no more retries
+            should be made.
+            </summary>
+            <param name="exception">        the exception from the failed request, represented as an BceClientException object. </param>
+            <param name="attempt"> the number of times the current request has been attempted
+                    (not including the next attempt after the delay). </param>
+            <returns> the delay (in milliseconds) before next retry attempt.A negative value indicates that no more retries
+                    should be made. </returns>
+        </member>
+        <!-- 对于成员“M:BaiduBce.DefaultRetryPolicy.ShouldRetry(System.Exception,System.Int32)”忽略有格式错误的 XML 注释 -->
+        <member name="T:BaiduBce.IRetryPolicy">
+            <summary>
+            Retry policy that can be configured on a specific service client using <seealso cref="T:BaiduBce.BceClientConfiguration"/>.
+            </summary>
+        </member>
+        <member name="M:BaiduBce.IRetryPolicy.Execute``1(System.Func{System.Int32,``0})">
+            <summary>
+            execute the func with the retry policy
+            </summary>
+            <typeparam name="T">return type of the func</typeparam>
+            <param name="func">the func to be executed</param>
+            <returns></returns>
+        </member>
+        <member name="P:BaiduBce.IRetryPolicy.CanRetry">
+            <summary>
+            determine if can retry
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Model.BceRequestBase">
+            <summary>
+            Base class for all BCE web service request objects.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Model.BceRequestBase.Credentials">
+            <summary>
+            The credentials to use for this request. If this property is set, the credentials provided in config will be
+            ingored.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Model.BceRequestBase.Config">
+            <summary>
+            The optional config to use for this request - overrides the default config set at the client level.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Model.BceResponseBase">
+            <summary>
+            Represents the response from an BCE service, including the result payload and any response metadata. BCE response
+            metadata consists primarily of the BCE request ID, which can be used for debugging purposes when services aren't
+            acting as expected.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Model.BceResponseBase.BceRequestId">
+            <summary>
+            The request id returned by bce service.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.BosConstants.StorageClass">
+            <summary>
+            storage class of object
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.BosClient">
+            <summary>
+            Provides the client for accessing the Baidu Object Service.
+            </summary>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.#ctor">
+            <summary>
+            Constructs a new client to invoke service methods on Bos.
+            </summary>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.#ctor(BaiduBce.BceClientConfiguration)">
+            <summary>
+            Constructs a new Bos client using the client configuration to access Bos.
+            </summary>
+            <param name="config"> The bos client configuration options controlling how this client
+                                       connects to Bos (e.g. retry counts, etc). </param>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GetBosAccountOwner">
+            <summary>
+            Gets the current owner of the Bos account that the authenticated sender of the request is using.
+            
+            <para>
+            The caller <i>must</i> authenticate with a valid BCE Access Key ID that is registered with Bos.
+            
+            </para>
+            </summary>
+            <returns> The account of the authenticated sender </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.CreateBucket(System.String)">
+            <summary>
+            Creates a new Bos bucket with the specified name.
+            </summary>
+            <param name="bucketName"> The name of the bucket to create.
+                All buckets in Bos share a single namespace; ensure the bucket is given a unique name. </param>
+            <returns> The newly created bucket. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.CreateBucket(BaiduBce.Services.Bos.Model.CreateBucketRequest)">
+            <summary>
+            Creates a new Bos bucket with the specified name.
+            </summary>
+            <param name="request"> The request object containing all options for creating a Bos bucket. </param>
+            <returns> The newly created bucket. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.ListBuckets">
+            <summary>
+            Returns a list of all Bos buckets that the authenticated sender of the request owns.
+            
+            <para>
+            Users must authenticate with a valid BCE Access Key ID that is registered
+            with Bos. Anonymous requests cannot list buckets, and users cannot
+            list buckets that they did not create.
+            
+            </para>
+            </summary>
+            <returns> All of the Bos buckets owned by the authenticated sender of the request. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.ListBuckets(BaiduBce.Services.Bos.Model.ListBucketsRequest)">
+            <summary>
+            Returns a list of all Bos buckets that the authenticated sender of the request owns.
+            
+            <para>
+            Users must authenticate with a valid BCE Access Key ID that is registered
+            with Bos. Anonymous requests cannot list buckets, and users cannot
+            list buckets that they did not create.
+            
+            </para>
+            </summary>
+            <param name="request"> The request containing all of the options related to the listing of buckets. </param>
+            <returns> All of the Bos buckets owned by the authenticated sender of the request. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.DeleteBucket(System.String)">
+            <summary>
+            Deletes the specified bucket. All objects in the bucket must be deleted before the bucket itself
+            can be deleted.
+            
+            <para>
+            Only the owner of a bucket can delete it, regardless of the bucket's access control policy.
+            
+            </para>
+            </summary>
+            <param name="bucketName"> The name of the bucket to delete. </param>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.DeleteBucket(BaiduBce.Services.Bos.Model.DeleteBucketRequest)">
+            <summary>
+            Deletes the specified bucket. All objects in the bucket must be deleted before the bucket itself
+            can be deleted.
+            
+            <para>
+            Only the owner of a bucket can delete it, regardless of the bucket's access control policy.
+            
+            </para>
+            </summary>
+            <param name="request"> The request object containing all options for deleting a Bos bucket. </param>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.DoesBucketExist(System.String)">
+            <summary>
+            Checks if the specified bucket exists. Bos buckets are named in a
+            global namespace; use this method to determine if a specified bucket name
+            already exists, and therefore can't be used to create a new bucket.
+            
+            <para>
+            If invalid security credentials are used to execute this method, the
+            client is not able to distinguish between bucket permission errors and
+            invalid credential errors, and this method could return an incorrect
+            result.
+            
+            </para>
+            </summary>
+            <param name="bucketName"> The name of the bucket to check. </param>
+            <returns> The value <code>true</code> if the specified bucket exists in Bos;
+                the value <code>false</code> if there is no bucket in Bos with that name. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.DoesBucketExist(BaiduBce.Services.Bos.Model.DoesBucketExistRequest)">
+            <summary>
+            Checks if the specified bucket exists. Bos buckets are named in a
+            global namespace; use this method to determine if a specified bucket name
+            already exists, and therefore can't be used to create a new bucket.
+            
+            <para>
+            If invalid security credentials are used to execute this method, the
+            client is not able to distinguish between bucket permission errors and
+            invalid credential errors, and this method could return an incorrect
+            result.
+            
+            </para>
+            </summary>
+            <param name="request"> The request object containing all options for checking a Bos bucket. </param>
+            <returns> The value <code>true</code> if the specified bucket exists in Bos;
+                the value <code>false</code> if there is no bucket in Bos with that name. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GetBucketAcl(System.String)">
+            <summary>
+            Gets the ACL for the specified Bos bucket.
+            
+            <para>
+            Each bucket and object in Bos has an ACL that defines its access
+            control policy. When a request is made, Bos authenticates the
+            request using its standard authentication procedure and then checks the
+            ACL to verify the sender was granted access to the bucket or object. If
+            the sender is approved, the request proceeds. Otherwise, Bos
+            returns an error.
+            
+            </para>
+            </summary>
+            <param name="bucketName"> The name of the bucket whose ACL is being retrieved. </param>
+            <returns> The <code>GetBuckeetAclResponse</code> for the specified Bos bucket. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GetBucketAcl(BaiduBce.Services.Bos.Model.BucketRequestBase)">
+            <summary>
+            Gets the ACL for the specified Bos bucket.
+            
+            <para>
+            Each bucket and object in Bos has an ACL that defines its access
+            control policy. When a request is made, Bos authenticates the
+            request using its standard authentication procedure and then checks the
+            ACL to verify the sender was granted access to the bucket or object. If
+            the sender is approved, the request proceeds. Otherwise, Bos
+            returns an error.
+            
+            </para>
+            </summary>
+            <param name="request"> The request containing the name of the bucket whose ACL is being retrieved. </param>
+            <returns> The <code>GetBuckeetAclResponse</code> for the specified Bos bucket. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.SetBucketAcl(System.String,System.String)">
+            <summary>
+            Sets the CannedAccessControlList for the specified Bos bucket using one of
+            the pre-configured <code>CannedAccessControlLists</code>.
+            
+            <para>
+            A <code>CannedAccessControlList</code>
+            provides a quick way to configure an object or bucket with commonly used
+            access control policies.
+            
+            </para>
+            </summary>
+            <param name="bucketName"> The name of the bucket whose ACL is being set. </param>
+            <param name="acl"> The pre-configured <code>CannedAccessControlLists</code> to set for the specified bucket. </param>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.SetBucketAcl(BaiduBce.Services.Bos.Model.SetBucketAclRequest)">
+            <summary>
+            Sets the Acl for the specified Bos bucket.
+            </summary>
+            <param name="request"> The request object containing the bucket to modify and the ACL to set. </param>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GetBucketLocation(System.String)">
+            <summary>
+            Gets the Location for the specified Bos bucket.
+            
+            <para>
+            Each bucket and object in Bos has an Location that defines its location
+            
+            </para>
+            </summary>
+            <param name="bucketName"> The name of the bucket whose Location is being retrieved. </param>
+            <returns> The <code>GetBuckeetLocationResponse</code> for the specified Bos bucket. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GetBucketLocation(BaiduBce.Services.Bos.Model.BucketRequestBase)">
+            <summary>
+            Gets the Location for the specified Bos bucket.
+            
+            <para>
+            Each bucket and object in Bos has an Location that defines its location
+            
+            </para>
+            </summary>
+            <param name="request"> The request containing the name of the bucket whose Location is being retrieved. </param>
+            <returns> The <code>GetBuckeetLocationResponse</code> for the specified Bos bucket. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GeneratePresignedUrl(System.String,System.String,System.Int32)">
+            <summary>
+            Returns a pre-signed URL for accessing a Bos resource.
+            </summary>
+            <param name="bucketName"> The name of the bucket containing the desired object. </param>
+            <param name="key"> The key in the specified bucket under which the desired object is stored. </param>
+            <param name="expirationInSeconds"> The expiration after which the returned pre-signed URL will expire. </param>
+            <returns> A pre-signed URL which expires at the specified time, and can be
+                used to allow anyone to download the specified object from Bos,
+                without exposing the owner's Bce secret access key. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GeneratePresignedUrl(System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Returns a pre-signed URL for accessing a Bos resource.
+            </summary>
+            <param name="bucketName"> The name of the bucket containing the desired object. </param>
+            <param name="key"> The key in the specified bucket under which the desired object is stored. </param>
+            <param name="expirationInSeconds"> The expiration after which the returned pre-signed URL will expire. </param>
+            <param name="method">     The HTTP method verb to use for this URL </param>
+            <returns> A pre-signed URL which expires at the specified time, and can be
+                used to allow anyone to download the specified object from Bos,
+                without exposing the owner's Bce secret access key. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GeneratePresignedUrl(BaiduBce.Services.Bos.Model.GeneratePresignedUrlRequest)">
+            <summary>
+            Returns a pre-signed URL for accessing a Bos resource.
+            </summary>
+            <param name="request"> The request object containing all the options for generating a
+                pre-signed URL (bucket name, key, expiration date, etc). </param>
+            <returns> A pre-signed URL which expires at the specified time, and can be
+                used to allow anyone to download the specified object from Bos,
+                without exposing the owner's Bce secret access key. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.ListObjects(System.String)">
+            <summary>
+            Returns ListObjectsResponse containing a list of summary information about the objects in the specified buckets.
+            List results are <i>always</i> returned in lexicographic (alphabetical) order.
+            </summary>
+            <param name="bucketName"> The name of the Bos bucket to list. </param>
+            <returns> ListObjectsResponse containing a listing of the objects in the specified bucket, along with any
+                other associated information, such as common prefixes (if a delimiter was specified), the original
+                request parameters, etc. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.ListObjects(System.String,System.String)">
+            <summary>
+            Returns ListObjectsResponse containing a list of summary information about the objects in the specified buckets.
+            List results are <i>always</i> returned in lexicographic (alphabetical) order.
+            </summary>
+            <param name="bucketName"> The name of the Bos bucket to list. </param>
+            <param name="prefix"> An optional parameter restricting the response to keys beginning with the specified prefix.
+                Use prefixes to separate a bucket into different sets of keys, similar to how a file system
+                organizes files into directories. </param>
+            <returns> ListObjectsResponse containing a listing of the objects in the specified bucket, along with any
+                other associated information, such as common prefixes (if a delimiter was specified), the original
+                request parameters, etc. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.ListObjects(BaiduBce.Services.Bos.Model.ListObjectsRequest)">
+            <summary>
+            Returns ListObjectsResponse containing a list of summary information about the objects in the specified buckets.
+            List results are <i>always</i> returned in lexicographic (alphabetical) order.
+            </summary>
+            <param name="request"> The request object containing all options for listing the objects in a specified bucket. </param>
+            <returns> ListObjectsResponse containing a listing of the objects in the specified bucket, along with any
+                other associated information, such as common prefixes (if a delimiter was specified), the original
+                request parameters, etc. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.ListNextBatchOfObjects(BaiduBce.Services.Bos.Model.ListObjectsResponse)">
+            <summary>
+            Provides an easy way to continue a truncated object listing and retrieve the next page of results.
+            </summary>
+            <param name="previousResponse"> The previous truncated <code>ListObjectsResponse</code>. If a non-truncated
+                <code>ListObjectsResponse</code> is passed in, an empty <code>ListObjectsResponse</code>
+                is returned without ever contacting Bos. </param>
+            <returns> The next set of <code>ListObjectsResponse</code> results, beginning immediately
+                after the last result in the specified previous <code>ListObjectsResponse</code>. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.PutObject(System.String,System.String,System.IO.FileInfo)">
+            <summary>
+            Uploads the specified file to Bos under the specified bucket and key name.
+            </summary>
+            <param name="bucketName"> The name of an existing bucket, to which you have Write permission. </param>
+            <param name="key"> The key under which to store the specified file. </param>
+            <param name="fileInfo"> The file containing the data to be uploaded to Bos. </param>
+            <returns> A PutObjectResponse object containing the information returned by Bos for the newly created object. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.PutObject(System.String,System.String,System.IO.FileInfo,BaiduBce.Services.Bos.Model.ObjectMetadata)">
+            <summary>
+            Uploads the specified file and object metadata to Bos under the specified bucket and key name.
+            </summary>
+            <param name="bucketName"> The name of an existing bucket, to which you have Write permission. </param>
+            <param name="key"> The key under which to store the specified file. </param>
+            <param name="fileInfo"> The file containing the data to be uploaded to Bos. </param>
+            <param name="metadata"> Additional metadata instructing Bos how to handle the uploaded data
+                (e.g. custom user metadata, hooks for specifying content type, etc.). </param>
+            <returns> A PutObjectResponse object containing the information returned by Bos for the newly created object. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.PutObject(System.String,System.String,System.String)">
+            <summary>
+            Uploads the specified string to Bos under the specified bucket and key name.
+            </summary>
+            <param name="bucketName"> The name of an existing bucket, to which you have Write permission. </param>
+            <param name="key"> The key under which to store the specified file. </param>
+            <param name="value"> The string containing the value to be uploaded to Bos. </param>
+            <returns> A PutObjectResponse object containing the information returned by Bos for the newly created object. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.PutObject(System.String,System.String,System.String,BaiduBce.Services.Bos.Model.ObjectMetadata)">
+            <summary>
+            Uploads the specified string and object metadata to Bos under the specified bucket and key name.
+            </summary>
+            <param name="bucketName"> The name of an existing bucket, to which you have Write permission. </param>
+            <param name="key"> The key under which to store the specified file. </param>
+            <param name="value"> The string containing the value to be uploaded to Bos. </param>
+            <param name="metadata"> Additional metadata instructing Bos how to handle the uploaded data
+                (e.g. custom user metadata, hooks for specifying content type, etc.). </param>
+            <returns> A PutObjectResponse object containing the information returned by Bos for the newly created object. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.PutObject(System.String,System.String,System.Byte[])">
+            <summary>
+            Uploads the specified bytes to Bos under the specified bucket and key name.
+            </summary>
+            <param name="bucketName"> The name of an existing bucket, to which you have Write permission. </param>
+            <param name="key"> The key under which to store the specified file. </param>
+            <param name="value"> The bytes containing the value to be uploaded to Bos. </param>
+            <returns> A PutObjectResponse object containing the information returned by Bos for the newly created object. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.PutObject(System.String,System.String,System.Byte[],BaiduBce.Services.Bos.Model.ObjectMetadata)">
+            <summary>
+            Uploads the specified bytes and object metadata to Bos under the specified bucket and key name.
+            </summary>
+            <param name="bucketName"> The name of an existing bucket, to which you have Write permission. </param>
+            <param name="key"> The key under which to store the specified file. </param>
+            <param name="value"> The bytes containing the value to be uploaded to Bos. </param>
+            <param name="metadata"> Additional metadata instructing Bos how to handle the uploaded data
+                (e.g. custom user metadata, hooks for specifying content type, etc.). </param>
+            <returns> A PutObjectResponse object containing the information returned by Bos for the newly created object. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.PutObject(System.String,System.String,System.IO.Stream)">
+            <summary>
+            Uploads the specified input stream to Bos under the specified bucket and key name.
+            </summary>
+            <param name="bucketName"> The name of an existing bucket, to which you have Write permission. </param>
+            <param name="key"> The key under which to store the specified file. </param>
+            <param name="input"> The input stream containing the value to be uploaded to Bos. </param>
+            <returns> A PutObjectResponse object containing the information returned by Bos for the newly created object. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.PutObject(System.String,System.String,System.IO.Stream,BaiduBce.Services.Bos.Model.ObjectMetadata)">
+            <summary>
+            Uploads the specified input stream and object metadata to Bos under the specified bucket and key name.
+            </summary>
+            <param name="bucketName"> The name of an existing bucket, to which you have Write permission. </param>
+            <param name="key"> The key under which to store the specified file. </param>
+            <param name="input"> The input stream containing the value to be uploaded to Bos. </param>
+            <param name="metadata"> Additional metadata instructing Bos how to handle the uploaded data
+                (e.g. custom user metadata, hooks for specifying content type, etc.). </param>
+            <returns> A PutObjectResponse object containing the information returned by Bos for the newly created object. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.PutObject(BaiduBce.Services.Bos.Model.PutObjectRequest)">
+            <summary>
+            Uploads a new object to the specified Bos bucket. The <code>PutObjectRequest</code> contains all the
+            details of the request, including the bucket to upload to, the key the object will be uploaded under,
+            and the file or input stream containing the data to upload.
+            </summary>
+            <param name="request"> The request object containing all the parameters to upload a new object to Bos. </param>
+            <returns> A PutObjectResponse object containing the information returned by Bos for the newly created object. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GetObject(System.String,System.String)">
+            <summary>
+            Gets the object stored in Bos under the specified bucket and key.
+            </summary>
+            <param name="bucketName"> The name of the bucket containing the desired object. </param>
+            <param name="key"> The key under which the desired object is stored. </param>
+            <returns> The object stored in Bos in the specified bucket and key. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GetObject(System.String,System.String,System.IO.FileInfo)">
+            <summary>
+            Gets the object metadata for the object stored in Bos under the specified bucket and key,
+            and saves the object contents to the specified file.
+            Returns <code>null</code> if the specified constraints weren't met.
+            </summary>
+            <param name="bucketName"> The name of the bucket containing the desired object. </param>
+            <param name="key"> The key under which the desired object is stored. </param>
+            <param name="destinationFile"> Indicates the file (which might already exist)
+                where to save the object content being downloading from Bos. </param>
+            <returns> All Bos object metadata for the specified object.
+                Returns <code>null</code> if constraints were specified but not met. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GetObjectContent(System.String,System.String)">
+            <summary>
+            Gets the object content stored in Bos under the specified bucket and key.
+            </summary>
+            <param name="bucketName"> The name of the bucket containing the desired object. </param>
+            <param name="key"> The key under which the desired object is stored. </param>
+            <returns> The object content stored in Bos in the specified bucket and key. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GetObjectContent(BaiduBce.Services.Bos.Model.GetObjectRequest)">
+            <summary>
+            Gets the object content stored in Bos under the specified bucket and key.
+            </summary>
+            <param name="request"> The request object containing all the options on how to download the Bos object content. </param>
+            <returns> The object content stored in Bos in the specified bucket and key. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GetObject(BaiduBce.Services.Bos.Model.GetObjectRequest)">
+            <summary>
+            Gets the object stored in Bos under the specified bucket and key.
+            </summary>
+            <param name="request"> The request object containing all the options on how to download the object. </param>
+            <returns> The object stored in Bos in the specified bucket and key. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GetObject(BaiduBce.Services.Bos.Model.GetObjectRequest,System.IO.FileInfo)">
+            <summary>
+            Gets the object metadata for the object stored in Bos under the specified bucket and key,
+            and saves the object contents to the specified file.
+            Returns <code>null</code> if the specified constraints weren't met.
+            </summary>
+            <param name="request"> The request object containing all the options on how to download the Bos object content. </param>
+            <param name="destinationFileInfo"> Indicates the file (which might already exist) where to save the object
+                content being downloading from Bos. </param>
+            <returns> All Bos object metadata for the specified object.
+                Returns <code>null</code> if constraints were specified but not met. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GetObjectMetadata(System.String,System.String)">
+            <summary>
+            Gets the metadata for the specified Bos object without actually fetching the object itself.
+            This is useful in obtaining only the object metadata, and avoids wasting bandwidth on fetching
+            the object data.
+            
+            <para>
+            The object metadata contains information such as content type, content disposition, etc.,
+            as well as custom user metadata that can be associated with an object in Bos.
+            
+            </para>
+            </summary>
+            <param name="bucketName"> The name of the bucket containing the object's whose metadata is being retrieved. </param>
+            <param name="key"> The key of the object whose metadata is being retrieved. </param>
+            <returns> All Bos object metadata for the specified object. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.GetObjectMetadata(BaiduBce.Services.Bos.Model.ObjectRequestBase)">
+            <summary>
+            Gets the metadata for the specified Bos object without actually fetching the object itself.
+            This is useful in obtaining only the object metadata, and avoids wasting bandwidth on fetching
+            the object data.
+            
+            <para>
+            The object metadata contains information such as content type, content disposition, etc.,
+            as well as custom user metadata that can be associated with an object in Bos.
+            
+            </para>
+            </summary>
+            <param name="request"> The request object specifying the bucket, key whose metadata is being retrieved. </param>
+            <returns> All Bos object metadata for the specified object. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.CopyObject(System.String,System.String,System.String,System.String)">
+            <summary>
+            Copies a source object to a new destination in Bos.
+            </summary>
+            <param name="sourceBucketName"> The name of the bucket containing the source object to copy. </param>
+            <param name="sourceKey"> The key in the source bucket under which the source object is stored. </param>
+            <param name="destinationBucketName"> The name of the bucket in which the new object will be created.
+                This can be the same name as the source bucket's. </param>
+            <param name="destinationKey"> The key in the destination bucket under which the new object will be created. </param>
+            <returns> A CopyObjectResponse object containing the information returned by Bos for the newly created object. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.CopyObject(BaiduBce.Services.Bos.Model.CopyObjectRequest)">
+            <summary>
+            Copies a source object to a new destination in Bos.
+            </summary>
+            <param name="request"> The request object containing all the options for copying an Bos object. </param>
+            <returns> A CopyObjectResponse object containing the information returned by Bos for the newly created object. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.DeleteObject(System.String,System.String)">
+            <summary>
+            Deletes the specified object in the specified bucket.
+            </summary>
+            <param name="bucketName"> The name of the Bos bucket containing the object to delete. </param>
+            <param name="key"> The key of the object to delete. </param>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.DeleteObject(BaiduBce.Services.Bos.Model.ObjectRequestBase)">
+            <summary>
+            Deletes the specified object in the specified bucket.
+            </summary>
+            <param name="request"> The request object containing all options for deleting a Bos object. </param>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.InitiateMultipartUpload(System.String,System.String)">
+            <summary>
+            Initiates a multipart upload and returns an InitiateMultipartUploadResponse
+            which contains an upload ID. This upload ID associates all the parts in
+            the specific upload and is used in each of your subsequent uploadPart requests.
+            You also include this upload ID in the final request to either complete, or abort the multipart
+            upload request.
+            </summary>
+            <param name="bucketName"> The name of the Bos bucket containing the object to initiate. </param>
+            <param name="key"> The key of the object to initiate. </param>
+            <returns> An InitiateMultipartUploadResponse from Bos. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.InitiateMultipartUpload(BaiduBce.Services.Bos.Model.InitiateMultipartUploadRequest)">
+            <summary>
+            Initiates a multipart upload and returns an InitiateMultipartUploadResponse
+            which contains an upload ID. This upload ID associates all the parts in
+            the specific upload and is used in each of your subsequent uploadPart requests.
+            You also include this upload ID in the final request to either complete, or abort the multipart
+            upload request.
+            </summary>
+            <param name="request"> The InitiateMultipartUploadRequest object that specifies all the parameters of this operation. </param>
+            <returns> An InitiateMultipartUploadResponse from Bos. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.UploadPart(BaiduBce.Services.Bos.Model.UploadPartRequest)">
+            <summary>
+            Uploads a part in a multipart upload. You must initiate a multipart
+            upload before you can upload any part.
+            </summary>
+            <param name="request"> The UploadPartRequest object that specifies all the parameters of this operation. </param>
+            <returns> An UploadPartResponse from Bos containing the part number and ETag of the new part. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.ListParts(System.String,System.String,System.String)">
+            <summary>
+            Lists the parts that have been uploaded for a specific multipart upload.
+            </summary>
+            <param name="bucketName"> The name of the bucket containing the multipart upload whose parts are being listed. </param>
+            <param name="key"> The key of the associated multipart upload whose parts are being listed. </param>
+            <param name="uploadId"> The ID of the multipart upload whose parts are being listed. </param>
+            <returns> Returns a ListPartsResponse from Bos. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.ListParts(BaiduBce.Services.Bos.Model.ListPartsRequest)">
+            <summary>
+            Lists the parts that have been uploaded for a specific multipart upload.
+            </summary>
+            <param name="request"> The ListPartsRequest object that specifies all the parameters of this operation. </param>
+            <returns> Returns a ListPartsResponse from Bos. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.CompleteMultipartUpload(System.String,System.String,System.String,System.Collections.Generic.List{BaiduBce.Services.Bos.Model.PartETag})">
+            <summary>
+            Completes a multipart upload by assembling previously uploaded parts.
+            </summary>
+            <param name="bucketName"> The name of the bucket containing the multipart upload to complete. </param>
+            <param name="key"> The key of the multipart upload to complete. </param>
+            <param name="uploadId"> The ID of the multipart upload to complete. </param>
+            <param name="partETags"> The list of part numbers and ETags to use when completing the multipart upload. </param>
+            <returns> A CompleteMultipartUploadResponse from Bos containing the ETag for
+                the new object composed of the individual parts. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.CompleteMultipartUpload(System.String,System.String,System.String,System.Collections.Generic.List{BaiduBce.Services.Bos.Model.PartETag},BaiduBce.Services.Bos.Model.ObjectMetadata)">
+            <summary>
+            Completes a multipart upload by assembling previously uploaded parts.
+            </summary>
+            <param name="bucketName"> The name of the bucket containing the multipart upload to complete. </param>
+            <param name="key"> The key of the multipart upload to complete. </param>
+            <param name="uploadId"> The ID of the multipart upload to complete. </param>
+            <param name="partETags"> The list of part numbers and ETags to use when completing the multipart upload. </param>
+            <param name="metadata"> Additional metadata instructing Bos how to handle the uploaded data
+                (e.g. custom user metadata, hooks for specifying content type, etc.). </param>
+            <returns> A CompleteMultipartUploadResponse from Bos containing the ETag for
+                the new object composed of the individual parts. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.CompleteMultipartUpload(BaiduBce.Services.Bos.Model.CompleteMultipartUploadRequest)">
+            <summary>
+            Completes a multipart upload by assembling previously uploaded parts.
+            </summary>
+            <param name="request"> The CompleteMultipartUploadRequest object that specifies all the parameters of this operation. </param>
+            <returns> A CompleteMultipartUploadResponse from Bos containing the ETag for
+                the new object composed of the individual parts. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.AbortMultipartUpload(System.String,System.String,System.String)">
+            <summary>
+            Aborts a multipart upload. After a multipart upload is aborted, no
+            additional parts can be uploaded using that upload ID. The storage
+            consumed by any previously uploaded parts will be freed. However, if any
+            part uploads are currently in progress, those part uploads may or may not
+            succeed. As a result, it may be necessary to abort a given multipart
+            upload multiple times in order to completely free all storage consumed by
+            all parts.
+            </summary>
+            <param name="bucketName"> The name of the bucket containing the multipart upload to abort. </param>
+            <param name="key"> The key of the multipart upload to abort. </param>
+            <param name="uploadId"> The ID of the multipart upload to abort. </param>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.AbortMultipartUpload(BaiduBce.Services.Bos.Model.AbortMultipartUploadRequest)">
+            <summary>
+            Aborts a multipart upload. After a multipart upload is aborted, no
+            additional parts can be uploaded using that upload ID. The storage
+            consumed by any previously uploaded parts will be freed. However, if any
+            part uploads are currently in progress, those part uploads may or may not
+            succeed. As a result, it may be necessary to abort a given multipart
+            upload multiple times in order to completely free all storage consumed by
+            all parts.
+            </summary>
+            <param name="request"> The AbortMultipartUploadRequest object that specifies all the parameters of this operation. </param>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.ListMultipartUploads(System.String)">
+            <summary>
+            Lists in-progress multipart uploads. An in-progress multipart upload is a multipart upload that has
+            been initiated, using the InitiateMultipartUpload request, but has not yet been completed or aborted.
+            </summary>
+            <param name="bucketName"> The name of the bucket containing the uploads to list. </param>
+            <returns> A ListMultipartUploadsResponse from Bos. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.ListMultipartUploads(BaiduBce.Services.Bos.Model.ListMultipartUploadsRequest)">
+            <summary>
+            Lists in-progress multipart uploads. An in-progress multipart upload is a multipart upload that has
+            been initiated, using the InitiateMultipartUpload request, but has not yet been completed or aborted.
+            </summary>
+            <param name="request"> The ListMultipartUploadsRequest object that specifies all the parameters of this operation. </param>
+            <returns> A ListMultipartUploadsResponse from Bos. </returns>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.BosClient.PopulateRequestMetadata(BaiduBce.Internal.InternalRequest,BaiduBce.Services.Bos.Model.ObjectMetadata)">
+            <summary>
+            Populates the specified request object with the appropriate headers from the ObjectMetadata object.
+            </summary>
+            <param name="request"> The request to populate with headers. </param>
+            <param name="metadata"> The metadata containing the header information to include in the request. </param>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.BosObject">
+            <summary>
+            Represents an object stored in Baidu Bos. This object contains the data content
+            and the object metadata stored by Baidu Bos, such as content type, content length, etc.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.BosObject.BucketName">
+            <summary>
+            The name of the bucket in which this object is contained.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.BosObject.Key">
+            <summary>
+            The key under which this object is stored.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.BosObject.ObjectMetadata">
+            <summary>
+            The metadata stored by Baidu Bos for this object.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.BosObject.ObjectContent">
+            <summary>
+            The stream containing the contents of this object from Bos.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.BosObjectSummary">
+            <summary>
+            Contains the summary of an object stored in a Baidu Bos bucket. This object doesn't contain contain the
+            object's full metadata or any of its contents.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.BosObjectSummary.BucketName">
+            <summary>
+            The name of the bucket in which this object is stored.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.BosObjectSummary.Key">
+            <summary>
+            The key under which this object is stored.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.BosObjectSummary.ETag">
+            <summary>
+            Hex encoded MD5 hash of this object's contents, as computed by Baidu Bos.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.BosObjectSummary.Size">
+            <summary>
+            The size of this object, in bytes.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.BosObjectSummary.LastModified">
+            <summary>
+            The date, according to Baidu Bos, when this object was last modified.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.BosObjectSummary.Owner">
+            <summary>
+            The user of this object - can be null if the requester doesn't have permission to view object ownership information.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.BosObjectSummary.StorageClass">
+            <summary>
+            storage class string of the object; can be STANDARD or STANDARD_IA.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.GetBucketAclResponse.Version">
+            <summary>
+            The acl version..
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.GetBucketAclResponse.Owner">
+            <summary>
+            The user of this specified bucket.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.GetBucketAclResponse.AccessControlList">
+            <summary>
+            The accessControlList of this specified bucket.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.MultipartUploadSummary">
+            <summary>
+            A multipart upload is an upload to Baidu Bos that is creating by uploading
+            individual pieces of an object, then telling Baidu Bos to complete the
+            multipart upload and concatenate all the individual pieces together into a
+            single object.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.MultipartUploadSummary.Key">
+            <summary>
+            The key by which this upload is stored.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.MultipartUploadSummary.UploadId">
+            <summary>
+            The unique ID of this multipart upload.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.MultipartUploadSummary.Owner">
+            <summary>
+            The owner of this multipart upload.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.MultipartUploadSummary.Initiated">
+            <summary>
+            The date at which this upload was initiated.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.MultipartUploadSummary.StorageClass">
+            <summary>
+            storage class of the parts and object which this upload completed.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.ListMultipartUploadsRequest">
+            <summary>
+            Container for the parameters of the ListMultipartUploads operation.
+            
+            <para>
+            Required Parameters: BucketName
+            </para>
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListMultipartUploadsRequest.Prefix">
+            <summary>
+            Optional parameter restricting the response to multipart uploads for keys
+            which begin with the specified prefix. You can use prefixes to separate a
+            bucket into different sets of keys in a way similar to how a file system
+            uses folders.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListMultipartUploadsRequest.KeyMarker">
+            <summary>
+            The optional key marker indicating where in the results to begin listing.
+            
+            <para>
+            Together with the upload ID marker, specifies the multipart upload after
+            which listing should begin.
+            
+            </para>
+            <para>
+            If the upload ID marker is not specified, only the keys lexicographically
+            greater than the specified key-marker will be included in the list.
+            
+            </para>
+            <para>
+            If the upload ID marker is specified, any multipart uploads for a key
+            equal to the key-marker may also be included, provided those multipart
+            uploads have upload IDs lexicographically greater than the specified
+            marker.
+            </para>
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListMultipartUploadsRequest.Delimiter">
+            <summary>
+            Optional parameter that causes multipart uploads for keys that contain
+            the same string between the prefix and the first occurrence of the
+            delimiter to be rolled up into a single result element. These rolled-up
+            keys are not returned elsewhere in the response. The most commonly used
+            delimiter is "/", which simulates a hierarchical organization similar to
+            a file system directory structure.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListMultipartUploadsRequest.MaxUploads">
+            <summary>
+            The optional maximum number of uploads to return.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.ListMultipartUploadsResponse">
+            <summary>
+            The ListMultipartUploadsResponse contains all the information about the
+            ListMultipartUploads method.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListMultipartUploadsResponse.BucketName">
+            <summary>
+            The name of the bucket containing the listed multipart uploads, as
+            specified in the original request.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListMultipartUploadsResponse.KeyMarker">
+            <summary>
+            The optional key marker specified in the original request to specify
+            where in the results to begin listing multipart uploads.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListMultipartUploadsResponse.Prefix">
+            <summary>
+            The optional prefix specified in the original request to limit the
+            returned multipart uploads to those for keys that match this prefix.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListMultipartUploadsResponse.Delimiter">
+            <summary>
+            The optional delimiter specified in the original request to control how
+            multipart uploads for keys with common prefixes are condensed.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListMultipartUploadsResponse.MaxUploads">
+            <summary>
+            The optional maximum number of uploads to be listed, as specified in the
+            original request.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListMultipartUploadsResponse.IsTruncated">
+            <summary>
+            Indicates if the listing is truncated, and additional requests need to be
+            made to get more results.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListMultipartUploadsResponse.NextKeyMarker">
+            <summary>
+            If this listing is truncated, this is the next key marker that should be
+            used in the next request to get the next page of results.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListMultipartUploadsResponse.Uploads">
+            <summary>
+            The list of multipart uploads. </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListMultipartUploadsResponse.CommonPrefixes">
+            <summary>
+            A list of the common prefixes included in this multipart upload listing - common
+            prefixes will only be populated for requests that specified a delimiter, and indicate
+            additional key prefixes that contain more multipart uploads that have not been included
+            in this listing.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.DeleteBucketRequest">
+            <summary>
+            Provides options for deleting a specified bucket. Baidu Bos buckets can only be deleted when empty.
+            </summary>
+        </member>
+        <!-- 对于成员“T:BaiduBce.Services.Bos.Model.GetObjectRequest”忽略有格式错误的 XML 注释 -->
+        <member name="P:BaiduBce.Services.Bos.Model.GetObjectRequest.Range">
+            <summary>
+            Optional member indicating the byte range of data to retrieve
+            </summary>
+        </member>
+        <member name="M:BaiduBce.Services.Bos.Model.GetObjectRequest.SetRange(System.Int64,System.Int64)">
+            <summary>
+            Sets the optional inclusive byte range within the desired object that will be downloaded by this request.
+            
+            <para>
+            The first byte in an object has  position 0; as an example, the first ten bytes of an object can be
+            downloaded by specifying a range of 0 to 9.
+            
+            </para>
+            <para>
+            If no byte range is specified, this request downloads the entire object from Baidu Bos.
+            
+            </para>
+            </summary>
+            <param name="start"> The start of the inclusive byte range to download. </param>
+            <param name="end"> The end of the inclusive byte range to download. </param>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.Grant">
+            <summary>
+            Specifies a grant, consisting of one grantee and one permission.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.Grant.Grantee">
+            <summary>
+            The grantee being granted a permission by this grant.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.Grant.Permission">
+            <summary>
+            Gets the permission being granted to the grantee by this grant.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.GeneratePresignedUrlRequest">
+            <summary>
+            Contains options to generate a pre-signed URL for an Baidu BOS resource.
+            
+            <para>
+            Pre-signed URLs allow clients to form a URL for an Baidu BOS resource and
+            sign it with the current BCE security credentials.
+            A pre-signed URL may be passed around for other users to access
+            the resource without providing them
+            access to an account's BCE security credentials.
+            </para>
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.GeneratePresignedUrlRequest.Method">
+            <summary>
+            The HTTP method (GET, PUT, DELETE, HEAD) to be used in this request and when the pre-signed URL is used
+            </summary>
+        </member>
+        <member name="F:BaiduBce.Services.Bos.Model.GeneratePresignedUrlRequest.ContentType">
+            <summary>
+            The optional Content-Type header that will be sent when the presigned URL is accessed
+            </summary>
+        </member>
+        <member name="F:BaiduBce.Services.Bos.Model.GeneratePresignedUrlRequest.ContentMd5">
+            <summary>
+            The optional Content-MD5 header that will be sent when the presigned URL is accessed
+            </summary>
+        </member>
+        <member name="F:BaiduBce.Services.Bos.Model.GeneratePresignedUrlRequest.ExpirationInSeconds">
+            <summary>
+            An optional expiration after which point the generated pre-signed URL
+            will no longer be accepted by BOS. If not specified, a default
+            value will be supplied.
+            </summary>
+        </member>
+        <member name="F:BaiduBce.Services.Bos.Model.GeneratePresignedUrlRequest.RequestParameters">
+            <summary>
+            An optional map of additional parameters to include in the pre-signed
+            URL. Adding additional request parameters enables more advanced
+            pre-signed URLs, such as accessing BOS's torrent resource for an
+            object, or for specifying a version ID when accessing an object.
+            </summary>
+        </member>
+        <member name="F:BaiduBce.Services.Bos.Model.GeneratePresignedUrlRequest.RequestHeaders">
+            <summary>
+            An optional map of additional headers to include in the pre-signed URL.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.CompleteMultipartUploadResponse">
+            <summary>
+            The CompleteMultipartUploadResponse contains all the information about the CompleteMultipartUpload method.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.CompleteMultipartUploadResponse.BucketName">
+            <summary>
+            The name of the bucket containing the completed multipart upload.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.CompleteMultipartUploadResponse.Key">
+            <summary>
+            The key by which the object is stored.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.CompleteMultipartUploadResponse.Location">
+            <summary>
+            The URL identifying the new multipart object.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.CompleteMultipartUploadResponse.ETag">
+            <summary>
+            The entity tag identifying the new object. An entity tag is an opaque
+            string that changes if and only if an object's data changes.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.PartETag">
+            <summary>
+            Container for the part number and ETag of an uploaded part. After the part is
+            uploaded to Baidu Bos, this data is used when completing the multipart upload.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.PartETag.PartNumber">
+            <summary>
+            The part number of the associated part.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.PartETag.ETag">
+            <summary>
+            The entity tag generated from the content of the associated part.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.ListPartsResponse">
+            <summary>
+            The ListPartsResponse contains all the information about the ListParts method.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListPartsResponse.BucketName">
+            <summary>
+            The name of the bucket containing the listed parts, as specified in the
+            original request.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListPartsResponse.Initiated">
+            <summary>
+            The initiated time of the associated multipart upload.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListPartsResponse.IsTruncated">
+            <summary>
+            Indicates if the listing is truncated, and additional requests need to be
+            made to get more results.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListPartsResponse.Key">
+            <summary>
+            The key value specified in the original request used to identify which
+            multipart upload contains the parts to list.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListPartsResponse.MaxParts">
+            <summary>
+            The optional max parts value specified in the original request to limit
+            how many parts are listed.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListPartsResponse.NextPartNumberMarker">
+            <summary>
+            If this listing is truncated, this is the part number marker that should
+            be used in the next request to get the next page of results.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListPartsResponse.Owner">
+            <summary>
+            The user who owns the associated multipart upload.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListPartsResponse.PartNumberMarker">
+            <summary>
+            The optional part number marker specified in the original request to
+            specify where in the results to begin listing parts.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListPartsResponse.Parts">
+            <summary>
+            The list of parts described in this part listing.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListPartsResponse.UploadId">
+            <summary>
+            The upload ID value specified in the original request used to identify
+            which multipart upload contains the parts to list.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListPartsResponse.StorageClass">
+            <summary>
+            storage class of the upload.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.PartSummary">
+            <summary>
+            Container for summary information about a part in a multipart upload, such as
+            part number, size, etc.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.PartSummary.PartNumber">
+            <summary>
+            The part number describing this part's position relative to the other
+            parts in the multipart upload. Part number must be between 1 and 10,000
+            (inclusive).
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.PartSummary.LastModified">
+            <summary>
+            The date at which this part was last modified.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.PartSummary.ETag">
+            <summary>
+            The entity tag generated from the part content.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.PartSummary.Size">
+            <summary>
+            The size, in bytes, of the part.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.InitiateMultipartUploadRequest">
+            <summary>
+            The InitiateMultipartUploadRequest contains the parameters used for the InitiateMultipartUpload method.
+            
+            <para>
+            Required Parameters: BucketName, Key
+            </para>
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.InitiateMultipartUploadRequest.ObjectMetadata">
+            <summary>
+            Additional information about the new object being created, such as
+            content type, content encoding, user metadata, etc.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.InitiateMultipartUploadResponse">
+            <summary>
+            Contains the results of initiating a multipart upload, particularly the unique ID of the new multipart upload.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.InitiateMultipartUploadResponse.Key">
+            <summary>
+            The object key for which the multipart upload was initiated.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.InitiateMultipartUploadResponse.Bucket">
+            <summary>
+            The name of the bucket in which the new multipart upload was initiated.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.InitiateMultipartUploadResponse.UploadId">
+            <summary>
+            The unique ID of the new multipart upload.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.CopyObjectRequest">
+            <summary>
+            Provides options for copying an Baidu Bos object from a source location to a new destination.
+            
+            <para>
+            All <code>CopyObjectRequests</code> must specify a source bucket and key, along with a destination bucket and key.
+            </para>
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.CopyObjectRequest.SourceBucketName">
+            <summary>
+            The name of the bucket containing the object to be copied
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.CopyObjectRequest.SourceKey">
+            <summary>
+            The key in the source bucket under which the object to be copied is stored
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.CopyObjectRequest.NewObjectMetadata">
+            <summary>
+            Optional field specifying the object metadata for the new object
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.CopyObjectRequest.ETag">
+            <summary>
+            Optional ETag value that constrain the copy request to only be executed
+            if the source object's ETag matches the specified ETag values.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.CopyObjectResponse">
+            <summary>
+            Contains the data returned by Baidu Bos from the
+            <seealso cref="!:BaiduBce.Services.Bos.BosClient#copyObject(CopyObjectRequest copyObjectRequest)"/> call.
+            This result may be ignored if not needed; otherwise, use this result
+            to access information about the new object created from the copyObject call.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.CopyObjectResponse.ETag">
+            <summary>
+            The ETag value of the new object.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.CopyObjectResponse.LastModified">
+            <summary>
+            The last modified date for the new object.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.ListPartsRequest">
+            <summary>
+            Container for the the parameters of the ListParts operation.
+            
+            <para>
+            Required Parameters: BucketName, Key, UploadId
+            </para>
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListPartsRequest.MaxParts">
+            <summary>
+            The optional maximum number of parts to be returned in the part listing.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListPartsRequest.PartNumberMarker">
+            <summary>
+            The optional part number marker indicating where in the results to being listing parts.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.CompleteMultipartUploadRequest">
+            <summary>
+            Container for the parameters of the CompleteMultipartUpload operation.
+            
+            <para>
+            Required Parameters: BucketName, Key, UploadId, ObjectMetadata, PartETags
+            </para>
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.CompleteMultipartUploadRequest.ObjectMetadata">
+            <summary>
+            Optional metadata instructing Baidu Bos how to handle the uploaded data
+            (e.g. custom user metadata, hooks for specifying content type, etc.).
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.CompleteMultipartUploadRequest.PartETags">
+            <summary>
+            The list of part numbers and ETags to use when completing the multipart upload.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.AbortMultipartUploadRequest">
+            <summary>
+            The AbortMultipartUploadRequest contains the parameters used for the AbortMultipartUpload method.
+            
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.UploadPartResponse">
+            <summary>
+            Contains the details returned from Baidu Bos after calling the UploadPart
+            operation.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.UploadPartResponse.PartNumber">
+            <summary>
+            The part number of the newly uploaded part
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.UploadPartResponse.ETag">
+            <summary>
+            The entity tag generated from the content of the upload part
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.UploadPartRequest">
+            <summary>
+            Contains the parameters used for the UploadPart operation on Baidu Bos.
+            
+            <para>
+            Required Parameters: BucketName, Key, UploadId, PartNumber
+            </para>
+            </summary>
+        </member>
+        <member name="F:BaiduBce.Services.Bos.Model.UploadPartRequest.PartNumber">
+            <summary>
+            The part number describing this part's position relative to the other
+            parts in the multipart upload. Part number must be between 1 and 10,000
+            (inclusive).
+            </summary>
+        </member>
+        <member name="F:BaiduBce.Services.Bos.Model.UploadPartRequest.PartSize">
+            <summary>
+            The size of this part, in bytes.
+            </summary>
+        </member>
+        <member name="F:BaiduBce.Services.Bos.Model.UploadPartRequest.Md5Digest">
+            <summary>
+            The optional, but recommended, MD5 hash of the content of this part. If
+            specified, this value will be sent to Baidu Bos to verify the data
+            integrity when the data reaches Baidu Bos.
+            </summary>
+        </member>
+        <member name="F:BaiduBce.Services.Bos.Model.UploadPartRequest.InputStream">
+            <summary>
+            The stream containing the data to upload for the new part. Exactly one
+            File or InputStream must be specified as the input to this operation.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.SetBucketAclRequest">
+            <summary>
+            Request object containing all the options for setting a bucket's Access Control List (ACL).
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.SetBucketAclRequest.CannedAcl">
+            <summary>
+            The canned ACL to apply to the specified bucket.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.SetBucketAclRequest.AccessControlList">
+            <summary>
+            The accessControlList of this specified bucket.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.ListObjectsRequest">
+            <summary>
+            Contains options to return a list of summary information about the objects in the specified
+            bucket. Depending on the request parameters, additional information is returned,
+            such as common prefixes if a delimiter was specified. List
+            results are <i>always</i> returned in lexicographic (alphabetical) order.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListObjectsRequest.Prefix">
+            <summary>
+            Optional parameter restricting the response to keys which begin with the
+            specified prefix. You can use prefixes to separate a bucket into
+            different sets of keys in a way similar to how a file system uses
+            folders.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListObjectsRequest.Marker">
+            <summary>
+            Optional parameter indicating where in the bucket to begin listing. The
+            list will only include keys that occur lexicographically after the
+            marker.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListObjectsRequest.Delimiter">
+            <summary>
+            Optional parameter that causes keys that contain the same string between
+            the prefix and the first occurrence of the delimiter to be rolled up into
+            a single result element. These rolled-up keys
+            are not returned elsewhere in the response. The most commonly used
+            delimiter is "/", which simulates a hierarchical organization similar to
+            a file system directory structure.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListObjectsRequest.MaxKeys">
+            <summary>
+            Optional parameter indicating the maximum number of keys to include in
+            the response. Baidu Bos might return fewer than this, but will not return
+            more. Even if maxKeys is not specified, Baidu Bos will limit the number
+            of results in the response.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.ListObjectsResponse">
+            <summary>
+            Contains the results of listing the objects in an Baidu Bos bucket.
+            This includes a list of objects describing the objects stored in
+            the bucket, a list of common prefixes if a delimiter was specified in the
+            request, information describing if this is a complete or partial
+            listing, and the original request parameters.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListObjectsResponse.BucketName">
+            <summary>
+            The name of the Baidu Bos bucket containing the listed objects
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListObjectsResponse.NextMarker">
+            <summary>
+            The marker to use in order to request the next page of results - only
+            populated if the isTruncated member indicates that this object listing is truncated
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListObjectsResponse.IsTruncated">
+            <summary>
+            Indicates if this is a complete listing, or if the caller needs to make
+            additional requests to Baidu Bos to see the full object listing for an Bos bucket
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListObjectsResponse.Prefix">
+            <summary>
+            The prefix parameter originally specified by the caller when this object listing was returned
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListObjectsResponse.Marker">
+            <summary>
+            The marker parameter originally specified by the caller when this object listing was returned
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListObjectsResponse.MaxKeys">
+            <summary>
+            The maxKeys parameter originally specified by the caller when this object listing was returned
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListObjectsResponse.Delimiter">
+            <summary>
+            The delimiter parameter originally specified by the caller when this object listing was returned
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListObjectsResponse.Contents">
+            <summary>
+            A list of summary information describing the objects stored in the bucket.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListObjectsResponse.CommonPrefixes">
+            <summary>
+            A list of the common prefixes included in this object listing - common
+            prefixes will only be populated for requests that specified a delimiter.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.ObjectMetadata">
+            <summary>
+            Represents the object metadata that is stored with Baidu Bos. This includes custom
+            user-supplied metadata, as well as the standard HTTP headers that Baidu Bos
+            sends and receives (Content-Length, ETag, Content-MD5, etc.).
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ObjectMetadata.UserMetadata">
+            <summary>
+            Custom user metadata, represented in responses with the x-bce-meta- header prefix
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ObjectMetadata.BceContentSha256">
+            <summary>
+            The SHA-256 of the object content.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ObjectMetadata.ContentDisposition">
+            <summary>
+            The optional Content-Disposition HTTP header, which specifies
+            presentation information for the object such as the recommended filename
+            for the object to be saved as.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ObjectMetadata.ContentEncoding">
+            <summary>
+            The optional Content-Encoding HTTP header specifying what
+            content encodings have been applied to the object and what decoding
+            mechanisms must be applied in order to obtain the media-type referenced
+            by the Content-Type field.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ObjectMetadata.ContentLength">
+            <summary>
+            The Content-Length HTTP header indicating the size of the
+            associated object in bytes.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ObjectMetadata.ContentMd5">
+            <summary>
+            The base64 encoded 128-bit MD5 digest of the associated object
+            (content - not including headers) according to RFC 1864. This data is
+            used as a message integrity check to verify that the data received by
+            Baidu Bos is the same data that the caller sent.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ObjectMetadata.ContentType">
+            <summary>
+            The Content-Type HTTP header, which indicates the type of content
+            stored in the associated object. The value of this header is a standard
+            MIME type.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ObjectMetadata.ETag">
+            <summary>
+            The hex encoded 128-bit MD5 digest of the associated object
+            according to RFC 1864. This data is used as an integrity check to verify
+            that the data received by the caller is the same data that was sent by
+            Baidu Bos.
+            
+            <para>
+            This field represents the hex encoded 128-bit MD5 digest of an object's
+            content as calculated by Baidu Bos. The ContentMD5 field represents the
+            base64 encoded 128-bit MD5 digest as calculated on the caller's side.
+            
+            </para>
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ObjectMetadata.InstanceLength">
+            <summary>
+            The physical length of the entire object stored in Bos.
+            This is useful during, for example, a range get operation.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ObjectMetadata.LastModified">
+            <summary>
+            The value of the Last-Modified header, indicating the date
+            and time at which Baidu Bos last recorded a modification to the
+            associated object.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ObjectMetadata.ContentRange">
+            <summary>
+            The content range of object.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ObjectMetadata.StorageClass">
+            <summary>
+            storage class of object.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.CreateBucketRequest">
+            <summary>
+            Provides options for creating an Baidu Bos bucket.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.ListBucketsRequest">
+            <summary>
+            Request object for listing all the Baidu Bos buckets owned by a user.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.ListBucketsResponse">
+            <summary>
+            Response object for listing all the Baidu Bos buckets owned by a user.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListBucketsResponse.Owner">
+            <summary>
+            The owner of this bucket.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.ListBucketsResponse.Buckets">
+            <summary>
+            The list of buckets owned by a user.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.BucketSummary">
+            <summary>
+            Represents an Baidu Bos bucket.
+            
+            <para>
+            Every object stored in Baidu Bos is contained within a bucket. Buckets partition the namespace of objects stored
+            in Baidu Bos at the top level. Within a bucket, any name can be used for objects. However, bucket names must be
+            unique across all of Baidu Bos.
+            
+            </para>
+            <para>
+            There are no limits to the number of objects that can be stored in a bucket. Performance does not vary based on
+            the number of buckets used. Store all objects within a single bucket or organize them across several buckets.
+            </para>
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.BucketSummary.Name">
+            <summary>
+            The name of this Baidu Bos bucket.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.BucketSummary.CreationDate">
+            <summary>
+            The date this bucket was created.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.BucketSummary.Location">
+            <summary>
+            The location of this Baidu Bos bucket.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.Grantee">
+            <summary>
+            Represents the grantee of an Baidu Bos bucket.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.Grantee.Id">
+            <summary>
+            The ID of the grantee.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.PutObjectRequest">
+            <summary>
+            Uploads a new object to the specified Baidu Bos bucket. The PutObjectRequest optionally uploads object metadata
+            and applies a canned access control policy to the new object.
+            
+            <para>
+            Baidu Bos never stores partial objects; if during this call an exception wasn't thrown, the entire object was stored.
+            </para>
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.PutObjectRequest.FileInfo">
+            <summary>
+            The file containing the data to be uploaded to Baidu Bos. You must either
+            specify a file or an InputStream containing the data to be uploaded to
+            Baidu Bos.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.PutObjectRequest.Stream">
+            <summary>
+            The InputStream containing the data to be uploaded to Baidu Bos. You must
+            either specify a file or an InputStream containing the data to be
+            uploaded to Baidu Bos.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.PutObjectRequest.ObjectMetadata">
+            <summary>
+            Optional metadata instructing Baidu Bos how to handle the uploaded data
+            (e.g. custom user metadata, hooks for specifying content type, etc.). If
+            you are uploading from an InputStream, you <bold>should always</bold>
+            specify metadata with the content size set, otherwise the contents of the
+            InputStream will have to be buffered in memory before they can be sent to
+            Baidu Bos, which can have very negative performance impacts.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.PutObjectResponse">
+            <summary>
+            Contains the data returned by Baidu Bos from the <code>putObject</code> operation.
+            Use this request to access information about the new object created from the
+            <code>putObject</code> request, such as its ETag and optional version ID.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.PutObjectResponse.ETAG">
+            <summary>
+            The ETag value of the new object
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Bos.Model.User">
+            <summary>
+            Represents the owner of an Baidu Bos bucket.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.User.Id">
+            <summary>
+            The owner id.
+            </summary>
+        </member>
+        <member name="P:BaiduBce.Services.Bos.Model.User.DisplayName">
+            <summary>
+            The display name of the owner.
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Sts.Model.GetSessionTokenRequest">
+            <summary>
+            The GetSessionTokenRequest contains the parameters used for the GetSessionToken method.
+            
+            </summary>
+        </member>
+        <member name="T:BaiduBce.Services.Sts.StsClient">
+            <summary>
+            Provides the client for accessing the Baidu Security Token Service.
+            </summary>
+        </member>
+        <member name="M:BaiduBce.Services.Sts.StsClient.#ctor">
+            <summary>
+            Constructs a new client to invoke service methods on Sts.
+            </summary>
+        </member>
+        <member name="M:BaiduBce.Services.Sts.StsClient.#ctor(BaiduBce.BceClientConfiguration)">
+            <summary>
+            Constructs a new client using the client configuration to access Sts.
+            </summary>
+            <param name="config"> The client configuration options controlling how this client connects to STS
+                (e.g. retry counts, etc). </param>
+        </member>
+        <member name="M:BaiduBce.Services.Sts.StsClient.GetSessionToken">
+            <summary>
+            Get a set of temporary security credentials representing your account, with default request options
+            </summary>
+        </member>
+        <member name="M:BaiduBce.Services.Sts.StsClient.GetSessionToken(BaiduBce.Services.Sts.Model.GetSessionTokenRequest)">
+            <summary>
+            <para>
+            Get a set of temporary security credentials representing your account.
+            </para>
+            <para>
+            An extra ACL string can be set in the request, which specify permissions for the returning credentials.
+            </para> 
+            </summary>
+            <param name="request"> The GetSessionTokenRequest object that specifies all the parameters of this
+                operation. </param>
+        </member>
+        <member name="T:BaiduBce.Util.WebRequestExtension">
+            <summary>
+            http://www.thomaslevesque.com/2014/01/14/tackling-timeout-issues-when-uploading-large-files-with-httpwebrequest/
+            </summary>
+        </member>
+    </members>
+</doc>

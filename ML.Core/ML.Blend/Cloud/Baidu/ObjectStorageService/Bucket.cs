@@ -9,6 +9,7 @@ namespace ML.Blend.Cloud.Baidu.ObjectStorageService
 {
     /// <summary>
     /// 存储空间
+    /// 参考地址：https://cloud.baidu.com/product/bos.html?track=navigation20200904
     /// </summary>
     public class Bucket : ClientBase
     {
