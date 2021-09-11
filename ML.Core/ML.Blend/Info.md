@@ -36,3 +36,8 @@ https://app.yunxin.163.com/
 
 https://docs.microsoft.com/zh-cn/dotnet/csharp/language-reference/preprocessor-directives
 
+
+## 微信开发文档
+
+https://developers.weixin.qq.com/doc/
+
