@@ -47,7 +47,6 @@
 
   <ItemGroup>
     <Folder Include="Cloud\Qiniu\" />
-    <Folder Include="Unified\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ML.Blend.Unified.Enum;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -44,7 +45,13 @@ namespace ML.Blend.Cloud.Interface.ObjectStorageService
         /// <param name="bucketName"></param>
         public object GetBucketInfo(T client, string bucketName);
 
-        public void SetBucketAcl(T client, string bucketName, object cannedAccess);
+        /// <summary>
+        /// 设置Bucket权限
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="bucketName"></param>
+        /// <param name="cannedAccess"></param>
+        public void SetBucketAcl(T client, string bucketName, AccessControlType cannedAccess);
 
         /// <summary>
         /// 删除存储空间

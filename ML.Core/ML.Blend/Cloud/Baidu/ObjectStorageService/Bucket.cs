@@ -5,6 +5,7 @@ using BaiduBce;
 using BaiduBce.Auth;
 using BaiduBce.Services.Bos;
 using ML.Blend.Cloud.Interface.ObjectStorageService;
+using ML.Blend.Unified.Enum;
 
 namespace ML.Blend.Cloud.Baidu.ObjectStorageService
 {
@@ -12,7 +13,7 @@ namespace ML.Blend.Cloud.Baidu.ObjectStorageService
     /// 存储空间
     /// 参考地址：https://cloud.baidu.com/product/bos.html?track=navigation20200904
     /// </summary>
-    public class Bucket : ClientBase
+    public class Bucket : ClientBase,IBucket<BosClient>
     {
         public Bucket(string akId, string akSecret, string endpoint) : base(akId, akSecret, endpoint)
         {
@@ -112,6 +113,53 @@ namespace ML.Blend.Cloud.Baidu.ObjectStorageService
             catch (Exception ex)
             {
                 Console.WriteLine("Delete bucket failed. {0}", ex.Message);
+            }
+        }
+
+        public object GetBucketLocation(BosClient client, string bucketName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object GetBucketInfo(BosClient client, string bucketName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetBucketAcl(BosClient client, string bucketName, AccessControlType cannedAccess)
+        {
+            try
+            {
+                // 设置存储空间的访问权限为公共读。
+                switch (cannedAccess)
+                {
+                    case AccessControlType.Default:
+                        {
+                            client.SetBucketAcl(bucketName, BosConstants.CannedAcl.Private);
+                            break;
+                        }
+                    case AccessControlType.Private:
+                        {
+                            client.SetBucketAcl(bucketName, BosConstants.CannedAcl.Private);
+                            break;
+                        }
+                    case AccessControlType.PublicRead:
+                        {
+                            client.SetBucketAcl(bucketName, BosConstants.CannedAcl.PublicRead);
+                            break;
+                        }
+                    case AccessControlType.PublicReadWrite:
+                        {
+                            client.SetBucketAcl(bucketName, BosConstants.CannedAcl.PublicReadWrite);
+                            break;
+                        }
+                }
+                
+                Console.WriteLine("Set bucket ACL succeeded");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Set bucket ACL failed. {0}", ex.Message);
             }
         }
     }
