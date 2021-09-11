@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;netstandard2.0;netcoreapp2.0</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
-    <Version>0.0.7-beta1</Version>
+    <Version>0.0.10-beta1</Version>
     <AssemblyName>ML.Blend</AssemblyName>
     <RootNamespace>ML.Blend</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -43,10 +43,8 @@
     <PackageReference Include="TencentCloudSDK" Version="3.0.361" />
     <!--腾讯云对象存储-->
     <PackageReference Include="Tencent.QCloud.Cos.Sdk" Version="5.4.23" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Cloud\Qiniu\" />
+    <!--七牛云对象存储-->
+    <PackageReference Include="Qiniu.Shared" Version="7.2.15" />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,6 +57,11 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\lib\bce-dotnet-sdk-1.0.4\thirdparty\Newtonsoft.Json.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Cloud\AWS\" />
+    <Folder Include="Cloud\Azure\" />
   </ItemGroup>
 
 </Project>
