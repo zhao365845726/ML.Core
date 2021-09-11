@@ -167,22 +167,22 @@ namespace ML.Blend.Cloud.Tencent.ObjectStorageService
         //    }
         //}
 
-        /// <summary>
-        /// 删除存储空间
-        /// </summary>
-        /// <param name="client"></param>
-        /// <param name="bucketName"></param>
-        public void Delete(CosXml cosXml, string bucketName)
-        {
-            try
-            {
-                client.DeleteBucket(bucketName);
-                Console.WriteLine("Delete bucket succeeded");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Delete bucket failed. {0}", ex.Message);
-            }
-        }
+        ///// <summary>
+        ///// 删除存储空间
+        ///// </summary>
+        ///// <param name="client"></param>
+        ///// <param name="bucketName"></param>
+        //public void Delete(CosXml cosXml, string bucketName)
+        //{
+        //    try
+        //    {
+        //        cosXml.DeleteBucket(bucketName);
+        //        Console.WriteLine("Delete bucket succeeded");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("Delete bucket failed. {0}", ex.Message);
+        //    }
+        //}
     }
 }

@@ -10,9 +10,10 @@ namespace ML.Blend.Cloud.Baidu.ObjectStorageService
 {
     public class ManageObject : ClientBase
     {
-        public ManageObject(string akId, string akSecret) : base(akId, akSecret)
+        public ManageObject(string akId, string akSecret, string endpoint) : base(akId, akSecret, endpoint)
         {
         }
+
 
         /// <summary>
         /// 判断文件是否存在

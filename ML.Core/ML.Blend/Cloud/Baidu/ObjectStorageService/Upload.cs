@@ -13,9 +13,10 @@ namespace ML.Blend.Cloud.Baidu.ObjectStorageService
     /// </summary>
     public class Upload : ClientBase
     {
-        public Upload(string akId, string akSecret) : base(akId, akSecret)
+        public Upload(string akId, string akSecret, string endpoint) : base(akId, akSecret, endpoint)
         {
         }
+
 
         /// <summary>
         /// 简单上传本地文件
