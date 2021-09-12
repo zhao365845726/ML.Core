@@ -24,6 +24,9 @@ namespace ML.Core.Enum
         CHECK = 5,
         PICKER = 6,
         NUMBER = 7,
+        UPLOAD = 8,
+        DATETIME = 9,
+        DATE = 10
     }
 
     public enum ListColumnType
