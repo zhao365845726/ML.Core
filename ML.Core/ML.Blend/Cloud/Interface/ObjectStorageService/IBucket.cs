@@ -15,13 +15,13 @@ namespace ML.Blend.Cloud.Interface.ObjectStorageService
         /// </summary>
         /// <param name="client"></param>
         /// <param name="bucketName"></param>
-        public void Create(T client, string bucketName);
+        public object Create(T client, string bucketName);
 
         /// <summary>
         /// 列举存储空间
         /// </summary>
         /// <param name="client"></param>
-        public void List(T client);
+        public object List(T client);
 
         /// <summary>
         /// 判断存储空间是否存在

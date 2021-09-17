@@ -25,7 +25,7 @@ namespace ML.Blend.Cloud.Baidu.ObjectStorageService
         /// </summary>
         /// <param name="client"></param>
         /// <param name="bucketName"></param>
-        public void Create(BosClient client,string bucketName)
+        public object Create(BosClient client,string bucketName)
         {
             try
             {
@@ -34,16 +34,19 @@ namespace ML.Blend.Cloud.Baidu.ObjectStorageService
                     // 新建一个Bucket
                     var bucket = client.CreateBucket(bucketName);
                     Console.WriteLine("Create bucket succeeded, {0} ", bucket.BceRequestId);
+                    return bucket;
                 }
                 else
                 {
                     Console.WriteLine("Create bucket failed, {0} ", "bucket is Exist.");
+                    return null;
                 }
                 
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Create bucket failed, {0}", ex.Message);
+                throw new Exception();
             }
         }
 
@@ -51,7 +54,7 @@ namespace ML.Blend.Cloud.Baidu.ObjectStorageService
         /// 列举存储空间
         /// </summary>
         /// <param name="client"></param>
-        public void List(BosClient client)
+        public object List(BosClient client)
         {
             try
             {
@@ -65,10 +68,12 @@ namespace ML.Blend.Cloud.Baidu.ObjectStorageService
                 {
                     Console.WriteLine("Bucket name：{0}，Location：{1}，Owner：{2}", bucket.Name, bucket.Location,bucket.CreationDate);
                 }
+                return buckets;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("List bucket failed. {0}", ex.Message);
+                throw new Exception();
             }
         }
 
