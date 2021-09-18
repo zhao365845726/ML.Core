@@ -41,3 +41,7 @@ https://docs.microsoft.com/zh-cn/dotnet/csharp/language-reference/preprocessor-d
 
 https://developers.weixin.qq.com/doc/
 
+## 云平台统计
+
+中科院软件所、华为、腾讯云、阿里云、百度、麒麟软件、建信金科、微众银行、中兴、蚂蚁集团、凝思软件、七牛云、AWS、Azure、国资云
+
