@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;netstandard2.0;netcoreapp2.0</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
-    <Version>0.0.10-beta1</Version>
+    <Version>0.2.0-beta1</Version>
     <AssemblyName>ML.Blend</AssemblyName>
     <RootNamespace>ML.Blend</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -19,6 +19,7 @@
     <PackageIconUrl>http://image.milisx.com/logox200.png</PackageIconUrl>
     <PackageReleaseNotes>
       v0.1 创世
+			v0.2 快速对接阿里云OSS对象存储
     </PackageReleaseNotes>
     <RepositoryUrl> https://github.com/zhao365845726/ML.Core </RepositoryUrl>
     <Configurations>Debug;Release;Test</Configurations>
