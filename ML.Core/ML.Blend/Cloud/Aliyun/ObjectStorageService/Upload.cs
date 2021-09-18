@@ -24,17 +24,19 @@ namespace ML.Blend.Cloud.Aliyun.ObjectStorageService
         /// <param name="bucketName"></param>
         /// <param name="objectName"></param>
         /// <param name="localFileName"></param>
-        public void SimpleFile(OssClient client, string bucketName,string objectName,string localFilename)
+        public PutObjectResult SimpleFile(OssClient client, string bucketName,string objectName,string localFilename)
         {
             try
             {
                 // 上传文件。
                 var result = client.PutObject(bucketName, objectName, localFilename);
                 Console.WriteLine("Put object succeeded, ETag: {0} ", result.ETag);
+                return result;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Put object failed, {0}", ex.Message);
+                throw new Exception();
             }
         }
 
