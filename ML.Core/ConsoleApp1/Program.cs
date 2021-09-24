@@ -2,10 +2,12 @@
 using System;
 using ML.Blend.Cloud.Aliyun;
 using ML.Blend.Cloud.Aliyun.ObjectStorageService;
+using ML.Blend.Cloud.Aliyun.Domain;
 using System.IO;
 using Newtonsoft.Json;
 using System.Text;
 using System.Collections.Generic;
+
 
 namespace ConsoleApp1
 {
@@ -18,13 +20,20 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             Init(@"E:\_GitHub\ML.Core\ML.Core\ConsoleApp1\config.json");
-            Download_FlowType();
+            Domain_Add();
+            //Download_FlowType();
             //Upload_SimpleFile();
             //Bucket_Delete();
             //GetAssemblyDictionaryResult();
             //Bucket_Create();
             Console.WriteLine("Hello World!");
             Console.ReadLine();
+        }
+
+        static void Domain_Add()
+        {
+            Analysis a = new Analysis(accessKeyId,accessKeySecret);
+            a.AddDomainRecord("milisx.xyz", "ml20210924001", "A", "101.201.66.85");
         }
 
         static void Download_FlowType()

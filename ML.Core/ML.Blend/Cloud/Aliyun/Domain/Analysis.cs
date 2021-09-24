@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Text;
 using AlibabaCloud.SDK.Alidns20150109;
 using AlibabaCloud.SDK.Alidns20150109.Models;
+using Tea;
+using Tea.Utils;
 
 namespace ML.Blend.Cloud.Aliyun.Domain
 {
     /// <summary>
     /// 解析
     /// </summary>
-    public class Analysis : Base
+    public class Analysis : ClientBase
     {
         public Analysis(string akId, string akSecret) : base(akId, akSecret)
         {
@@ -25,18 +27,18 @@ namespace ML.Blend.Cloud.Aliyun.Domain
         /// <returns></returns>
         public AddDomainRecordResponse AddDomainRecord(string domainName,string rr,string type,string value)
         {
-            Client client = CreateClient();
+            Client client = CreateDomainClient("");
             AddDomainRecordRequest addDomainRecordRequest = new AddDomainRecordRequest
             {
                 Lang = lang,
-                UserClientIp = string.Empty,
+                //UserClientIp = string.Empty,
                 DomainName = domainName,
                 RR = rr,
                 Type = type,
                 Value = value,
-                TTL = 600,
-                Priority = 1,
-                Line = string.Empty,
+                //TTL = 600,
+                //Priority = 1,
+                //Line = string.Empty,
             };
             // 复制代码运行请自行打印 API 的返回值
             return client.AddDomainRecord(addDomainRecordRequest);
@@ -49,7 +51,7 @@ namespace ML.Blend.Cloud.Aliyun.Domain
         /// <returns></returns>
         public DeleteDomainRecordResponse DeleteDomainRecord(string recordId)
         {
-            Client client = CreateClient();
+            Client client = CreateDomainClient("");
             DeleteDomainRecordRequest deleteDomainRecordRequest = new DeleteDomainRecordRequest
             {
                 Lang = lang,
@@ -68,7 +70,7 @@ namespace ML.Blend.Cloud.Aliyun.Domain
         /// <returns></returns>
         public DeleteSubDomainRecordsResponse DeleteSubDomainRecords(string domainName,string rr)
         {
-            Client client = CreateClient();
+            Client client = CreateDomainClient("");
             DeleteSubDomainRecordsRequest deleteSubDomainRecordsRequest = new DeleteSubDomainRecordsRequest
             {
                 Lang = lang,
@@ -91,7 +93,7 @@ namespace ML.Blend.Cloud.Aliyun.Domain
         /// <returns></returns>
         public UpdateDomainRecordResponse UpdateDomainRecord(string recordId,string rr,string type,string value)
         {
-            Client client = CreateClient();
+            Client client = CreateDomainClient("");
             UpdateDomainRecordRequest updateDomainRecordRequest = new UpdateDomainRecordRequest
             {
                 Lang = lang,
@@ -117,7 +119,7 @@ namespace ML.Blend.Cloud.Aliyun.Domain
         /// <returns></returns>
         public UpdateDomainRecordRemarkResponse UpdateDomainRecordRemark(string clientIp,string recordId,string remark)
         {
-            Client client = CreateClient();
+            Client client = CreateDomainClient("");
             UpdateDomainRecordRemarkRequest updateDomainRecordRemarkRequest = new UpdateDomainRecordRemarkRequest
             {
                 Lang = lang,
@@ -138,7 +140,7 @@ namespace ML.Blend.Cloud.Aliyun.Domain
         /// <returns></returns>
         public SetDomainRecordStatusResponse SetDomainRecordStatus(string clientIp,string recordId,string status)
         {
-            Client client = CreateClient();
+            Client client = CreateDomainClient("");
             SetDomainRecordStatusRequest setDomainRecordStatusRequest = new SetDomainRecordStatusRequest
             {
                 Lang = lang,
@@ -158,7 +160,7 @@ namespace ML.Blend.Cloud.Aliyun.Domain
         /// <returns></returns>
         public DescribeDomainRecordInfoResponse DescribeDomainRecordInfo(string clientIp,string recordId)
         {
-            Client client = CreateClient();
+            Client client = CreateDomainClient("");
             DescribeDomainRecordInfoRequest describeDomainRecordInfoRequest = new DescribeDomainRecordInfoRequest
             {
                 Lang = lang,
@@ -178,7 +180,7 @@ namespace ML.Blend.Cloud.Aliyun.Domain
         /// <returns></returns>
         public DescribeDomainRecordsResponse DescribeDomainRecords(string domainName,int pageIndex,int pageSize)
         {
-            Client client = CreateClient();
+            Client client = CreateDomainClient("");
             DescribeDomainRecordsRequest describeDomainRecordsRequest = new DescribeDomainRecordsRequest
             {
                 Lang = lang,
@@ -199,7 +201,7 @@ namespace ML.Blend.Cloud.Aliyun.Domain
         /// <returns></returns>
         public DescribeRecordLogsResponse DescribeRecordLogs(string domainName,int pageIndex,int pageSize)
         {
-            Client client = CreateClient();
+            Client client = CreateDomainClient("");
             DescribeRecordLogsRequest describeRecordLogsRequest = new DescribeRecordLogsRequest
             {
                 Lang = lang,
@@ -225,7 +227,7 @@ namespace ML.Blend.Cloud.Aliyun.Domain
         /// <returns></returns>
         public DescribeSubDomainRecordsResponse DescribeSubDomainRecords(string domainName,string subDomain, int pageIndex, int pageSize)
         {
-            Client client = CreateClient();
+            Client client = CreateDomainClient("");
             DescribeSubDomainRecordsRequest describeSubDomainRecordsRequest = new DescribeSubDomainRecordsRequest
             {
                 Lang = lang,
@@ -248,7 +250,7 @@ namespace ML.Blend.Cloud.Aliyun.Domain
         /// <returns></returns>
         public GetTxtRecordForVerifyResponse GetTxtRecordForVerify(string domainName)
         {
-            Client client = CreateClient();
+            Client client = CreateDomainClient("");
             GetTxtRecordForVerifyRequest getTxtRecordForVerifyRequest = new GetTxtRecordForVerifyRequest
             {
                 Lang = lang,

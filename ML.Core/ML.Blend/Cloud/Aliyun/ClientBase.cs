@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using AlibabaCloud.SDK.Alidns20150109;
 using Aliyun.OSS;
 using Aliyun.OSS.Common;
 
@@ -10,6 +11,26 @@ namespace ML.Blend.Cloud.Aliyun
     {
         public ClientBase(string akId, string akSecret) : base(akId, akSecret)
         {
+        }
+
+        /// <summary>
+        /// 使用OSS域名新建OSSClient
+        /// </summary>
+        /// <param name="endpoint"></param>
+        /// <returns></returns>
+        public Client CreateDomainClient(string endpoint)
+        {
+            // 由用户指定的OSS访问地址、阿里云颁发的AccessKeyId/AccessKeySecret构造一个新的OssClient实例。
+            AlibabaCloud.OpenApiClient.Models.Config config = new AlibabaCloud.OpenApiClient.Models.Config
+            {
+                // 您的AccessKey ID
+                AccessKeyId = accessKeyId,
+                // 您的AccessKey Secret
+                AccessKeySecret = accessKeySecret,
+            };
+            // 访问的域名
+            config.Endpoint = "alidns.cn-hangzhou.aliyuncs.com";
+            return new AlibabaCloud.SDK.Alidns20150109.Client(config);
         }
 
         /// <summary>
