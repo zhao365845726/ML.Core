@@ -20,7 +20,7 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             Init(@"E:\_GitHub\ML.Core\ML.Core\ConsoleApp1\config.json");
-            Domain_Add();
+            //Domain_Add();
             //Download_FlowType();
             //Upload_SimpleFile();
             //Bucket_Delete();

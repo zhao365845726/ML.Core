@@ -9,6 +9,7 @@ using System.Data;
 using System.Collections;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace ML.Core
 {
@@ -150,6 +151,21 @@ namespace ML.Core
             string result = Encoding.Default.GetString(jsonByte);
             var data = JsonConvert.DeserializeObject<IDictionary<string, object>>(result);
             return data;
+        }
+
+        public static IDictionary<string, object> GetConfigInfo(string filePath)
+        {
+            string text = File.ReadAllText(filePath, Encoding.GetEncoding("UTF-8"));
+            var configInfo = JsonConvert.DeserializeObject<IDictionary<string, object>>(text);
+            return configInfo;
+        }
+
+        public static T GetConfigInfo<T>(string filePath,string section)
+        {
+            string text = File.ReadAllText(filePath, Encoding.GetEncoding("UTF-8"));
+            var configInfo = JsonConvert.DeserializeObject<IDictionary<string, object>>(text);
+            var result = JsonConvert.DeserializeObject<T>(configInfo[section].ToString());
+            return result;
         }
     }
 }
