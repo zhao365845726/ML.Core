@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Collections.Generic;
 using ML.Core;
+using ML.Blend.Cloud.Tencent;
+using ML.Blend.Cloud.Tencent.ObjectStorageService;
 
 namespace ConsoleApp1
 {
@@ -16,6 +18,7 @@ namespace ConsoleApp1
         private static string accessKeyId = string.Empty;
         private static string accessKeySecret = string.Empty;
         private static string endpoint = string.Empty;
+        private static string region = string.Empty;
 
         static void Main(string[] args)
         {
@@ -26,10 +29,18 @@ namespace ConsoleApp1
             //Bucket_Delete();
             //GetAssemblyDictionaryResult();
             //Bucket_Create();
+            //SysHelper_Test();
 
-            SysHelper_Test();
+            #region TencentCloud 测试
+
+            #endregion
             Console.WriteLine("Hello World!");
             Console.ReadLine();
+        }
+
+        static void Tencent_Bucket_Create()
+        {
+
         }
 
         static void SysHelper_Test()
@@ -91,10 +102,11 @@ namespace ConsoleApp1
             //var jsonObj = JsonConvert.DeserializeObject<JsonApp>(text);
             //var pageObj = JsonConvert.DeserializeObject<Page>(text);
             var model = JsonConvert.DeserializeObject<IDictionary<string, object>>(text);
-            ConsoleApp1.Model.Aliyun aliyun = JsonConvert.DeserializeObject<ConsoleApp1.Model.Aliyun>(model["aliyun"].ToString());
-            accessKeyId = aliyun.accessKeyId;
-            accessKeySecret = aliyun.accessKeySecret;
-            endpoint = aliyun.defaultEndPoint;
+            //ConsoleApp1.Model.Aliyun aliyun = JsonConvert.DeserializeObject<ConsoleApp1.Model.Aliyun>(model["aliyun"].ToString());
+            ConsoleApp1.Model.Tencent tencent = JsonConvert.DeserializeObject<ConsoleApp1.Model.Tencent>(model["tencent"].ToString());
+            accessKeyId = tencent.accessKeyId;
+            accessKeySecret = tencent.accessKeySecret;
+            endpoint = tencent.region;
 
         }
 

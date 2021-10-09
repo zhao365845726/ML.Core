@@ -26,7 +26,7 @@ namespace ML.Blend.Cloud.Tencent.ObjectStorageService
         /// <summary>
         /// 创建存储空间
         /// </summary>
-        /// <param name="client"></param>
+        /// <param name="cosXml"></param>
         /// <param name="bucketName"></param>
         public void Create(CosXml cosXml, string bucketName)
         {
@@ -53,7 +53,7 @@ namespace ML.Blend.Cloud.Tencent.ObjectStorageService
         /// <summary>
         /// 列举存储空间
         /// </summary>
-        /// <param name="client"></param>
+        /// <param name="cosXml"></param>
         public void List(CosXml cosXml)
         {
             try
@@ -76,29 +76,36 @@ namespace ML.Blend.Cloud.Tencent.ObjectStorageService
             }
         }
 
-        ///// <summary>
-        ///// 判断存储空间是否存在
-        ///// </summary>
-        ///// <param name="client"></param>
-        ///// <param name="bucketName"></param>
-        ///// <returns></returns>
-        //public bool DoesExist(CosXml cosXml, string bucketName)
-        //{
-        //    try
-        //    {
-        //        var exist = client.DoesBucketExist(bucketName);
-
-        //        Console.WriteLine("Check object Exist succeeded");
-        //        Console.WriteLine("exist ? {0}", exist);
-
-        //        return exist;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Check object Exist failed. {0}", ex.Message);
-        //        return false;
-        //    }
-        //}
+        /// <summary>
+        /// 判断存储空间是否存在
+        /// </summary>
+        /// <param name="cosXml"></param>
+        /// <param name="bucketName"></param>
+        /// <returns></returns>
+        public bool DoesExist(CosXml cosXml, string bucketName)
+        {
+            try
+            {
+                HeadBucketRequest request = new HeadBucketRequest(bucketName);
+                //执行请求
+                HeadBucketResult result = cosXml.HeadBucket(request);
+                //请求成功
+                Console.WriteLine(result.GetResultInfo());
+                return true;
+            }
+            catch (COSXML.CosException.CosClientException clientEx)
+            {
+                //请求失败
+                Console.WriteLine("CosClientException: " + clientEx);
+                return false;
+            }
+            catch (COSXML.CosException.CosServerException serverEx)
+            {
+                //请求失败
+                Console.WriteLine("CosServerException: " + serverEx.GetInfo());
+                return false;
+            }
+        }
 
         ///// <summary>
         ///// 获取存储空间的地域
@@ -167,22 +174,31 @@ namespace ML.Blend.Cloud.Tencent.ObjectStorageService
         //    }
         //}
 
-        ///// <summary>
-        ///// 删除存储空间
-        ///// </summary>
-        ///// <param name="client"></param>
-        ///// <param name="bucketName"></param>
-        //public void Delete(CosXml cosXml, string bucketName)
-        //{
-        //    try
-        //    {
-        //        cosXml.DeleteBucket(bucketName);
-        //        Console.WriteLine("Delete bucket succeeded");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Delete bucket failed. {0}", ex.Message);
-        //    }
-        //}
+        /// <summary>
+        /// 删除存储空间
+        /// </summary>
+        /// <param name="cosXml"></param>
+        /// <param name="bucketName"></param>
+        public void Delete(CosXml cosXml, string bucketName)
+        {
+            try
+            {
+                DeleteBucketRequest request = new DeleteBucketRequest(bucketName);
+                //执行请求
+                DeleteBucketResult result = cosXml.DeleteBucket(request);
+                //请求成功
+                Console.WriteLine(result.GetResultInfo());
+            }
+            catch (COSXML.CosException.CosClientException clientEx)
+            {
+                //请求失败
+                Console.WriteLine("CosClientException: " + clientEx);
+            }
+            catch (COSXML.CosException.CosServerException serverEx)
+            {
+                //请求失败
+                Console.WriteLine("CosServerException: " + serverEx.GetInfo());
+            }
+        }
     }
 }
