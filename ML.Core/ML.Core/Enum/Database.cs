@@ -13,6 +13,9 @@ namespace ML.Core.Enum
         TIME = 5,
         DATETIME = 6,
         DECIMAL = 7,
+        LONG = 8,
+        SHORT = 9,
+        GUID = 10,
     }
 
     public enum FormControllerType

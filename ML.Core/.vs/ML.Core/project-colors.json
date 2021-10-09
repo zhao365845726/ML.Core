@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "6a3e2d99-f845-44a4-b4e3-0238231524b4": {
+      "ProjectGuid": "6a3e2d99-f845-44a4-b4e3-0238231524b4",
+      "DisplayName": "ML.Blend",
+      "ColorIndex": 0
+    },
+    "e75a8388-4c25-48b0-bc0b-dfb81444c7ba": {
+      "ProjectGuid": "e75a8388-4c25-48b0-bc0b-dfb81444c7ba",
+      "DisplayName": "ML.Core",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}
