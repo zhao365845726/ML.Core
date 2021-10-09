@@ -8,8 +8,8 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Collections.Generic;
 using ML.Core;
-using ML.Blend.Cloud.Tencent;
-using ML.Blend.Cloud.Tencent.ObjectStorageService;
+//using ML.Blend.Cloud.Tencent;
+//using ML.Blend.Cloud.Tencent.ObjectStorageService;
 
 namespace ConsoleApp1
 {
@@ -30,17 +30,8 @@ namespace ConsoleApp1
             //GetAssemblyDictionaryResult();
             //Bucket_Create();
             //SysHelper_Test();
-
-            #region TencentCloud 测试
-
-            #endregion
             Console.WriteLine("Hello World!");
             Console.ReadLine();
-        }
-
-        static void Tencent_Bucket_Create()
-        {
-
         }
 
         static void SysHelper_Test()

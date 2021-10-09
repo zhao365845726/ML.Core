@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30523.141
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31710.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ML.Core", "ML.Core\ML.Core.csproj", "{E75A8388-4C25-48B0-BC0B-DFB81444C7BA}"
 EndProject
@@ -8,7 +8,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ML.Blend", "ML.Blend\ML.Ble
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{3EFA9C2C-572D-4079-8519-005AEBA8E0B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ML.CoreTests", "ML.CoreTests\ML.CoreTests.csproj", "{B8D4F078-3A4F-461C-BE30-0256C772451D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ML.CoreTests", "ML.CoreTests\ML.CoreTests.csproj", "{B8D4F078-3A4F-461C-BE30-0256C772451D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ML.BlendTests", "ML.BlendTests\ML.BlendTests.csproj", "{FBE565B8-D461-4A57-A6CE-8D31011B1E4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{B8D4F078-3A4F-461C-BE30-0256C772451D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8D4F078-3A4F-461C-BE30-0256C772451D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8D4F078-3A4F-461C-BE30-0256C772451D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBE565B8-D461-4A57-A6CE-8D31011B1E4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBE565B8-D461-4A57-A6CE-8D31011B1E4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBE565B8-D461-4A57-A6CE-8D31011B1E4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBE565B8-D461-4A57-A6CE-8D31011B1E4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
