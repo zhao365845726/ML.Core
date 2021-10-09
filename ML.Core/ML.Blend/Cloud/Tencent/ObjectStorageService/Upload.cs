@@ -100,7 +100,7 @@ namespace ML.Blend.Cloud.Tencent.ObjectStorageService
         /// <param name="bucketName"></param>
         /// <param name="objectName"></param>
         /// <param name="localFilename"></param>
-        public void SimpleFile(CosXml cosXml, string bucketName, string objectName, string localFilename)
+        public string SimpleFile(CosXml cosXml, string bucketName, string objectName, string localFilename)
         {
             try
             {
@@ -114,16 +114,19 @@ namespace ML.Blend.Cloud.Tencent.ObjectStorageService
                 PutObjectResult result = cosXml.PutObject(request);
                 //对象的 eTag
                 string eTag = result.eTag;
+                return eTag;
             }
             catch (COSXML.CosException.CosClientException clientEx)
             {
                 //请求失败
                 Console.WriteLine("CosClientException: " + clientEx);
+                return clientEx.Message;
             }
             catch (COSXML.CosException.CosServerException serverEx)
             {
                 //请求失败
                 Console.WriteLine("CosServerException: " + serverEx.GetInfo());
+                return serverEx.Message;
             }
         }
 

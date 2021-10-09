@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ML.Blend\ML.Blend.csproj" />
+    <ProjectReference Include="..\ML.Core\ML.Core.csproj" />
   </ItemGroup>
 
 </Project>

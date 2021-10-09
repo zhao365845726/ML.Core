@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ML.Blend.Cloud.Tencent.ObjectStorageService;
 using ML.BlendTests;
+using ML.Core;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,11 +11,16 @@ namespace ML.Blend.Cloud.Tencent.ObjectStorageService.Tests
     [TestClass()]
     public class UploadTests : TestBase<ML.BlendTests.Model.Tencent>
     {
-        [TestMethod()]
+        [TestMethod("简单上传文件")]
         public void SimpleFileTest()
         {
-            string filePath = @"C:\Code\02-Github\ML.Core\ML.Core\ConsoleApp1\config.json";
+            string filePath = @"E:\_GitHub\ML.Core\ML.Core\ConsoleApp1\config.json";
             var entity = GetEntities(filePath, "tencent");
+            Upload upload = new Upload(entity.accessKeyId,entity.accessKeySecret,entity.region);
+            var cosxml = upload.CreateClient();
+            string strObjectName = DateTime.Now.ToString("yyyyMMddHHmmss");
+            var result = upload.SimpleFile(cosxml, entity.bucketName, strObjectName, @"F:\source\image\002.jpg");
+            Console.WriteLine($"https://{entity.defaultEndPoint}/{strObjectName}");
             Console.WriteLine($"Hello SimpleFileTest {entity.accessKeyId}");
         }
     }
