@@ -7,7 +7,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Text;
 using System.Collections.Generic;
-
+using ML.Core;
 
 namespace ConsoleApp1
 {
@@ -19,15 +19,26 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-            Init(@"E:\_GitHub\ML.Core\ML.Core\ConsoleApp1\config.json");
+            //Init(@"E:\_GitHub\ML.Core\ML.Core\ConsoleApp1\config.json");
             //Domain_Add();
             //Download_FlowType();
             //Upload_SimpleFile();
             //Bucket_Delete();
             //GetAssemblyDictionaryResult();
             //Bucket_Create();
+
+            SysHelper_Test();
             Console.WriteLine("Hello World!");
             Console.ReadLine();
+        }
+
+        static void SysHelper_Test()
+        {
+            var aa = SysHelper.GetMacAddressDic(":");
+            foreach(KeyValuePair<string, string> kvp in aa)
+            {
+                Console.WriteLine($"key---{kvp.Key},value----{kvp.Value}");
+            }
         }
 
         static void Domain_Add()
