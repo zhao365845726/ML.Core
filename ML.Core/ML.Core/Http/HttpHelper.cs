@@ -327,6 +327,53 @@ namespace ML.Core
             return result;
         }
 
+
+        /// <summary>
+        /// 模拟提交数据
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public static string HttpPostData(string url, string param)
+        {
+            var result = string.Empty;
+            //注意提交的编码 这边是需要改变的 这边默认的是Default：系统当前编码
+            byte[] postData = Encoding.UTF8.GetBytes(param);
+
+
+            // 设置提交的相关参数 
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+            Encoding myEncoding = Encoding.UTF8;
+            request.Method = "POST";
+            request.KeepAlive = false;
+            request.AllowAutoRedirect = true;
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727; .NET CLR  3.0.04506.648; .NET CLR 3.5.21022; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)";
+            request.ContentLength = postData.Length;
+            //request.Headers.Add("Content-type","application/json; charset=utf-8");
+
+            // 提交请求数据 
+            System.IO.Stream outputStream = request.GetRequestStream();
+            outputStream.Write(postData, 0, postData.Length);
+            outputStream.Close();
+
+            HttpWebResponse response;
+            Stream responseStream;
+            StreamReader reader;
+            string srcString;
+            response = request.GetResponse() as HttpWebResponse;
+            responseStream = new System.IO.Compression.GZipStream(response.GetResponseStream(), System.IO.Compression.CompressionMode.Decompress);
+
+            //做了压缩的
+            //responseStream = response.GetResponseStream();
+            reader = new System.IO.StreamReader(responseStream, Encoding.UTF8);
+            srcString = reader.ReadToEnd();
+            result = srcString;   //返回值赋值
+            reader.Close();
+
+            return result;
+        }
+
         /// <summary>
         /// 模拟授权提交数据
         /// </summary>
