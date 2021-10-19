@@ -18,7 +18,7 @@ namespace ML.Blend.Cloud.Aliyun
         /// </summary>
         /// <param name="endpoint"></param>
         /// <returns></returns>
-        public Client CreateDomainClient(string endpoint)
+        public AlibabaCloud.SDK.Alidns20150109.Client CreateDomainClient(string endpoint)
         {
             // 由用户指定的OSS访问地址、阿里云颁发的AccessKeyId/AccessKeySecret构造一个新的OssClient实例。
             AlibabaCloud.OpenApiClient.Models.Config config = new AlibabaCloud.OpenApiClient.Models.Config
@@ -31,6 +31,25 @@ namespace ML.Blend.Cloud.Aliyun
             // 访问的域名
             config.Endpoint = "alidns.cn-hangzhou.aliyuncs.com";
             return new AlibabaCloud.SDK.Alidns20150109.Client(config);
+        }
+
+        /// <summary>
+        /// 使用云通讯短信服务新建smsClient
+        /// </summary>
+        /// <param name="endpoint"></param>
+        /// <returns></returns>
+        public AlibabaCloud.SDK.Dysmsapi20170525.Client CreateSmsClient(string endpoint)
+        {
+            AlibabaCloud.OpenApiClient.Models.Config config = new AlibabaCloud.OpenApiClient.Models.Config
+            {
+                // 您的AccessKey ID
+                AccessKeyId = accessKeyId,
+                // 您的AccessKey Secret
+                AccessKeySecret = accessKeySecret,
+            };
+            // 访问的域名
+            config.Endpoint = "dysmsapi.aliyuncs.com";
+            return new AlibabaCloud.SDK.Dysmsapi20170525.Client(config);
         }
 
         /// <summary>

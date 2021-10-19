@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;netstandard2.0;netcoreapp2.0</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
-    <Version>0.2.8-beta1</Version>
+    <Version>0.2.9-beta1</Version>
     <AssemblyName>ML.Blend</AssemblyName>
     <RootNamespace>ML.Blend</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -49,6 +49,7 @@
 
   <ItemGroup>
     <PackageReference Include="AlibabaCloud.SDK.Alidns20150109" Version="2.0.1" />
+		<PackageReference Include="AlibabaCloud.SDK.Dysmsapi20170525" Version="1.0.3" />
     <!--阿里云对象存储OSS-->
     <PackageReference Include="Aliyun.OSS.SDK.NetCore" Version="2.13.0" />
     <!--腾讯云-->
