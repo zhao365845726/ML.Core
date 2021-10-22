@@ -19,18 +19,36 @@ namespace ML.Blend.Cloud.Aliyun.Domain.Tests
             Analysis a = new Analysis(entity.accessKeyId, entity.accessKeySecret);
             //var result = a.DescribeDomainRecords("milisx.xyz", 1, 10);
 
-            for(int i = 1; i <= 10; i++)
+            for (int i = 1; i <= 10; i++)
             {
                 var result = a.DescribeDomainRecords("milisx.xyz", i, 10);
-                if(result != null)
+                if (result != null)
                 {
                     var record = result.Body.DomainRecords.Record;
-                    foreach(var recordItem in record)
+                    foreach (var recordItem in record)
                     {
                         Console.WriteLine($"recordItem {recordItem.RR}.{recordItem.DomainName} , Remark : {recordItem.Remark}");
                     }
                 }
             }
+        }
+
+        [TestMethod()]
+        public void DoesExistDomainTest()
+        {
+
+        }
+
+        [TestMethod()]
+        public void BatchDeleteSubDomainRecordsTest()
+        {
+
+        }
+
+        [TestMethod()]
+        public void BatchDeleteSubDomainRecordsTest1()
+        {
+
         }
     }
 }

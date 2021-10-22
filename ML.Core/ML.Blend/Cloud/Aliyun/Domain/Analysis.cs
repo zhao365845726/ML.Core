@@ -84,6 +84,48 @@ namespace ML.Blend.Cloud.Aliyun.Domain
         }
 
         /// <summary>
+        /// 根据传入参数批量删除主机记录对应的解析记录
+        /// </summary>
+        /// <param name="lstRecordId"></param>
+        /// <returns></returns>
+        public bool BatchDeleteSubDomainRecords(List<string> lstRecordId)
+        {
+            try
+            {
+                foreach (string item in lstRecordId)
+                {
+                    DeleteDomainRecord(item);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 根据传入参数批量删除主机记录对应的解析记录
+        /// </summary>
+        /// <param name="domainName"></param>
+        /// <param name="listRR">解析记录集合</param>
+        /// <returns></returns>
+        public bool BatchDeleteSubDomainRecords(string domainName, List<string> listRR)
+        {
+            try
+            {
+                foreach(string rr in listRR)
+                {
+                    DeleteSubDomainRecords(domainName, rr);
+                }
+                return true;
+            }catch(Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 根据传入参数修改解析记录
         /// </summary>
         /// <param name="recordId"></param>
@@ -190,6 +232,44 @@ namespace ML.Blend.Cloud.Aliyun.Domain
             };
             // 复制代码运行请自行打印 API 的返回值
             return client.DescribeDomainRecords(describeDomainRecordsRequest);
+        }
+
+        /// <summary>
+        /// 判断解决的二级域名列表中是否存在需要查询的域名
+        /// </summary>
+        /// <param name="domainName"></param>
+        /// <param name="subDomainName"></param>
+        /// <returns></returns>
+        public bool DoesExistDomain(string domainName, string subDomainName)
+        {
+            try
+            {
+                bool isRes = false;
+                for (int i = 1; i <= 10; i++)
+                {
+                    var result = DescribeDomainRecords(domainName, i, 10);
+                    if (result != null)
+                    {
+                        var record = result.Body.DomainRecords.Record;
+                        foreach (var recordItem in record)
+                        {
+                            if (recordItem.RR.Trim().Equals(subDomainName))
+                            {
+                                isRes = true;
+                                break;
+                            }
+                        }
+                        if (isRes)
+                        {
+                            break;
+                        }
+                    }
+                }
+                return isRes;
+            }catch(Exception ex)
+            {
+                return false;
+            }
         }
 
         /// <summary>

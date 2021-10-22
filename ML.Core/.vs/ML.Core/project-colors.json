@@ -20,7 +20,12 @@
       "ProjectGuid": "3efa9c2c-572d-4079-8519-005aeba8e0b2",
       "DisplayName": "ConsoleApp1",
       "ColorIndex": 2
+    },
+    "fbe565b8-d461-4a57-a6ce-8d31011b1e4a": {
+      "ProjectGuid": "fbe565b8-d461-4a57-a6ce-8d31011b1e4a",
+      "DisplayName": "ML.BlendTests",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 3
+  "NextColorIndex": 4
 }
