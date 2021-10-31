@@ -21,5 +21,7 @@ namespace ML.Blend.Cloud.Aliyun.CloudCommunication.Sms.Tests
             var result = record.QuerySendDetails(Data.Mobile, Data.CurDate, Data.PageIndex, Data.PageSize);
             TestOutput<QuerySendDetailsResponseBody>.Write(result.Body);
         }
+
+        
     }
 }
