@@ -18,4 +18,8 @@
     <ProjectReference Include="..\ML.Core\ML.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Cloud\Aliyun\CloudCommunication\DirectMail\" />
+  </ItemGroup>
+
 </Project>
