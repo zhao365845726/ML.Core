@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;netstandard2.0;netcoreapp2.0</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
-    <Version>0.2.15-beta1</Version>
+    <Version>0.2.18-beta1</Version>
     <AssemblyName>ML.Blend</AssemblyName>
     <RootNamespace>ML.Blend</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -20,6 +20,7 @@
     <PackageReleaseNotes>
       v0.1 创世
 			v0.2 快速对接阿里云OSS对象存储
+			v0.2.18 快速对接七牛云对象存储
     </PackageReleaseNotes>
     <RepositoryUrl> https://github.com/zhao365845726/ML.Core </RepositoryUrl>
     <Configurations>Debug;Release;Test</Configurations>
@@ -48,6 +49,7 @@
 	</PropertyGroup>
 
   <ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="AlibabaCloud.SDK.Alidns20150109" Version="2.0.1" />
 		<PackageReference Include="AlibabaCloud.SDK.Dysmsapi20170525" Version="1.0.3" />
     <!--阿里云对象存储OSS-->
@@ -75,6 +77,7 @@
   <ItemGroup>
     <Folder Include="Cloud\AWS\" />
     <Folder Include="Cloud\Azure\" />
+    <Folder Include="Cloud\Huawei\" />
   </ItemGroup>
 
 </Project>
