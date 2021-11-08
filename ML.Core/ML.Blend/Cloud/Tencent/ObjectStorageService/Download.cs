@@ -1,174 +1,216 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.IO;
-//using System.Text;
-//using Aliyun.OSS;
-//using Aliyun.OSS.Common;
+﻿using COSXML;
+using COSXML.Model.Object;
+using COSXML.Transfer;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
-//namespace ML.Blend.Cloud.Tencent.ObjectStorageService
-//{
-//    /// <summary>
-//    /// 下载文件
-//    /// </summary>
-//    public class Download : ClientBase
-//    {
-//        public Download(string akId, string akSecret) : base(akId, akSecret)
-//        {
-//        }
+namespace ML.Blend.Cloud.Tencent.ObjectStorageService
+{
+    /// <summary>
+    /// 下载文件
+    /// </summary>
+    public class Download : ClientBase
+    {
+        public Download(string akId, string akSecret, string region) : base(akId, akSecret, region)
+        {
+        }
 
-//        /// <summary>
-//        /// 流式下载
-//        /// </summary>
-//        /// <param name="client">Oss客户端对象</param>
-//        /// <param name="bucketName"></param>
-//        /// <param name="objectName"></param>
-//        /// <param name="downloadFilename"></param>
-//        public void FlowType(OssClient client, string bucketName, string objectName, string downloadFilename)
-//        {
-//            try
-//            {
-//                // 下载文件。
-//                var result = client.GetObject(bucketName, objectName);
-//                using (var requestStream = result.Content)
-//                {
-//                    using (var fs = File.Open(downloadFilename, FileMode.OpenOrCreate))
-//                    {
-//                        int length = 4 * 1024;
-//                        var buf = new byte[length];
-//                        do
-//                        {
-//                            length = requestStream.Read(buf, 0, length);
-//                            fs.Write(buf, 0, length);
-//                        } while (length != 0);
-//                    }
-//                }
-//                Console.WriteLine("Get object succeeded");
-//            }
-//            catch (OssException ex)
-//            {
-//                Console.WriteLine("Failed with error code: {0}; Error info: {1}. \nRequestID:{2}\tHostID:{3}",
-//                    ex.ErrorCode, ex.Message, ex.RequestId, ex.HostId);
-//            }
-//            catch (Exception ex)
-//            {
-//                Console.WriteLine("Failed with error info: {0}", ex.Message);
-//            }
-//        }
+        #region 高级接口  Senior
+        /// <summary>
+        /// 下载对象
+        /// </summary>
+        /// <param name="cosXml"></param>
+        /// <param name="bucketName"></param>
+        /// <param name="objectName"></param>
+        /// <param name="savelocalFilename"></param>
+        public async Task SeniorDownloadObjectAsync(CosXml cosXml, string bucketName, string objectName, string savelocalFilename)
+        {
+            // 初始化 TransferConfig
+            TransferConfig transferConfig = new TransferConfig();
 
-//        /// <summary>
-//        /// 范围下载
-//        /// </summary>
-//        /// <param name="client"></param>
-//        /// <param name="bucketName"></param>
-//        /// <param name="objectName"></param>
-//        /// <param name="downloadFilename"></param>
-//        public void Range(OssClient client, string bucketName, string objectName, string downloadFilename)
-//        {
-//            try
-//            {
-//                var getObjectRequest = new GetObjectRequest(bucketName, objectName);
-//                // 设置Range，取值范围为第20至第100字节。
-//                getObjectRequest.SetRange(20, 100);
-//                // 范围下载。getObjectRequest的setRange可以实现文件的分段下载和断点续传。
-//                var obj = client.GetObject(getObjectRequest);
-//                // 下载数据并写入文件。
-//                using (var requestStream = obj.Content)
-//                {
-//                    byte[] buf = new byte[1024];
-//                    var fs = File.Open(downloadFilename, FileMode.OpenOrCreate);
-//                    var len = 0;
-//                    while ((len = requestStream.Read(buf, 0, 1024)) != 0)
-//                    {
-//                        fs.Write(buf, 0, len);
-//                    }
-//                    fs.Close();
-//                }
-//                Console.WriteLine("Get object succeeded");
-//            }
-//            catch (Exception ex)
-//            {
-//                Console.WriteLine("Get object failed. {0}", ex.Message);
-//            }
-//        }
+            // 初始化 TransferManager
+            TransferManager transferManager = new TransferManager(cosXml, transferConfig);
+            string localDir = System.IO.Path.GetTempPath();//本地文件夹
 
-//        /// <summary>
-//        /// 断点续传下载
-//        /// </summary>
-//        /// <param name="client"></param>
-//        /// <param name="bucketName"></param>
-//        /// <param name="objectName"></param>
-//        /// <param name="downloadFilename"></param>
-//        public void BreakPointContinue(OssClient client, string bucketName, string objectName, string downloadFilename)
-//        {
-//            string checkpointDir = $"checkPoint{objectName}";
-//            try
-//            {
-//                // 通过DownloadObjectRequest设置多个参数。
-//                DownloadObjectRequest request = new DownloadObjectRequest(bucketName, objectName, downloadFilename)
-//                {
-//                    // 指定下载的分片大小。
-//                    PartSize = 8 * 1024 * 1024,
-//                    // 指定并发线程数。
-//                    ParallelThreadCount = 3,
-//                    // checkpointDir用于保存断点续传进度信息。如果某一分片下载失败，再次下载时会根据文件中记录的点继续下载。如果checkpointDir为null，断点续传功能不会生效，每次失败后都会重新下载。
-//                    CheckpointDir = checkpointDir,
-//                };
-//                // 断点续传下载。
-//                client.ResumableDownloadObject(request);
-//                Console.WriteLine("Resumable download object:{0} succeeded", objectName);
-//            }
-//            catch (OssException ex)
-//            {
-//                Console.WriteLine("Failed with error code: {0}; Error info: {1}. \nRequestID:{2}\tHostID:{3}",
-//                    ex.ErrorCode, ex.Message, ex.RequestId, ex.HostId);
-//            }
-//            catch (Exception ex)
-//            {
-//                Console.WriteLine("Failed with error info: {0}", ex.Message);
-//            }
-//        }
+            // 下载对象
+            COSXMLDownloadTask downloadTask = new COSXMLDownloadTask(bucketName, objectName, localDir, savelocalFilename);
 
-//        /// <summary>
-//        /// 获取进度条
-//        /// </summary>
-//        /// <param name="client"></param>
-//        /// <param name="bucketName"></param>
-//        /// <param name="objectName"></param>
-//        /// <param name="downloadFilename"></param>
-//        public void GetObjectProgress(OssClient client, string bucketName, string objectName, string downloadFilename)
-//        {
-//            try
-//            {
-//                var getObjectRequest = new GetObjectRequest(bucketName, objectName);
-//                getObjectRequest.StreamTransferProgress += streamProgressCallback;
-//                // 下载文件。
-//                var ossObject = client.GetObject(getObjectRequest);
-//                using (var stream = ossObject.Content)
-//                {
-//                    var buffer = new byte[1024 * 1024];
-//                    var bytesRead = 0;
-//                    while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
-//                    {
-//                        // 处理读取的数据（此处代码省略）。
-//                    }
-//                }
-//                Console.WriteLine("Get object:{0} succeeded", objectName);
-//            }
-//            catch (OssException ex)
-//            {
-//                Console.WriteLine("Failed with error code: {0}; Error info: {1}. \nRequestID:{2}\tHostID:{3}",
-//                    ex.ErrorCode, ex.Message, ex.RequestId, ex.HostId);
-//            }
-//            catch (Exception ex)
-//            {
-//                Console.WriteLine("Failed with error info: {0}", ex.Message);
-//            }
-//        }
+            downloadTask.progressCallback = delegate (long completed, long total)
+            {
+                Console.WriteLine(String.Format("progress = {0:##.##}%", completed * 100.0 / total));
+            };
 
-//        private void streamProgressCallback(object sender, StreamTransferProgressArgs args)
-//        {
-//            System.Console.WriteLine("ProgressCallback - Progress: {0}%, TotalBytes:{1}, TransferredBytes:{2} ",
-//                args.TransferredBytes * 100 / args.TotalBytes, args.TotalBytes, args.TransferredBytes);
-//        }
-//    }
-//}
+            try
+            {
+                COSXML.Transfer.COSXMLDownloadTask.DownloadTaskResult result = await transferManager.DownloadAsync(downloadTask);
+                Console.WriteLine(result.GetResultInfo());
+                string eTag = result.eTag;
+            }
+            catch (COSXML.CosException.CosClientException clientEx)
+            {
+                //请求失败
+                Console.WriteLine("CosClientException: " + clientEx);
+            }
+            catch (COSXML.CosException.CosServerException serverEx)
+            {
+                //请求失败
+                Console.WriteLine("CosServerException: " + serverEx.GetInfo());
+            }
+        }
+
+        /// <summary>
+        /// 设置下载支持断点续传
+        /// </summary>
+        /// <param name="cosXml"></param>
+        /// <param name="bucketName"></param>
+        /// <param name="objectName"></param>
+        /// <param name="savelocalFilename"></param>
+        public async Task SeniorDownloadSupportBreakpointContinuationAsync(CosXml cosXml, string bucketName, string objectName, string savelocalFilename)
+        {
+            // 初始化 TransferConfig
+            TransferConfig transferConfig = new TransferConfig();
+
+            // 初始化 TransferManager
+            TransferManager transferManager = new TransferManager(cosXml, transferConfig);
+            string localDir = System.IO.Path.GetTempPath();//本地文件夹
+            GetObjectRequest request = new GetObjectRequest(bucketName,objectName,localDir,savelocalFilename);
+            COSXMLDownloadTask downloadTask = new COSXMLDownloadTask(request);
+            //开启断点续传，当本地存在未下载完成文件时，追加下载到文件末尾
+            //本地文件已存在部分不符合本次下载的内容，可能导致下载失败，请删除文件重试
+            downloadTask.SetResumableDownload(true);
+            try
+            {
+                COSXML.Transfer.COSXMLDownloadTask.DownloadTaskResult result = await transferManager.DownloadAsync(downloadTask);
+                Console.WriteLine(result.GetResultInfo());
+                string eTag = result.eTag;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("CosException: " + e);
+            }
+        }
+
+        /// <summary>
+        /// 批量下载
+        /// </summary>
+        /// <param name="cosXml"></param>
+        /// <param name="bucketName"></param>
+        /// <param name="objectName"></param>
+        /// <param name="savelocalFilename"></param>
+        public async Task SeniorBatchDownloadAsync(CosXml cosXml, string bucketName, string objectName, string savelocalFilename)
+        {
+            TransferConfig transferConfig = new TransferConfig();
+
+            // 初始化 TransferManager
+            TransferManager transferManager = new TransferManager(cosXml, transferConfig);
+            string localDir = System.IO.Path.GetTempPath();//本地文件夹
+
+            for (int i = 0; i < 5; i++)
+            {
+                // 下载对象
+                string cosPath = objectName + i; //对象在存储桶中的位置标识符，即称对象键
+                COSXMLDownloadTask downloadTask = new COSXMLDownloadTask(bucketName, cosPath, localDir, savelocalFilename);
+                await transferManager.DownloadAsync(downloadTask);
+            }
+        }
+
+        /// <summary>
+        /// 单链接限速下载
+        /// </summary>
+        /// <param name="cosXml"></param>
+        /// <param name="bucketName"></param>
+        /// <param name="objectName"></param>
+        /// <param name="savelocalFilename"></param>
+        public async Task SeniorLimitDownloadSingleLink(CosXml cosXml, string bucketName, string objectName, string savelocalFilename)
+        {
+            TransferConfig transferConfig = new TransferConfig();
+
+            // 初始化 TransferManager
+            TransferManager transferManager = new TransferManager(cosXml, transferConfig);
+            string localDir = System.IO.Path.GetTempPath();//本地文件夹
+
+            GetObjectRequest request = new GetObjectRequest(bucketName, objectName, localDir, savelocalFilename);
+            request.LimitTraffic(8 * 1000 * 1024); // 限制为1MB/s
+
+            COSXMLDownloadTask downloadTask = new COSXMLDownloadTask(request);
+            await transferManager.DownloadAsync(downloadTask);
+        }
+        #endregion
+
+        #region 简单接口  Simple
+        /// <summary>
+        /// 单对象简单下载
+        /// </summary>
+        /// <param name="cosXml"></param>
+        /// <param name="bucketName"></param>
+        /// <param name="objectName"></param>
+        /// <param name="savelocalFilename"></param>
+        public void SimpleDownloadObject(CosXml cosXml, string bucketName, string objectName, string savelocalFilename)
+        {
+            try
+            {
+                string localDir = System.IO.Path.GetTempPath();//本地文件夹
+                GetObjectRequest request = new GetObjectRequest(bucketName, objectName, localDir, savelocalFilename);
+                //设置进度回调
+                request.SetCosProgressCallback(delegate (long completed, long total)
+                {
+                    Console.WriteLine(String.Format("progress = {0:##.##}%", completed * 100.0 / total));
+                });
+                //执行请求
+                GetObjectResult result = cosXml.GetObject(request);
+                //请求成功
+                Console.WriteLine(result.GetResultInfo());
+            }
+            catch (COSXML.CosException.CosClientException clientEx)
+            {
+                //请求失败
+                Console.WriteLine("CosClientException: " + clientEx);
+            }
+            catch (COSXML.CosException.CosServerException serverEx)
+            {
+                //请求失败
+                Console.WriteLine("CosServerException: " + serverEx.GetInfo());
+            }
+        }
+
+        /// <summary>
+        /// 下载对象到内存中
+        /// </summary>
+        /// <param name="cosXml"></param>
+        /// <param name="bucketName"></param>
+        /// <param name="objectName"></param>
+        public void SimpleDownloadObjectToMem(CosXml cosXml, string bucketName, string objectName)
+        {
+            try
+            {
+                GetObjectBytesRequest request = new GetObjectBytesRequest(bucketName, objectName);
+                //设置进度回调
+                request.SetCosProgressCallback(delegate (long completed, long total)
+                {
+                    Console.WriteLine(String.Format("progress = {0:##.##}%", completed * 100.0 / total));
+                });
+                //执行请求
+                GetObjectBytesResult result = cosXml.GetObject(request);
+                //获取内容到 byte 数组中
+                byte[] content = result.content;
+                //请求成功
+                Console.WriteLine(result.GetResultInfo());
+            }
+            catch (COSXML.CosException.CosClientException clientEx)
+            {
+                //请求失败
+                Console.WriteLine("CosClientException: " + clientEx);
+            }
+            catch (COSXML.CosException.CosServerException serverEx)
+            {
+                //请求失败
+                Console.WriteLine("CosServerException: " + serverEx.GetInfo());
+            }
+        }
+
+        #endregion
+    }
+}
