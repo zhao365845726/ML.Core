@@ -131,6 +131,12 @@ namespace ML.Blend.Cloud.Baidu.ObjectStorageService
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 设置Bucket的访问权限
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="bucketName"></param>
+        /// <param name="cannedAccess"></param>
         public void SetBucketAcl(BosClient client, string bucketName, AccessControlType cannedAccess)
         {
             try
