@@ -30,7 +30,12 @@
       "ProjectGuid": "368a2094-2814-474b-aabf-ad9a8bfc3f6f",
       "DisplayName": "ML.Pay",
       "ColorIndex": 4
+    },
+    "b8d4f078-3a4f-461c-be30-0256c772451d": {
+      "ProjectGuid": "b8d4f078-3a4f-461c-be30-0256c772451d",
+      "DisplayName": "ML.CoreTests",
+      "ColorIndex": 5
     }
   },
-  "NextColorIndex": 5
+  "NextColorIndex": 6
 }
