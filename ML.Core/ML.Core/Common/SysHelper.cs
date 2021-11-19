@@ -60,14 +60,84 @@ namespace ML.Core
         #endregion
 
         #region 获取计算机基本信息
-        /// <summary>  
-        /// 获取本机机器名   
-        /// </summary>  
-        /// <returns></returns>  
+
+        public static string GetCommandLine()
+        {
+            return Environment.CommandLine;
+        }
+
+        public static string GetCurrentDirectory()
+        {
+            return Environment.CurrentDirectory;
+        }
+
+        public static string GetCustomDirectory(string env)
+        {
+            // Change the directory to %WINDIR%
+            return Environment.GetEnvironmentVariable(env);
+        }
+
+        public static List<string> GetCustomDirectory(string env,string separator)
+        {
+            List<string> lstRes = new List<string>();
+            // Change the directory to %WINDIR%
+            var data = Environment.GetEnvironmentVariable(env);
+            if (data.Contains(separator))
+            {
+                lstRes = data.Split(separator).ToList();
+            }
+            return lstRes;
+        }
+
+        public static int GetCurrentManagedThreadId()
+        {
+            return Environment.CurrentManagedThreadId;
+        }
+
+        public static bool GetHasShutdownStarted()
+        {
+            return Environment.HasShutdownStarted;
+        }
+
+        public static bool GetIs64BitOperatingSystem()
+        {
+            return Environment.Is64BitOperatingSystem;
+        }
+
+        public static bool GetIs64BitProcess()
+        {
+            return Environment.Is64BitProcess;
+        }
+
         public static string GetMachineName()
         {
-            return Environment.GetEnvironmentVariable("COMPUTERNAME");
+            return Environment.MachineName;
         }
+
+        public static string GetNewLine()
+        {
+            return Environment.NewLine;
+        }
+
+        //public static string GetOSVersion()
+        //{
+        //    return Environment.OSVersion;
+        //}
+
+        //public static string GetMachineName()
+        //{
+        //    return Environment.MachineName;
+        //}
+
+        //public static string GetMachineName()
+        //{
+        //    return Environment.MachineName;
+        //}
+
+        //public static string GetMachineName()
+        //{
+        //    return Environment.MachineName;
+        //}
 
         public static List<string> GetMacAddress(string separator = "-")
         {
@@ -129,7 +199,7 @@ namespace ML.Core
             return macAddress;
         }
 
-        public static Dictionary<string,string> GetMacAddressDic(string separator = "-")
+        public static Dictionary<string, string> GetMacAddressDic(string separator = "-")
         {
             //IPGlobalProperties computerProperties = IPGlobalProperties.GetIPGlobalProperties();
             NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
@@ -179,11 +249,11 @@ namespace ML.Core
                     var name = adapter.Name;
                     if (string.IsNullOrEmpty(separator))
                     {
-                        macAddress.Add(name,address.ToString());
+                        macAddress.Add(name, address.ToString());
                     }
                     else
                     {
-                        macAddress.Add(name,string.Join(separator, address.GetAddressBytes()));
+                        macAddress.Add(name, string.Join(separator, address.GetAddressBytes()));
                     }
                 }
             }
