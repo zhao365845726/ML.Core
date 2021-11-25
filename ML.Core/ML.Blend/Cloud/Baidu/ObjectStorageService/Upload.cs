@@ -308,10 +308,10 @@ namespace ML.Blend.Cloud.Baidu.ObjectStorageService
             throw new NotImplementedException();
         }
 
-        public void SimpleString(BosClient client, string bucketName, string objectName, string objectContent)
-        {
-            throw new NotImplementedException();
-        }
+        //public void SimpleString(BosClient client, string bucketName, string objectName, string objectContent)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public void Slice(BosClient client, string bucketName, string objectName, string localFilename)
         {

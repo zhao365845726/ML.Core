@@ -34,29 +34,29 @@ namespace ML.Blend.Cloud.Baidu.ObjectStorageService
             }
         }
 
-        public void SimpleDownloadObject(BosClient client, string bucketName, string objectName, string savelocalFilename)
-        {
-            try
-            {
+        //public void SimpleDownloadObject(BosClient client, string bucketName, string objectName, string savelocalFilename)
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-            }
-        }
+        //    }
+        //}
 
-        public void SimpleDownloadObject(BosClient client, string bucketName, string objectName, string savelocalFilename)
-        {
-            try
-            {
+        //public void SimpleDownloadObject(BosClient client, string bucketName, string objectName, string savelocalFilename)
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-            }
-        }
+        //    }
+        //}
         #endregion
 
         public void BreakPointContinue(BosClient client, string bucketName, string objectName, string downloadFilename)

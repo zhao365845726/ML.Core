@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ML.CoreTests": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}
