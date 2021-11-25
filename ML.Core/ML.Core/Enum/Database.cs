@@ -4,6 +4,49 @@ using System.Text;
 
 namespace ML.Core.Enum
 {
+    /// <summary>
+    /// 编译类的日期类型
+    /// </summary>
+    public enum BuildClassDateType
+    {
+        /// <summary>
+        /// 当天
+        /// </summary>
+        DAY = 0,
+        /// <summary>
+        /// 本周
+        /// </summary>
+        WEEK = 1,
+        /// <summary>
+        /// 本月
+        /// </summary>
+        MONTH = 2,
+        /// <summary>
+        /// 本年
+        /// </summary>
+        YEAR = 3,
+        /// <summary>
+        /// 自定义日期
+        /// </summary>
+        CUSTOM = 90,
+        /// <summary>
+        /// 自定义天
+        /// </summary>
+        CUSTOMDAY = 90,
+        /// <summary>
+        /// 自定义周
+        /// </summary>
+        CUSTOMWEEK = 90,
+        /// <summary>
+        /// 自定义月
+        /// </summary>
+        CUSTOMMONTH = 90,
+        /// <summary>
+        /// 自定义年
+        /// </summary>
+        CUSTOMYEAR = 90,
+    }
+
     public enum FieldType
     {
         INT = 1,

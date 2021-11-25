@@ -11,9 +11,29 @@ namespace ML.Core
     public class DatabaseClassAttribute : BaseAttribute
     {
         #region 声明变量
+        /// <summary>
+        /// 类名称
+        /// </summary>
         public string ClassName { get; set; }
+        /// <summary>
+        /// 类描述
+        /// </summary>
         public string ClassExplain { get; set; }
+        /// <summary>
+        /// 编译日期类型
+        /// </summary>
+        public BuildClassDateType BuildDateType { get; set; }
+        /// <summary>
+        /// 生成日期
+        /// </summary>
+        public string BuildDate { get; set; }
+        /// <summary>
+        /// 菜单名称
+        /// </summary>
         public string MenuName { get; set; }
+        /// <summary>
+        /// 是否显示菜单
+        /// </summary>
         public bool IsShowMenu { get; set; }
         #endregion
         /// <summary>
@@ -32,6 +52,14 @@ namespace ML.Core
             ClassExplain = explain;
         }
 
+        public DatabaseClassAttribute(string name, string explain, BuildClassDateType buildDateType,string buildDate)
+        {
+            ClassName = name;
+            ClassExplain = explain;
+            BuildDateType = buildDateType;
+            BuildDate = buildDate;
+        }
+
         public DatabaseClassAttribute(string name,string explain,string menuName,bool isShowMenu)
         {
             ClassName = name;
@@ -40,5 +68,14 @@ namespace ML.Core
             IsShowMenu = isShowMenu;
         }
 
+        public DatabaseClassAttribute(string name, string explain, string menuName, bool isShowMenu, BuildClassDateType buildDateType, string buildDate)
+        {
+            ClassName = name;
+            ClassExplain = explain;
+            MenuName = menuName;
+            IsShowMenu = isShowMenu;
+            BuildDateType = buildDateType;
+            BuildDate = buildDate;
+        }
     }
 }

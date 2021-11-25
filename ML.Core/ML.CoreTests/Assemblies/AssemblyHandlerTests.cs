@@ -12,12 +12,13 @@ namespace ML.Core.Assemblies.Tests
         [TestMethod()]
         public void GetAssemblyDictionaryResultTest()
         {
-            string path = @"C:\Env\local_dll\P-ElectromechanicalWell\netstandard2.1";
+            string path = @"F:\local_dll\P-ElectromechanicalWell\netstandard2.1";
             string assemblyName = "P-ElectromechanicalWell";
             string filterWords = "P_ElectromechanicalWell.DatabaseModel";
 
             AssemblyHandler assemblyHandler = new AssemblyHandler(path);
-            assemblyHandler.GetAssemblyDictionaryResult(assemblyName, filterWords);
+            var result = assemblyHandler.GetAssemblyDictionaryResult(assemblyName, filterWords);
+            Console.WriteLine(result);
         }
     }
 }
