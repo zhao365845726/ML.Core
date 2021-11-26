@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ML.Core.Enum;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -137,6 +138,7 @@ namespace ML.Core.Assemblies
         /// 获取程序集中的类名称
         /// </summary>
         /// <param name="assemblyName">程序集</param>
+        /// <param name="filterWords">过滤取出的类命名空间</param>
         /// <returns></returns>
         public Dictionary<string,DatabaseClassAttribute> GetClassNameDictionary(string assemblyName, string filterWords)
         {
@@ -149,9 +151,14 @@ namespace ML.Core.Assemblies
                 List<string> classList = new List<string>();
                 foreach (Type t in ts)
                 {
+                    if (t == null)
+                    {
+                        continue;
+                    }
                     //classList.Add(t.Name);
                     if (t.FullName.Contains(filterWords))
                     {
+                        //获取类的属性信息
                         var classAttributeInfoList = GetClassAttributeInfoList(assemblyName, t.FullName);
                         if(classAttributeInfoList == null)
                         {
@@ -159,6 +166,56 @@ namespace ML.Core.Assemblies
                         }
                         dicClass.Add(t.FullName, classAttributeInfoList);
                         classList.Add(t.FullName);
+                    }
+                }
+                assemblyResult.ClassName = classList;
+                return dicClass;
+            }
+            return new Dictionary<string, DatabaseClassAttribute>();
+        }
+
+        /// <summary>
+        /// 获取程序集中的类名称
+        /// </summary>
+        /// <param name="assemblyName">程序集</param>
+        /// <param name="filterWords">过滤取出的类命名空间</param>
+        /// <param name="buildClassDateType">生成类的日期类型</param>
+        /// <param name="buildDate">生成日期</param>
+        /// <returns></returns>
+        public Dictionary<string, DatabaseClassAttribute> GetClassNameDictionary(string assemblyName, string filterWords, BuildClassDateType buildClassDateType, string buildDate)
+        {
+            if (!String.IsNullOrEmpty(assemblyName))
+            {
+                //assemblyName = path + assemblyName;
+                Assembly assembly = Assembly.LoadFrom(assemblyName);
+                Type[] ts = assembly.GetTypes();
+                Dictionary<string, DatabaseClassAttribute> dicClass = new Dictionary<string, DatabaseClassAttribute>();
+                List<string> classList = new List<string>();
+                foreach (Type t in ts)
+                {
+                    if(t == null)
+                    {
+                        continue;
+                    }
+                    //classList.Add(t.Name);
+                    if (t.FullName.Contains(filterWords))
+                    {
+                        //获取类的属性信息
+                        var classAttributeInfoList = GetClassAttributeInfoList(assemblyName, t.FullName,buildClassDateType,buildDate);
+                        if (classAttributeInfoList == null)
+                        {
+                            continue;
+                        }
+                        //根据生成的日期和日期类型来自定义生成指定的类
+                        if(classAttributeInfoList.BuildDateType.Equals(buildClassDateType) && classAttributeInfoList.BuildDate.Equals(buildDate))
+                        {
+                            dicClass.Add(t.FullName, classAttributeInfoList);
+                            classList.Add(t.FullName);
+                        }
+                        else
+                        {
+                            continue;
+                        }
                     }
                 }
                 assemblyResult.ClassName = classList;
@@ -291,6 +348,37 @@ namespace ML.Core.Assemblies
         }
 
         /// <summary>
+        /// 获取类属性注解列表
+        /// </summary>
+        /// <param name="assemblyName"></param>
+        /// <param name="className"></param>
+        /// <param name="buildClassDateType">生成类的日期类型</param>
+        /// <param name="buildDate">生成日期</param>
+        /// <returns></returns>
+        public DatabaseClassAttribute GetClassAttributeInfoList(string assemblyName, string className, BuildClassDateType buildClassDateType, string buildDate)
+        {
+            if (!String.IsNullOrEmpty(assemblyName) && !String.IsNullOrEmpty(className))
+            {
+                Assembly assembly = Assembly.LoadFrom(assemblyName);
+                Type type = assembly.GetType(className, true, true);
+                if (type != null)
+                {
+                    DatabaseClassAttribute databaseClassAttribute = (DatabaseClassAttribute)type.GetCustomAttribute(typeof(DatabaseClassAttribute), true);
+                    /*
+                     * 如果生成日期类型小于等于0，或者生成日期类型与传入的不匹配
+                     * 或者生成日期为null，或者生成日期与传入不匹配则全部返回null
+                     */
+                    if(databaseClassAttribute.BuildDate == null || databaseClassAttribute.BuildDateType < 0 || !databaseClassAttribute.BuildDateType.Equals(buildClassDateType) || !databaseClassAttribute.BuildDate.Equals(buildDate))
+                    {
+                        return null;
+                    }
+                    return databaseClassAttribute;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
         /// 获取类的自定义属性
         /// </summary>
         /// <param name="t"></param>
@@ -374,8 +462,8 @@ namespace ML.Core.Assemblies
         /// <summary>
         /// 获取类方法列表
         /// </summary>
-        /// <param name="assemblyName"></param>
-        /// <param name="filterWords"></param>
+        /// <param name="assemblyName">程序集名称</param>
+        /// <param name="filterWords">过滤取出的类命名空间</param>
         /// <returns></returns>
         public AssemblyDictionaryResult GetAssemblyDictionaryResult(string assemblyName, string filterWords)
         {
@@ -389,6 +477,60 @@ namespace ML.Core.Assemblies
                 {
                     //将程序集和类字典
                     dicClass.Add(assemblyItem, GetClassNameDictionary(assemblyItem, filterWords));
+                    List<Dictionary<string, List<string>>> lstDicProperties = new List<Dictionary<string, List<string>>>();
+                    List<Dictionary<string, Dictionary<string, DatabaseAttribute>>> lstDicPropertiesAttributes = new List<Dictionary<string, Dictionary<string, DatabaseAttribute>>>();
+                    List<Dictionary<string, List<string>>> lstDicMethod = new List<Dictionary<string, List<string>>>();
+                    //获取类的属性列表
+                    foreach (var classItem in assemblyResult.ClassName)
+                    {
+                        Dictionary<string, List<string>> dicProperties = new Dictionary<string, List<string>>();
+                        dicProperties.Add(classItem, GetClassPropertiesInfoList(assemblyItem, classItem));
+                        lstDicProperties.Add(dicProperties);
+                    }
+                    //获取类的属性注解
+                    foreach (var classItem in assemblyResult.ClassName)
+                    {
+                        Dictionary<string, Dictionary<string, DatabaseAttribute>> dicPropertiesAttribute = new Dictionary<string, Dictionary<string, DatabaseAttribute>>();
+                        dicPropertiesAttribute.Add(classItem, GetClassPropertiesAttributeInfoList(assemblyItem, classItem));
+                        lstDicPropertiesAttributes.Add(dicPropertiesAttribute);
+                    }
+                    //获取类的方法列表
+                    foreach (var classItem in assemblyResult.ClassName)
+                    {
+                        Dictionary<string, List<string>> dicMethod = new Dictionary<string, List<string>>();
+                        dicMethod.Add(classItem, GetClassMethodsInfoList(assemblyItem, classItem));
+                        lstDicMethod.Add(dicMethod);
+                    }
+                    assemblyDictionaryResult.Properties = lstDicProperties;
+                    assemblyDictionaryResult.PropertiesAttributes = lstDicPropertiesAttributes;
+                    assemblyDictionaryResult.Methods = lstDicMethod;
+                }
+                assemblyDictionaryResult.ClassName = dicClass;
+            }
+
+            return assemblyDictionaryResult;
+        }
+
+        /// <summary>
+        /// 获取类方法列表
+        /// </summary>
+        /// <param name="assemblyName">程序集名称</param>
+        /// <param name="filterWords">过滤取出的类命名空间</param>
+        /// <param name="buildClassDateType">生成类的日期类型</param>
+        /// <param name="buildDate">生成日期</param>
+        /// <returns></returns>
+        public AssemblyDictionaryResult GetAssemblyDictionaryResult(string assemblyName, string filterWords, BuildClassDateType buildClassDateType,string buildDate)
+        {
+            AssemblyDictionaryResult assemblyDictionaryResult = new AssemblyDictionaryResult();
+            GetAssemblyNameList(assemblyName);
+            assemblyDictionaryResult.AssemblyName = assemblyResult.AssemblyName;
+            if (assemblyResult.AssemblyName.Count > 0)
+            {
+                Dictionary<string, Dictionary<string, DatabaseClassAttribute>> dicClass = new Dictionary<string, Dictionary<string, DatabaseClassAttribute>>();
+                foreach (var assemblyItem in assemblyResult.AssemblyName)
+                {
+                    //将程序集和类字典
+                    dicClass.Add(assemblyItem, GetClassNameDictionary(assemblyItem, filterWords,buildClassDateType,buildDate));
                     List<Dictionary<string, List<string>>> lstDicProperties = new List<Dictionary<string, List<string>>>();
                     List<Dictionary<string, Dictionary<string, DatabaseAttribute>>> lstDicPropertiesAttributes = new List<Dictionary<string, Dictionary<string, DatabaseAttribute>>>();
                     List<Dictionary<string, List<string>>> lstDicMethod = new List<Dictionary<string, List<string>>>();

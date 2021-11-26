@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Collections.Generic;
 using ML.Core;
+using ML.Core.Enum;
 //using ML.Blend.Cloud.Tencent;
 //using ML.Blend.Cloud.Tencent.ObjectStorageService;
 
@@ -119,7 +120,7 @@ namespace ConsoleApp1
             string filterWords = "P_ElectromechanicalWell.DatabaseModel";
 
             AssemblyHandler assemblyHandler = new AssemblyHandler(path);
-            var result = assemblyHandler.GetAssemblyDictionaryResult(assemblyName, filterWords);
+            var result = assemblyHandler.GetAssemblyDictionaryResult(assemblyName, filterWords, BuildClassDateType.DAY, "2021-11-25");
             Console.WriteLine(result);
         }
     }

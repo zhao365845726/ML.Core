@@ -3,6 +3,7 @@ using ML.Core.Assemblies;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ML.Core.Enum;
 
 namespace ML.Core.Assemblies.Tests
 {
@@ -17,7 +18,7 @@ namespace ML.Core.Assemblies.Tests
             string filterWords = "P_ElectromechanicalWell.DatabaseModel";
 
             AssemblyHandler assemblyHandler = new AssemblyHandler(path);
-            var result = assemblyHandler.GetAssemblyDictionaryResult(assemblyName, filterWords);
+            var result = assemblyHandler.GetAssemblyDictionaryResult(assemblyName, filterWords,BuildClassDateType.DAY,"2021-11-25");
             Console.WriteLine(result);
         }
     }
