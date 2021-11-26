@@ -28,7 +28,6 @@ namespace ConsoleApp1
             //Download_FlowType();
             //Upload_SimpleFile();
             //Bucket_Delete();
-            GetAssemblyDictionaryResult();
             //Bucket_Create();
             //SysHelper_Test();
             Console.WriteLine("Hello World!");
@@ -100,28 +99,6 @@ namespace ConsoleApp1
             accessKeySecret = tencent.accessKeySecret;
             endpoint = tencent.region;
 
-        }
-
-        public static void GetAssemblyDictionaryResult()
-        {
-            //string path = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"/nuget/";
-            ////string path = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-
-            //string path = @"F:\local_dll";
-
-            //string path = @"F:\local_dll\P_NetConfChina\netstandard2.1";
-            ////Console.WriteLine(path);
-            //AssemblyHandler assemblyHandler = new AssemblyHandler(path);
-            //var aa = assemblyHandler.GetAssemblyDictionaryResult("P-NetConfChina", "P_NetConfChina.DatabaseModel");
-
-
-            string path = @"F:\local_dll\P-ElectromechanicalWell\netstandard2.1";
-            string assemblyName = "P-ElectromechanicalWell";
-            string filterWords = "P_ElectromechanicalWell.DatabaseModel";
-
-            AssemblyHandler assemblyHandler = new AssemblyHandler(path);
-            var result = assemblyHandler.GetAssemblyDictionaryResult(assemblyName, filterWords, BuildClassDateType.DAY, "2021-11-25");
-            Console.WriteLine(result);
         }
     }
 }
