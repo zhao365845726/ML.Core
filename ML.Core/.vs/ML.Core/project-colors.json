@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "3efa9c2c-572d-4079-8519-005aeba8e0b2": {
+      "ProjectGuid": "3efa9c2c-572d-4079-8519-005aeba8e0b2",
+      "DisplayName": "ConsoleApp1",
+      "ColorIndex": 0
+    },
+    "e75a8388-4c25-48b0-bc0b-dfb81444c7ba": {
+      "ProjectGuid": "e75a8388-4c25-48b0-bc0b-dfb81444c7ba",
+      "DisplayName": "ML.Core",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "杂项文件",
+      "ColorIndex": -1
+    },
+    "b8d4f078-3a4f-461c-be30-0256c772451d": {
+      "ProjectGuid": "b8d4f078-3a4f-461c-be30-0256c772451d",
+      "DisplayName": "ML.CoreTests",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}

@@ -368,7 +368,7 @@ namespace ML.Core.Assemblies
                      * 如果生成日期类型小于等于0，或者生成日期类型与传入的不匹配
                      * 或者生成日期为null，或者生成日期与传入不匹配则全部返回null
                      */
-                    if(databaseClassAttribute.BuildDate == null || databaseClassAttribute.BuildDateType < 0 || !databaseClassAttribute.BuildDateType.Equals(buildClassDateType) || !databaseClassAttribute.BuildDate.Equals(buildDate))
+                    if(databaseClassAttribute == null || databaseClassAttribute.BuildDate == null || databaseClassAttribute.BuildDateType < 0 || !databaseClassAttribute.BuildDateType.Equals(buildClassDateType) || !databaseClassAttribute.BuildDate.Equals(buildDate))
                     {
                         return null;
                     }
