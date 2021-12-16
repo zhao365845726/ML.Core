@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ML.Core;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,6 +34,38 @@ namespace ML.Core.Tests
             string hx_info_token = rh.GenerateRandomNumber(32);
             string param = $"data[id][]={id}&data[captcha]={captcha}&data[network]={network}&data[dx_token]={dx_token}&data[dx_captcha_token]={dx_captcha_token}&data[hx_info][vid]={hx_info_vid}&data[hx_info][uid]={hx_info_uid}&data[hx_info][wnw]={hx_info_wnw}&data[hx_info][time]={hx_info_time}&data[hx_info][token]={hx_info_token}";
             var result = HttpHelper.HttpPostData("https://77ummtv3d3gmg.v.jisutp.com/sendVote", param);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod()]
+        public void GetTest()
+        {
+            //var result = HttpHelper.Get("https://localhost:44311/api/well/user/accountlogin?mobile=13111111111&password=123456");
+            //Console.WriteLine(result);
+
+            string param = $"https://localhost:44311/api/well/well/add?WellID=13&Owner=12&OwnerIdentityID=12&OwnerTel=12&WaterIntake=12&OrganizationID=12&Address=12&WateredLandArea=12&WateredLandAreaOfRight=12&WateredLandAreaOfNoRight=12&ConstructionPerson=12&Administrator=12&IsPeitao=false&EntryName=12&Latitude=12&Longitude=12&IrrigationCategory=12&CurrentSpeed=12&IrrigationArea=12&Diameter=12&BuildYear=12&Deep=12&Status=1&Creator=12";
+            var result = HttpHelper.Get(param);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod("机电井:添加")]
+        public void HttpPostDataTestWellAdd()
+        {
+            string param = $"WellID=13&Owner=12&OwnerIdentityID=12&OwnerTel=12&WaterIntake=12&OrganizationID=12&Address=12&WateredLandArea=12&WateredLandAreaOfRight=12&WateredLandAreaOfNoRight=12&ConstructionPerson=12&Administrator=12&IsPeitao=false&EntryName=12&Latitude=12&Longitude=12&IrrigationCategory=12&CurrentSpeed=12&IrrigationArea=12&Diameter=12&BuildYear=12&Deep=12&Status=1&Creator=12";
+            var result = HttpHelper.HttpPostData("https://localhost:44311/api/well/well/add", param);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod("新美光:采购入库列表查询")]
+        public void HttpPostDataTestNewMeguiar()
+        {
+            Dictionary<string, string> dicPara = new Dictionary<string, string>();
+            dicPara.Add("pageIndex", "1");
+            dicPara.Add("pageSize", "10");
+            dicPara.Add("isSum", "false");
+            string param = JsonConvert.SerializeObject(dicPara);
+            string baseUrl = "https://api.diwork.com/yonbip/scm/purinrecord/list?access_token=f0670039271f48e0a1e9672ecae51227";
+            var result = HttpHelper.HttpPostData<Object>(baseUrl, null,null,param);
             Console.WriteLine(result);
         }
     }

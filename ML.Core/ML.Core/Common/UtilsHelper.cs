@@ -1,4 +1,4 @@
-﻿using Senparc.Ncf.Core.Utility;
+﻿//using Senparc.Ncf.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -50,14 +50,14 @@ namespace ML.Core
             return decode;
         }
 
-        public static string EncryptionPassword(string password, string salt, bool isMD5Password)
-        {
-            string md5 = password.ToUpper().Replace("-", "");
-            if (!isMD5Password)
-            {
-                md5 = MD5.GetMD5Code(password, "").Replace("-", ""); //原始MD5
-            }
-            return MD5.GetMD5Code(md5, salt).Replace("-", ""); //再加密
-        }
+        //public static string EncryptionPassword(string password, string salt, bool isMD5Password)
+        //{
+        //    string md5 = password.ToUpper().Replace("-", "");
+        //    if (!isMD5Password)
+        //    {
+        //        md5 = MD5.GetMD5Code(password, "").Replace("-", ""); //原始MD5
+        //    }
+        //    return MD5.GetMD5Code(md5, salt).Replace("-", ""); //再加密
+        //}
     }
 }

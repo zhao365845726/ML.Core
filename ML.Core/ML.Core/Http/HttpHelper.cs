@@ -1,9 +1,11 @@
 ﻿//=====================================================================================
 // All Rights Reserved , Copyright © MLTechnology 2017-Now
 //=====================================================================================
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
@@ -263,9 +265,81 @@ namespace ML.Core
             return true;
         }
 
+        #region HttpGet请求
+        /// <summary>
+        /// 处理http GET请求，返回数据
+        /// </summary>
+        /// <param name="url">请求的url地址</param>
+        /// <returns>http GET成功后返回的数据，失败抛WebException异常</returns>
+        public static string Get(string url)
+        {
+            System.GC.Collect();
+            string result = "";
 
+            HttpWebRequest request = null;
+            HttpWebResponse response = null;
 
-        #region Http请求
+            //请求url以获取数据
+            try
+            {
+                //设置最大连接数
+                ServicePointManager.DefaultConnectionLimit = 200;
+                //设置https验证方式
+                if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
+                {
+                    ServicePointManager.ServerCertificateValidationCallback =
+                            new RemoteCertificateValidationCallback(CheckValidationResult);
+                }
+
+                /***************************************************************
+                * 下面设置HttpWebRequest的相关属性
+                * ************************************************************/
+                request = (HttpWebRequest)WebRequest.Create(url);
+
+                request.Method = "GET";
+
+                //设置代理
+                //WebProxy proxy = new WebProxy();
+                //proxy.Address = new Uri(WxPayConfig.PROXY_URL);
+                //request.Proxy = proxy;
+
+                //获取服务器返回
+                response = (HttpWebResponse)request.GetResponse();
+
+                //获取HTTP返回数据
+                StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+                result = sr.ReadToEnd().Trim();
+                sr.Close();
+            }
+            catch (System.Threading.ThreadAbortException e)
+            {
+                System.Threading.Thread.ResetAbort();
+            }
+            catch (WebException e)
+            {
+                throw new Exception(e.ToString());
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.ToString());
+            }
+            finally
+            {
+                //关闭连接和流
+                if (response != null)
+                {
+                    response.Close();
+                }
+                if (request != null)
+                {
+                    request.Abort();
+                }
+            }
+            return result;
+        }
+        #endregion
+
+        #region HttpPost请求
         /// <summary>
         ///  POST数据
         /// </summary>
@@ -284,6 +358,63 @@ namespace ML.Core
                 str = encoding.GetString(ret);
             }
             return str;
+        }
+
+        public static T HttpPostData<T>(string baseUrl, IReadOnlyDictionary<string, string> headers, IReadOnlyDictionary<string, string> urlParas, string requestBody = null)
+        {
+            var resuleJson = string.Empty;
+            try
+            {
+                var apiUrl = baseUrl;
+                if (urlParas != null) {
+                    foreach (KeyValuePair<string, string> kvp in urlParas)
+                    {
+                        if (apiUrl.IndexOf("{" + kvp.Key + "}") > -1)
+                        {
+                            apiUrl = apiUrl.Replace("{" + kvp.Key + "}", kvp.Value);
+                        }
+                        else
+                        {
+                            apiUrl += string.Format("{0}{1}={2}", apiUrl.Contains("?") ? "&" : "?", kvp.Key, kvp.Value);
+                        }
+                    }
+                }
+
+                var req = (HttpWebRequest)WebRequest.Create(apiUrl);
+                req.Method = "POST";
+                req.ContentType = "application/json"; //Defalt
+
+                if (!string.IsNullOrEmpty(requestBody))
+                {
+                    using (var postStream = new StreamWriter(req.GetRequestStream()))
+                    {
+                        postStream.Write(requestBody);
+                    }
+                }
+
+                if (headers != null)
+                {
+                    if (headers.Keys.Any(p => p.ToLower() == "content-type"))
+                        req.ContentType = headers.SingleOrDefault(p => p.Key.ToLower() == "content-type").Value;
+                    if (headers.Keys.Any(p => p.ToLower() == "accept"))
+                        req.Accept = headers.SingleOrDefault(p => p.Key.ToLower() == "accept").Value;
+                }
+
+                var response = (HttpWebResponse)req.GetResponse();
+
+                using (Stream stream = response.GetResponseStream())
+                {
+                    using (StreamReader reader = new StreamReader(stream, Encoding.GetEncoding("UTF-8")))
+                    {
+                        resuleJson = reader.ReadToEnd();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return default(T);
+            }
+            return JsonConvert.DeserializeObject<T>(resuleJson);
         }
 
         /// <summary>
@@ -557,77 +688,7 @@ namespace ML.Core
             return result;
         }
 
-        /// <summary>
-        /// 处理http GET请求，返回数据
-        /// </summary>
-        /// <param name="url">请求的url地址</param>
-        /// <returns>http GET成功后返回的数据，失败抛WebException异常</returns>
-        public static string Get(string url)
-        {
-            System.GC.Collect();
-            string result = "";
-
-            HttpWebRequest request = null;
-            HttpWebResponse response = null;
-
-            //请求url以获取数据
-            try
-            {
-                //设置最大连接数
-                ServicePointManager.DefaultConnectionLimit = 200;
-                //设置https验证方式
-                if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
-                {
-                    ServicePointManager.ServerCertificateValidationCallback =
-                            new RemoteCertificateValidationCallback(CheckValidationResult);
-                }
-
-                /***************************************************************
-                * 下面设置HttpWebRequest的相关属性
-                * ************************************************************/
-                request = (HttpWebRequest)WebRequest.Create(url);
-
-                request.Method = "GET";
-
-                //设置代理
-                //WebProxy proxy = new WebProxy();
-                //proxy.Address = new Uri(WxPayConfig.PROXY_URL);
-                //request.Proxy = proxy;
-
-                //获取服务器返回
-                response = (HttpWebResponse)request.GetResponse();
-
-                //获取HTTP返回数据
-                StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
-                result = sr.ReadToEnd().Trim();
-                sr.Close();
-            }
-            catch (System.Threading.ThreadAbortException e)
-            {
-                System.Threading.Thread.ResetAbort();
-            }
-            catch (WebException e)
-            {
-                throw new Exception(e.ToString());
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.ToString());
-            }
-            finally
-            {
-                //关闭连接和流
-                if (response != null)
-                {
-                    response.Close();
-                }
-                if (request != null)
-                {
-                    request.Abort();
-                }
-            }
-            return result;
-        }
+        
         #endregion
 
         #region 获取网页

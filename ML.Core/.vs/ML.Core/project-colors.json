@@ -20,7 +20,12 @@
       "ProjectGuid": "b8d4f078-3a4f-461c-be30-0256c772451d",
       "DisplayName": "ML.CoreTests",
       "ColorIndex": 2
+    },
+    "6a3e2d99-f845-44a4-b4e3-0238231524b4": {
+      "ProjectGuid": "6a3e2d99-f845-44a4-b4e3-0238231524b4",
+      "DisplayName": "ML.Blend",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 3
+  "NextColorIndex": 4
 }

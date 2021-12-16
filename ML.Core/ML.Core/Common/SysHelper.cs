@@ -77,17 +77,17 @@ namespace ML.Core
             return Environment.GetEnvironmentVariable(env);
         }
 
-        public static List<string> GetCustomDirectory(string env,string separator)
-        {
-            List<string> lstRes = new List<string>();
-            // Change the directory to %WINDIR%
-            var data = Environment.GetEnvironmentVariable(env);
-            if (data.Contains(separator))
-            {
-                lstRes = data.Split(separator).ToList();
-            }
-            return lstRes;
-        }
+        //public static List<string> GetCustomDirectory(string env,string separator)
+        //{
+        //    List<string> lstRes = new List<string>();
+        //    // Change the directory to %WINDIR%
+        //    var data = Environment.GetEnvironmentVariable(env);
+        //    if (data.Contains(separator))
+        //    {
+        //        lstRes = data.Split(separator).ToList();
+        //    }
+        //    return lstRes;
+        //}
 
         public static int GetCurrentManagedThreadId()
         {

@@ -44,18 +44,18 @@ namespace ML.Core.Tests
             Console.WriteLine(result);
         }
 
-        [TestMethod()]
-        public void GetCustomDirectoryTest1()
-        {
-            var result = SysHelper.GetCustomDirectory("Path",";");
-            foreach(var item in result)
-            {
-                if (!string.IsNullOrEmpty(item))
-                {
-                    Console.WriteLine(item);
-                }
-            }
-            Console.WriteLine(result.ToJson());
-        }
+        //[TestMethod()]
+        //public void GetCustomDirectoryTest1()
+        //{
+        //    var result = SysHelper.GetCustomDirectory("Path",";");
+        //    foreach(var item in result)
+        //    {
+        //        if (!string.IsNullOrEmpty(item))
+        //        {
+        //            Console.WriteLine(item);
+        //        }
+        //    }
+        //    Console.WriteLine(result.ToJson());
+        //}
     }
 }
