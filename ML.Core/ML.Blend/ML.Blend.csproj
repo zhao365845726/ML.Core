@@ -80,6 +80,7 @@
     <Folder Include="Cloud\AWS\" />
     <Folder Include="Cloud\Azure\" />
     <Folder Include="Cloud\Huawei\" />
+    <Folder Include="Cloud\Synology\" />
   </ItemGroup>
 
 </Project>

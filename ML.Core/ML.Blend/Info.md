@@ -45,3 +45,7 @@ https://developers.weixin.qq.com/doc/
 
 中科院软件所、华为、腾讯云、阿里云、百度、麒麟软件、建信金科、微众银行、中兴、蚂蚁集团、凝思软件、七牛云、AWS、Azure、国资云
 
+## 群晖
+
+https://kb.synology.cn/zh-cn/search?sources%5B%5D=developer_guide
+
