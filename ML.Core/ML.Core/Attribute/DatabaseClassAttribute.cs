@@ -1,5 +1,6 @@
 ﻿using ML.Core.Enum;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace ML.Core
@@ -35,6 +36,10 @@ namespace ML.Core
         /// 是否显示菜单
         /// </summary>
         public bool IsShowMenu { get; set; }
+        /// <summary>
+        /// object类型可以是string|PropertyInfo
+        /// </summary>
+        public IDictionary<string, object> RelationFieldCollection { get; set; }
         #endregion
         /// <summary>
         /// DatabaseAttribute 构造函数
@@ -52,12 +57,28 @@ namespace ML.Core
             ClassExplain = explain;
         }
 
+        public DatabaseClassAttribute(string name, string explain, IDictionary<string, object> relationFieldCollection)
+        {
+            ClassName = name;
+            ClassExplain = explain;
+            RelationFieldCollection = relationFieldCollection;
+        }
+
         public DatabaseClassAttribute(string name, string explain, BuildClassDateType buildDateType,string buildDate)
         {
             ClassName = name;
             ClassExplain = explain;
             BuildDateType = buildDateType;
             BuildDate = buildDate;
+        }
+
+        public DatabaseClassAttribute(string name, string explain, BuildClassDateType buildDateType, string buildDate, IDictionary<string, object> relationFieldCollection)
+        {
+            ClassName = name;
+            ClassExplain = explain;
+            BuildDateType = buildDateType;
+            BuildDate = buildDate;
+            RelationFieldCollection = relationFieldCollection;
         }
 
         public DatabaseClassAttribute(string name,string explain,string menuName,bool isShowMenu)

@@ -19,7 +19,10 @@ namespace ML.Core
         public int FieldLen { get; set; }
         public FormControllerType FormControllerType { get; set; }
         public string FormControllerValue { get; set; }
-        public IDictionary<string, object> RelationFieldCollection { get; set; }
+        /// <summary>
+        /// object类型可以是string|PropertyInfo
+        /// </summary>
+        public object RelationField { get; set; }
         public bool InParam { get; set; }
         public bool OutParam { get; set; }
         public bool Ignore { get; set; }
@@ -56,7 +59,7 @@ namespace ML.Core
             OutParam = outParam;
         }
 
-        public DatabaseAttribute(FieldType fieldType, string fieldName, string fieldExplain, int fieldLen, FormControllerType formControllerType, string formControllerValue,IDictionary<string,object> relationFieldCollection)
+        public DatabaseAttribute(FieldType fieldType, string fieldName, string fieldExplain, int fieldLen, FormControllerType formControllerType, string formControllerValue,object relationField)
         {
             FieldType = fieldType;
             FieldName = fieldName;
@@ -64,7 +67,7 @@ namespace ML.Core
             FieldLen = fieldLen;
             FormControllerType = formControllerType;
             FormControllerValue = formControllerValue;
-            RelationFieldCollection = relationFieldCollection;
+            RelationField = relationField;
         }
     }
 }

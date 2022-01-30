@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;netstandard2.1;</TargetFrameworks>
 		<LangVersion>8.0</LangVersion>
-		<Version>1.0.75-beta1</Version>
+		<Version>1.0.76-beta1</Version>
 		<AssemblyName>ML.Core</AssemblyName>
 		<RootNamespace>ML.Core</RootNamespace>
 		<GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
