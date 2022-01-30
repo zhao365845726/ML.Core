@@ -1,5 +1,7 @@
 ﻿using ML.Core.Enum;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace ML.Core
@@ -17,6 +19,7 @@ namespace ML.Core
         public int FieldLen { get; set; }
         public FormControllerType FormControllerType { get; set; }
         public string FormControllerValue { get; set; }
+        public IDictionary<string, object> RelationFieldCollection { get; set; }
         public bool InParam { get; set; }
         public bool OutParam { get; set; }
         public bool Ignore { get; set; }
@@ -53,5 +56,15 @@ namespace ML.Core
             OutParam = outParam;
         }
 
+        public DatabaseAttribute(FieldType fieldType, string fieldName, string fieldExplain, int fieldLen, FormControllerType formControllerType, string formControllerValue,IDictionary<string,object> relationFieldCollection)
+        {
+            FieldType = fieldType;
+            FieldName = fieldName;
+            FieldExplain = fieldExplain;
+            FieldLen = fieldLen;
+            FormControllerType = formControllerType;
+            FormControllerValue = formControllerValue;
+            RelationFieldCollection = relationFieldCollection;
+        }
     }
 }
