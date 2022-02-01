@@ -31,6 +31,16 @@ namespace ConsoleApp1
         {
             Student student = new Student("MartyZane");
 
+            //LazyValue<string> lazyThree = new LazyValue<string>(() => student.ExpensiveThree("hahaha"));
+
+            //TODO:Func之间嵌套使用
+            student.PrintNesting();
+            student.PrintNesting("嵌套使用的函数");
+            student.PrintNesting("嵌套使用的函数","p2");
+            student.PrintNesting("嵌套使用的函数","p2","p3");
+            student.PrintNesting("嵌套使用的函数","p2","p3","p4");
+            student.PrintNesting("嵌套使用的函数","p2","p3","p4","p5");
+
             //TODO:使用 Func<TResult> 委托时，无需显式定义用于封装无参数方法的委托
             //WriteMethod methodCall = student.SendToFile;
             //Func<bool> methodCall = student.SendToFile;
