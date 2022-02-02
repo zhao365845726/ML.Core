@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ConsoleApp1
 {
+    
     public class Student
     {
         private string instanceName;

@@ -24,7 +24,89 @@ namespace ConsoleApp1
         {
             //TestStudent();
             //TestDelegate();
-            TestFunc();
+            //TestFunc();
+            //TestTuple();
+            //TestValueTuple();
+            //TestSystemInfo();
+            TestConsole();
+        }
+
+        static void TestConsole()
+        {
+            //Console.BackgroundColor = ConsoleColor.Green;
+            //Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Title = "演示";
+            Console.CursorLeft = 50;
+            Console.CursorTop = 1;
+            Console.CursorSize = 90;
+            Console.CursorVisible = false;
+            Console.WriteLine("Hello World");
+            Console.WriteLine(" ______________");
+            Console.WriteLine("|");
+            Console.WriteLine("||");
+            Console.WriteLine("||");
+            Console.WriteLine("||");
+            Console.WriteLine("||");
+            Console.WriteLine("|______________");
+
+            Console.ReadLine();
+        }
+
+        static void TestSystemInfo()
+        {
+            Assembly assembly = typeof(Program).Assembly;
+            AssemblyName assemblyName = assembly.GetName();
+            Version ver = assemblyName.Version;
+            Console.WriteLine("This is version {0} of {1}.", ver, assemblyName.Name);
+        }
+
+        static void TestValueTuple()
+        {
+            var tuple = ValueTuple.Create(1);
+            Console.WriteLine(tuple.ToTuple<int>().Item1);
+
+            var tuple1 = ValueTuple.Create(1, 2, 3, 4, 5);
+            Console.WriteLine(tuple1);
+
+            var tuple2 = new ValueTuple<int, int, int, int, int, int>();
+            tuple2.Item1 = 1;
+            tuple2.Item5 = 10;
+            Console.WriteLine(tuple2.Item1);
+        }
+
+        static void TestTuple()
+        {
+            var tuple2 = Tuple.Create(10,11,12);
+            var tuple3 = new Tuple<Tuple<int,int,int>, int>(tuple2, 10);
+            Console.WriteLine($"{tuple3.Item1.Item2}----{tuple3.Item2}");
+
+            var tuple1 = Tuple.Create(12,13);
+            Console.WriteLine(tuple1.Item2);     // Displays 12
+
+            // Create a 7-tuple.
+            var population1 = Tuple.Create("New York", 7891957, 7781984, 7894862, 7071639, 7322564, 8008278);
+            // Display the first and last elements.
+            Console.WriteLine("Population of {0} in 2000: {1:N0}",
+                              population1.Item1, population1.Item7);
+            // The example displays the following output:
+            //       Population of New York in 2000: 8,008,278
+
+            // Create a 7-tuple.
+            var population = new Tuple<string, int, int, int, int, int, int>(
+                                       "New York", 7891957, 7781984,
+                                       7894862, 7071639, 7322564, 8008278);
+            // Display the first and last elements.
+            Console.WriteLine("Population of {0} in 2000: {1:N0}",
+                              population.Item1, population.Item7);
+            // The example displays the following output:
+            //       Population of New York in 2000: 8,008,278
+
+            var primes = Tuple.Create(1, 2, 3, 4, 5, 6, 7, 8);
+            Console.WriteLine("Prime numbers less than 20: " +
+                  "{0}, {1}, {2}, {3}, {4}, {5}, {6}, and {7}",
+                  primes.Item1, primes.Item2, primes.Item3,
+                  primes.Item4, primes.Item5, primes.Item6,
+                  primes.Item7, primes.Rest.Item1);
         }
 
         static void TestFunc()
