@@ -136,6 +136,16 @@ namespace ConsoleApp1
             return $"Hello {input}";
         }
 
+        public StringBuilder ExpensiveFour(string input)
+        {
+            StringBuilder sb = new StringBuilder();
+            Console.WriteLine($"ExpensiveThree() is executing.");
+            sb.Append(input);
+            return sb;
+        }
+
+        public extern TResult ExpensiveFive<TSource, TResult>(TSource source, Func<TSource, TResult> selector);
+
         public bool SendToFile()
         {
             try

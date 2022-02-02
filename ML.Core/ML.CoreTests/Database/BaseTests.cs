@@ -12,8 +12,9 @@ namespace ML.Core.Database.Tests
         [TestMethod()]
         public void BaseTest()
         {
-            Base _base = new Base();
-            _base.Select("id,name,gender");
+            Base.SqlHandle("H")
+                .Sql
+                
         }
     }
 }

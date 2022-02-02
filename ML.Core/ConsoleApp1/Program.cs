@@ -19,12 +19,13 @@ namespace ConsoleApp1
         public delegate void ShowValueP3(string p1,string p2,string p3);
 
         public delegate bool WriteMethod();
+        public delegate StringBuilder ShowValueP4(string value);
 
         static void Main(string[] args)
         {
             //TestStudent();
             //TestDelegate();
-            //TestFunc();
+            TestFunc();
             //TestTuple();
             //TestValueTuple();
             //TestSystemInfo();
@@ -92,6 +93,15 @@ namespace ConsoleApp1
             Student student = new Student("MartyZane");
 
             //LazyValue<string> lazyThree = new LazyValue<string>(() => student.ExpensiveThree("hahaha"));
+
+            //var result = student.ExpensiveFive<string, StringBuilder>("hahah",() => new StringBuilder());
+            //Console.WriteLine(result);
+
+            var funcFour = student.ExpensiveFour("aaaa");
+
+            ShowValueP4 showValueP4;
+            showValueP4 = student.ExpensiveFour;
+            Console.WriteLine(showValueP4($"hahaha-----{funcFour.ToString()}"));
 
             //TODO:Func之间嵌套使用
             student.PrintNesting();
