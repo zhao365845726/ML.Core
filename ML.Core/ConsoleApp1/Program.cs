@@ -28,28 +28,6 @@ namespace ConsoleApp1
             //TestTuple();
             //TestValueTuple();
             //TestSystemInfo();
-            TestConsole();
-        }
-
-        static void TestConsole()
-        {
-            //Console.BackgroundColor = ConsoleColor.Green;
-            //Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Title = "演示";
-            Console.CursorLeft = 50;
-            Console.CursorTop = 1;
-            Console.CursorSize = 90;
-            Console.CursorVisible = false;
-            Console.WriteLine("Hello World");
-            Console.WriteLine(" ______________");
-            Console.WriteLine("|");
-            Console.WriteLine("||");
-            Console.WriteLine("||");
-            Console.WriteLine("||");
-            Console.WriteLine("||");
-            Console.WriteLine("|______________");
-
-            Console.ReadLine();
         }
 
         static void TestSystemInfo()
