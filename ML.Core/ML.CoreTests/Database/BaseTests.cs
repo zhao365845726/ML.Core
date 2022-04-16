@@ -12,8 +12,6 @@ namespace ML.Core.Database.Tests
         [TestMethod()]
         public void BaseTest()
         {
-            Base.SqlHandle("H")
-                .Sql
                 
         }
     }
