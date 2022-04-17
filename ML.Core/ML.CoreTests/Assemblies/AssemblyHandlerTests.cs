@@ -3,7 +3,7 @@ using ML.Core.Assemblies;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using ML.Core.Enum;
+//using ML.Core.Enum;
 
 namespace ML.Core.Assemblies.Tests
 {
@@ -17,9 +17,9 @@ namespace ML.Core.Assemblies.Tests
             string assemblyName = "P-NetConfChina";
             string filterWords = "P_NetConfChina.DatabaseModel";
 
-            AssemblyHandler assemblyHandler = new AssemblyHandler(path);
-            var result = assemblyHandler.GetAssemblyDictionaryResult(assemblyName, filterWords,BuildClassDateType.DAY,"2021-12-05");
-            Console.WriteLine(result);
+            //AssemblyHandler assemblyHandler = new AssemblyHandler(path);
+            //var result = assemblyHandler.GetAssemblyDictionaryResult(assemblyName, filterWords,BuildClassDateType.DAY,"2021-12-05");
+            //Console.WriteLine(result);
         }
     }
 }

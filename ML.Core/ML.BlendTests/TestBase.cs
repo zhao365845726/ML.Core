@@ -10,8 +10,8 @@ namespace ML.BlendTests
 {
     public class TestBase<T> : Data
     {
-        public string ConfigFile = @"E:\_GitHub\ML.Core\ML.Core\ConsoleApp1\config.json";
-        //public string ConfigFile = @"C:\Code\02-Github\ML.Core\ML.Core\ConsoleApp1\config.json";
+        //public string ConfigFile = @"E:\_GitHub\ML.Core\ML.Core\ConsoleApp1\config.json";
+        public string ConfigFile = @"C:\Code\02-Github\ML.Core\ML.Core\ConsoleApp1\config.json";
 
         public T GetEntities(string filePath,string node)
         {
