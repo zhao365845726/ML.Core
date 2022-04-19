@@ -47,11 +47,24 @@ namespace ML.Blend.Cloud.Azure.Cosmos
             Console.WriteLine("Created Container: {0}\n", this.container.Id);
         }
 
-        public async Task CreateItemAsync(string key,string value)
+        public async Task CreateItemAsync<T>(T entity, string id, string key)
         {
-            await CreateDatabaseIfNotExistsAsync();
-            await CreateContainerAsync();
-            await this.container.CreateItemAsync(key, new PartitionKey(value));
+            try
+            {
+                await CreateDatabaseIfNotExistsAsync();
+                await CreateContainerAsync();
+                // Read the item to see if it exists.  
+                ItemResponse<T> andersenFamilyResponse = await this.container.ReadItemAsync<T>(id, new PartitionKey(key));
+                Console.WriteLine("Item in database with id: {0} already exists\n", andersenFamilyResponse.Resource);
+            }
+            catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
+            {
+                // Create an item in the container representing the Andersen family. Note we provide the value of the partition key for this item, which is "Andersen"
+                ItemResponse<T> andersenFamilyResponse = await this.container.CreateItemAsync<T>(entity, new PartitionKey(key));
+
+                // Note that after creating the item, we can access the body of the item with the Resource property off the ItemResponse. We can also access the RequestCharge property to see the amount of RUs consumed on this request.
+                Console.WriteLine("Created item in database with id: {0} Operation consumed {1} RUs.\n", andersenFamilyResponse.Resource, andersenFamilyResponse.RequestCharge);
+            }
         }
 
         public async Task UpsertItemAsync(string key, string value)
@@ -97,6 +110,25 @@ namespace ML.Blend.Cloud.Azure.Cosmos
             }
 
         }
+
+        public async Task AddItemsToContainerAsync<T>(T entity,string id,string key)
+        {
+            try
+            {
+                // Read the item to see if it exists.  
+                ItemResponse<T> andersenFamilyResponse = await this.container.ReadItemAsync<T>(id, new PartitionKey(key));
+                Console.WriteLine("Item in database with id: {0} already exists\n", andersenFamilyResponse.Resource);
+            }
+            catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
+            {
+                // Create an item in the container representing the Andersen family. Note we provide the value of the partition key for this item, which is "Andersen"
+                ItemResponse<T> andersenFamilyResponse = await this.container.CreateItemAsync<T>(entity, new PartitionKey(key));
+
+                // Note that after creating the item, we can access the body of the item with the Resource property off the ItemResponse. We can also access the RequestCharge property to see the amount of RUs consumed on this request.
+                Console.WriteLine("Created item in database with id: {0} Operation consumed {1} RUs.\n", andersenFamilyResponse.Resource, andersenFamilyResponse.RequestCharge);
+            }
+        }
+
 
         public async Task AddItemsToContainerAsync()
         {
