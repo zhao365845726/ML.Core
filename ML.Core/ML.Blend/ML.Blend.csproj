@@ -1,43 +1,43 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;netstandard2.0;netcoreapp2.0;netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
-    <LangVersion>8.0</LangVersion>
-    <Version>0.2.20-beta1</Version>
-    <AssemblyName>ML.Blend</AssemblyName>
-    <RootNamespace>ML.Blend</RootNamespace>
-    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
-    <Description>ML.Blend</Description>
-    <Copyright>MLTechnology</Copyright>
-    <PackageTags>MLTechnology,Core,Class,Library</PackageTags>
-    <Authors>MLTechnology</Authors>
-    <Owners>MLTechnology</Owners>
-    <PackageLicenseUrl>https://github.com/zhao365845726/ML.Core/blob/master/LICENSE</PackageLicenseUrl>
-    <Title>ML.Core</Title>
-    <ProjectUrl> https://github.com/zhao365845726/ML.Core </ProjectUrl>
-    <PackageProjectUrl>https://github.com/zhao365845726/ML.Core</PackageProjectUrl>
-    <PackageIconUrl>http://image.milisx.com/logox200.png</PackageIconUrl>
-    <PackageReleaseNotes>
-      v0.1 创世
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1;netstandard2.0;netcoreapp2.0;netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
+		<LangVersion>8.0</LangVersion>
+		<Version>0.2.20-beta1</Version>
+		<AssemblyName>ML.Blend</AssemblyName>
+		<RootNamespace>ML.Blend</RootNamespace>
+		<GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+		<Description>ML.Blend</Description>
+		<Copyright>MLTechnology</Copyright>
+		<PackageTags>MLTechnology,Core,Class,Library</PackageTags>
+		<Authors>MLTechnology</Authors>
+		<Owners>MLTechnology</Owners>
+		<PackageLicenseUrl>https://github.com/zhao365845726/ML.Core/blob/master/LICENSE</PackageLicenseUrl>
+		<Title>ML.Core</Title>
+		<ProjectUrl> https://github.com/zhao365845726/ML.Core </ProjectUrl>
+		<PackageProjectUrl>https://github.com/zhao365845726/ML.Core</PackageProjectUrl>
+		<PackageIconUrl>http://image.milisx.com/logox200.png</PackageIconUrl>
+		<PackageReleaseNotes>
+			v0.1 创世
 			v0.2 快速对接阿里云OSS对象存储
 			v0.2.20 快速对接七牛云对象存储
-			        快速对接腾讯云对象存储
-			        快读对接百度云对象存储
-    </PackageReleaseNotes>
-    <RepositoryUrl> https://github.com/zhao365845726/ML.Core </RepositoryUrl>
-    <Configurations>Debug;Release;Test</Configurations>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
+			快速对接腾讯云对象存储
+			快读对接百度云对象存储
+		</PackageReleaseNotes>
+		<RepositoryUrl> https://github.com/zhao365845726/ML.Core </RepositoryUrl>
+		<Configurations>Debug;Release;Test</Configurations>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>..\..\BuildOutPut</OutputPath>
-    <DocumentationFile>..\..\BuildOutPut\ML.Blend.XML</DocumentationFile>
-    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<OutputPath>..\..\BuildOutPut</OutputPath>
+		<DocumentationFile>..\..\BuildOutPut\ML.Blend.XML</DocumentationFile>
+		<DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+		<Optimize>true</Optimize>
+		<DebugType>pdbonly</DebugType>
+		<ErrorReport>prompt</ErrorReport>
+		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
 		<!--<OutputPath>F:\local_nuget</OutputPath>-->
@@ -50,37 +50,38 @@
 		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
 	</PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="AlibabaCloud.SDK.Alidns20150109" Version="2.0.1" />
+		<PackageReference Include="AlibabaCloud.SDK.Alidns20150109" Version="2.0.1" />
 		<PackageReference Include="AlibabaCloud.SDK.Dysmsapi20170525" Version="1.0.3" />
-    <!--阿里云对象存储OSS-->
-    <PackageReference Include="Aliyun.OSS.SDK.NetCore" Version="2.13.0" />
-    <!--腾讯云-->
-    <PackageReference Include="TencentCloudSDK" Version="3.0.361" />
-    <!--腾讯云对象存储-->
-    <PackageReference Include="Tencent.QCloud.Cos.Sdk" Version="5.4.23" />
-    <!--七牛云对象存储-->
-    <PackageReference Include="Qiniu.Shared" Version="7.2.15" />
-  </ItemGroup>
+		<!--阿里云对象存储OSS-->
+		<PackageReference Include="Aliyun.OSS.SDK.NetCore" Version="2.13.0" />
+		<!--腾讯云-->
+		<PackageReference Include="TencentCloudSDK" Version="3.0.361" />
+		<!--腾讯云对象存储-->
+		<PackageReference Include="Tencent.QCloud.Cos.Sdk" Version="5.4.23" />
+		<!--七牛云对象存储-->
+		<PackageReference Include="Qiniu.Shared" Version="7.2.15" />
+		<!--Azure Cosmos-->
+		<PackageReference Include="Microsoft.Azure.Cosmos" Version="3.12.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="BceSdkDotNet">
-      <HintPath>..\..\lib\bce-dotnet-sdk-1.0.4\BceSdkDotNet.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\lib\bce-dotnet-sdk-1.0.4\thirdparty\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\lib\bce-dotnet-sdk-1.0.4\thirdparty\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+	<ItemGroup>
+		<Reference Include="BceSdkDotNet">
+			<HintPath>..\..\lib\bce-dotnet-sdk-1.0.4\BceSdkDotNet.dll</HintPath>
+		</Reference>
+		<Reference Include="log4net">
+			<HintPath>..\..\lib\bce-dotnet-sdk-1.0.4\thirdparty\log4net.dll</HintPath>
+		</Reference>
+		<Reference Include="Newtonsoft.Json">
+			<HintPath>..\..\lib\bce-dotnet-sdk-1.0.4\thirdparty\Newtonsoft.Json.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Cloud\AWS\" />
-    <Folder Include="Cloud\Azure\" />
-    <Folder Include="Cloud\Huawei\" />
-    <Folder Include="Cloud\Synology\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Cloud\AWS\" />
+		<Folder Include="Cloud\Huawei\" />
+		<Folder Include="Cloud\Synology\" />
+	</ItemGroup>
 
 </Project>
