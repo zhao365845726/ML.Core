@@ -13,6 +13,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  nugetPackageName: 'ML.Core'
 
 steps:
 - task: NuGetToolInstaller@1
@@ -32,3 +33,24 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+    
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'off'
+
+# ...
+# do this near the end of your pipeline in most cases
+- script: dotnet pack /p:PackageVersion=$(version)  # define version variable elsewhere in your pipeline
+- task: NuGetAuthenticate@0
+  inputs:
+    nuGetServiceConnections: 'Nuget-$(nugetPackageName)'
+- task: NuGetCommand@2
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: '$(nugetPackageName)'
+    versioningScheme: byEnvVar
+    versionEnvVar: version
