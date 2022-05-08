@@ -128,26 +128,6 @@ namespace ML.Core
             }
             return blnRst;
         }
-        /// <summary>
-        /// 实现压缩，需要rar.exe上传到网站根目录
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="d"></param>
-        /// <example>rar("e:/www.svnhost.cn/", "e:/www.svnhost.cn.rar");</example>
-        public static void Rar(string s, string d)
-        {
-            //ExeCommand(System.Web.HttpContext.Current.Server.MapPath("~/rar.exe") + " a \"" + d + "\" \"" + s + "\" -ep1");
-        }
-        /// <summary>
-        /// 实现解压缩，需要rar.exe上传到网站根目录
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="d"></param>
-        /// <example>unrar("e:/www.svnhost.cn.rar", "e:/");</example>
-        public static void UnRar(string s, string d)
-        {
-            //ExeCommand(System.Web.HttpContext.Current.Server.MapPath("~/rar.exe") + " x \"" + s + "\" \"" + d + "\" -o+");
-        }
 
         #region 实例
         /// <summary>
