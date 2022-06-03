@@ -107,7 +107,7 @@ namespace ML.Core
         /// <typeparam name="T"></typeparam>
         /// <param name="Json"></param>
         /// <returns></returns>
-        public static List<T> JonsToList<T>(this string Json)
+        public static List<T> JsonToList<T>(this string Json)
         {
             return JsonConvert.DeserializeObject<List<T>>(Json);
         }
