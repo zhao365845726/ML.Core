@@ -19,5 +19,10 @@ namespace ML.BlendTests.Model.Monitor
         public static string BatchVerificationCode = $"[{{\"code\":\"111111\"}},{{\"code\":\"111111\"}}]";
         public static int PageIndex = 1;
         public static int PageSize = 10;
+        public static string NodeName = "azure-emulator";
+        public static string FileName = "config.json";
+        public static string FilePath = $"C:\\Code\\02-Github\\ML.Core\\ML.Core\\ConsoleApp1\\";
+        public static string DatabaseName = "db01";
+        public static string ContainerName = "c01";
     }
 }
