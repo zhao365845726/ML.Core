@@ -801,6 +801,37 @@ namespace ML.Core
             string content = sr.ReadToEnd(); //获得响应字符串
             return content;
         }
+
+        public static string HttpPutJsonString(string url, string param)
+        {
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest; //创建请求
+            CookieContainer cookieContainer = new CookieContainer();
+            request.CookieContainer = cookieContainer;
+            request.AllowAutoRedirect = true;
+            //request.AllowReadStreamBuffering = true;
+            request.MaximumResponseHeadersLength = 1024;
+            request.Method = "PUT"; //请求方式为post
+            request.AllowAutoRedirect = true;
+            request.MaximumResponseHeadersLength = 1024;
+            request.ContentType = "application/json";
+            byte[] jsonbyte = Encoding.UTF8.GetBytes(param);
+            Stream postStream = request.GetRequestStream();
+            postStream.Write(jsonbyte, 0, jsonbyte.Length);
+            postStream.Close();
+            //发送请求并获取相应回应数据       
+            HttpWebResponse res;
+            try
+            {
+                res = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                res = (HttpWebResponse)ex.Response;
+            }
+            StreamReader sr = new StreamReader(res.GetResponseStream(), Encoding.UTF8);
+            string content = sr.ReadToEnd(); //获得响应字符串
+            return content;
+        }
         #endregion
 
         #region HttpDelete请求
