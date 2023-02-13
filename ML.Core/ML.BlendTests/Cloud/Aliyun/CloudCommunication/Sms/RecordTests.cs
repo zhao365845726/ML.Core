@@ -15,7 +15,7 @@ namespace ML.Blend.Cloud.Aliyun.CloudCommunication.Sms.Tests
         [TestMethod()]
         public void QuerySendDetailsTest()
         {
-            string filePath = ConfigFile;
+            string filePath = $"{Data.FilePath}{Data.FileName}";
             var entity = GetEntities(filePath, Data.AliyunCloudName);
             Record record = new Record(entity.accessKeyId, entity.accessKeySecret);
             var result = record.QuerySendDetails(Data.Mobile, Data.CurDate, Data.PageIndex, Data.PageSize);

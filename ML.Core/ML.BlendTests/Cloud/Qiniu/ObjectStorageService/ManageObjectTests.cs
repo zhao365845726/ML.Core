@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Qiniu.Common;
+using ML.BlendTests.Model.Monitor;
 
 namespace ML.Blend.Cloud.Qiniu.ObjectStorageService.Tests
 {
@@ -14,7 +15,7 @@ namespace ML.Blend.Cloud.Qiniu.ObjectStorageService.Tests
         [TestMethod()]
         public void ListFilesTest()
         {
-            var entity = GetEntities(ConfigFile, "qiniu");
+            var entity = GetEntities($"{Data.FilePath}{Data.FileName}", "qiniu");
             ManageObject manageObject = new ManageObject(entity.accessKeyId, entity.accessKeySecret);
             string strObjectName = $"{DateTime.Now.ToString("yyyyMMddHHmmss")}";
             manageObject.ListFiles(entity.bucketName, "", "", "/", ZoneID.CN_North);

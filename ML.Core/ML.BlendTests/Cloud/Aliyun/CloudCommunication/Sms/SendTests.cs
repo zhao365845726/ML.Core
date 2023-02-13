@@ -15,7 +15,7 @@ namespace ML.Blend.Cloud.Aliyun.CloudCommunication.Sms.Tests
         [TestMethod()]
         public void SingleSendTest()
         {
-            string filePath = ConfigFile;
+            string filePath = $"{Data.FilePath}{Data.FileName}";
             var entity = GetEntities(filePath, Data.AliyunCloudName);
             Send send = new Send(entity.accessKeyId, entity.accessKeySecret);
             var result = send.SingleSend(Data.Mobile, Data.SignName, Data.TemplateCode, Data.VerificationCode);
@@ -25,7 +25,7 @@ namespace ML.Blend.Cloud.Aliyun.CloudCommunication.Sms.Tests
         [TestMethod()]
         public void BatchSendTest()
         {
-            string filePath = ConfigFile;
+            string filePath = $"{Data.FilePath}{Data.FileName}";
             var entity = GetEntities(filePath, Data.AliyunCloudName);
             Send send = new Send(entity.accessKeyId, entity.accessKeySecret);
             var result = send.BatchSend(Data.BatchMobile, Data.BatchSignName, Data.TemplateCode, Data.BatchVerificationCode);

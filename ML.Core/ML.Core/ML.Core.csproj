@@ -42,8 +42,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-		<!--<OutputPath>F:\local_nuget</OutputPath>-->
-		<OutputPath>C:\Env\local-nuget</OutputPath>
+		<OutputPath>F:\local_nuget</OutputPath>
+		<!--<OutputPath>C:\Env\local-nuget</OutputPath>-->
 		<DocumentationFile>..\..\BuildOutPut\ML.Core.XML</DocumentationFile>
 		<DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
 		<Optimize>true</Optimize>

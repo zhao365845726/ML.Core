@@ -2,6 +2,7 @@
 using ML.Blend.Cloud.Azure.Cosmos;
 using ML.Blend.Cloud.Azure.Demo;
 using ML.BlendTests;
+using ML.BlendTests.Model.Monitor;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,12 @@ namespace ML.Blend.Cloud.Azure.Cosmos.Tests
         [TestMethod()]
         public async Task CreateDatabaseIfNotExistsAsyncTestAsync()
         {
-            string filePath = @"C:\Code\02-Github\ML.Core\ML.Core\ConsoleApp1\config.json";
-            var entity = GetEntities(filePath, "azure");
+            string filePath = $"{Data.FilePath}{Data.FileName}";
+            var entity = GetEntities(filePath, Data.NodeName);
             //CoreApi coreApi = new CoreApi();
             CoreApi coreApi = new CoreApi(entity.endpointUri, entity.primaryKey, entity.applicationName);
-            await coreApi.CreateDatabaseIfNotExistsAsync("ToDoList-001");
-            await coreApi.CreateContainerAsync("item01");
+            await coreApi.CreateDatabaseIfNotExistsAsync("TODOList01");
+            await coreApi.CreateContainerAsync(ContainerName);
             await coreApi.ScaleContainerAsync();
             await coreApi.AddItemsToContainerAsync();
             await coreApi.QueryItemsAsync();
@@ -35,12 +36,12 @@ namespace ML.Blend.Cloud.Azure.Cosmos.Tests
         [TestMethod()]
         public async Task CreateItemAsyncTestAsync()
         {
-            string filePath = @"C:\Code\02-Github\ML.Core\ML.Core\ConsoleApp1\config.json";
-            var entity = GetEntities(filePath, "azure");
+            string filePath = $"{Data.FilePath}{Data.FileName}";
+            var entity = GetEntities(filePath, Data.NodeName);
             //CoreApi coreApi = new CoreApi();
             CoreApi coreApi = new CoreApi(entity.endpointUri, entity.primaryKey, entity.applicationName);
-            await coreApi.CreateDatabaseIfNotExistsAsync("db01");
-            await coreApi.CreateContainerAsync("c01");
+            await coreApi.CreateDatabaseIfNotExistsAsync(DatabaseName);
+            await coreApi.CreateContainerAsync(ContainerName);
             await coreApi.ScaleContainerAsync();
             Company company = new Company()
             {
@@ -49,7 +50,7 @@ namespace ML.Blend.Cloud.Azure.Cosmos.Tests
                 Address = "a1",
                 PartitionKey = "pk1"
             };
-            await coreApi.AddItemsToContainerAsync<Company>(company,company.Id,company.PartitionKey);
+            await coreApi.AddItemsToContainerAsync<Company>(company, company.Id, company.PartitionKey);
             //await coreApi.QueryItemsAsync();
             //await coreApi.ReplaceFamilyItemAsync();
             Console.WriteLine($"操作结果完成");
@@ -58,11 +59,11 @@ namespace ML.Blend.Cloud.Azure.Cosmos.Tests
         [TestMethod()]
         public async Task CreateItemAsyncTestAsync1()
         {
-            string filePath = @"C:\Code\02-Github\ML.Core\ML.Core\ConsoleApp1\config.json";
-            var entity = GetEntities(filePath, "azure");
+            string filePath = $"{Data.FilePath}{Data.FileName}";
+            var entity = GetEntities(filePath, Data.NodeName);
             //CoreApi coreApi = new CoreApi();
             CoreApi coreApi = new CoreApi(entity.endpointUri, entity.primaryKey, entity.applicationName);
-            coreApi.SetConfig("db01", "c01");
+            coreApi.SetConfig(DatabaseName, ContainerName);
             Company company = new Company()
             {
                 Id = "2",
@@ -79,11 +80,11 @@ namespace ML.Blend.Cloud.Azure.Cosmos.Tests
         [TestMethod()]
         public async Task CreateItemAsyncTestAsync2()
         {
-            string filePath = @"C:\Code\02-Github\ML.Core\ML.Core\ConsoleApp1\config.json";
-            var entity = GetEntities(filePath, "azure");
+            string filePath = $"{Data.FilePath}{Data.FileName}";
+            var entity = GetEntities(filePath, Data.NodeName);
             //CoreApi coreApi = new CoreApi();
             CoreApi coreApi = new CoreApi(entity.endpointUri, entity.primaryKey, entity.applicationName);
-            coreApi.SetConfig("db01", "c01");
+            coreApi.SetConfig(DatabaseName, ContainerName);
             Company company = new Company()
             {
                 Id = "3",
@@ -95,6 +96,105 @@ namespace ML.Blend.Cloud.Azure.Cosmos.Tests
             //await coreApi.QueryItemsAsync();
             //await coreApi.ReplaceFamilyItemAsync();
             Console.WriteLine($"操作结果完成");
+        }
+
+        [TestMethod()]
+        public async Task CreateItemAsyncTestAsync3()
+        {
+            string filePath = $"{Data.FilePath}{Data.FileName}";
+            var entity = GetEntities(filePath, Data.NodeName);
+            //CoreApi coreApi = new CoreApi();
+            CoreApi coreApi = new CoreApi(entity.endpointUri, entity.primaryKey, entity.applicationName);
+            coreApi.SetConfig(DatabaseName, ContainerName);
+            for (int i = 0; i < 10; i++)
+            {
+                Company company = new Company()
+                {
+                    Id = "3",
+                    Name = "n1",
+                    Address = "a1",
+                    PartitionKey = $"pk{4 + i}"
+                };
+                await coreApi.CreateItemAsync<Company>(company, company.Id, company.PartitionKey);
+            }
+
+            //await coreApi.QueryItemsAsync();
+            //await coreApi.ReplaceFamilyItemAsync();
+            Console.WriteLine($"操作结果完成");
+        }
+
+        [TestMethod()]
+        public async Task CreateItemAsyncTestAsync4()
+        {
+            string filePath = $"{Data.FilePath}{Data.FileName}";
+            var entity = GetEntities(filePath, Data.NodeName);
+            CoreApi coreApi = new CoreApi(entity.endpointUri, entity.primaryKey, entity.applicationName);
+            coreApi.SetConfig(DatabaseName, ContainerName);
+            for (int i = 0; i < 10; i++)
+            {
+                Company company = new Company()
+                {
+                    Id = "3",
+                    Name = "n1",
+                    Address = "a1",
+                    PartitionKey = $"pk{4 + i}"
+                };
+                await coreApi.CreateItemAsync<Company>(company, company.Id, company.PartitionKey);
+            }
+            Console.WriteLine($"操作结果完成");
+        }
+
+        [TestMethod()]
+        public async Task CreateItemAsyncTestAsync5()
+        {
+            string filePath = $"{Data.FilePath}{Data.FileName}";
+            var entity = GetEntities(filePath, Data.NodeName);
+            CoreApi coreApi = new CoreApi(entity.endpointUri, entity.primaryKey, entity.applicationName);
+            coreApi.SetConfig(DatabaseName, ContainerName);
+            Student student = new Student()
+            {
+                Id = "1",
+                Name = "Lili",
+                Description = "一个非常优秀的学生",
+                PartitionKey = "p1"
+            };
+            await coreApi.CreateItemAsync<Student>(student, student.Id, student.PartitionKey);
+            Console.WriteLine($"操作结果完成");
+        }
+
+        [TestMethod()]
+        public async Task UpsertItemAsync()
+        {
+            string filePath = $"{Data.FilePath}{Data.FileName}";
+            var entity = GetEntities(filePath, Data.NodeName);
+            //CoreApi coreApi = new CoreApi();
+            CoreApi coreApi = new CoreApi(entity.endpointUri, entity.primaryKey, entity.applicationName);
+            coreApi.SetConfig(DatabaseName, ContainerName);
+            Company company = new Company()
+            {
+                Id = "3",
+                Name = "n1",
+                Address = "a1",
+                PartitionKey = $"pk demo"
+            };
+            await coreApi.UpsertItemAsync("3", "pk3");
+
+            //await coreApi.QueryItemsAsync();
+            //await coreApi.ReplaceFamilyItemAsync();
+            Console.WriteLine($"操作结果完成");
+        }
+
+        [TestMethod()]
+        public async void QueryItemsAsyncTest()
+        {
+            string filePath = $"{Data.FilePath}{Data.FileName}";
+            var entity = GetEntities(filePath, Data.NodeName);
+            //CoreApi coreApi = new CoreApi();
+            CoreApi coreApi = new CoreApi(entity.endpointUri, entity.primaryKey, entity.applicationName);
+            coreApi.SetConfig(DatabaseName, ContainerName);
+            var sqlQueryText = "SELECT * FROM c WHERE c.PartitionKey = 'pk3'";
+            await coreApi.QueryItemsAsync<Company>(sqlQueryText);
+            //Console.WriteLine(JsonConvert.SerializeObject(result));
         }
     }
 }

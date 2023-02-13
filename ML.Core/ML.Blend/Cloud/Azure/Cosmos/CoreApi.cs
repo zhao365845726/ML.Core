@@ -250,6 +250,28 @@ namespace ML.Blend.Cloud.Azure.Cosmos
             }
         }
 
+        public async Task QueryItemsAsync<T>(string querySql)
+        {
+            //var sqlQueryText = "SELECT * FROM c WHERE c.PartitionKey = 'Andersen'";
+
+            Console.WriteLine("Running query: {0}\n", querySql);
+
+            QueryDefinition queryDefinition = new QueryDefinition(querySql);
+            FeedIterator<T> queryResultSetIterator = this.container.GetItemQueryIterator<T>(queryDefinition);
+
+            List<T> entities = new List<T>();
+
+            while (queryResultSetIterator.HasMoreResults)
+            {
+                FeedResponse<T> currentResultSet = await queryResultSetIterator.ReadNextAsync();
+                foreach (T entity in currentResultSet)
+                {
+                    entities.Add(entity);
+                    Console.WriteLine("\tRead {0}\n", entity);
+                }
+            }
+        }
+
         public async Task ReplaceFamilyItemAsync()
         {
             ItemResponse<Family> wakefieldFamilyResponse = await this.container.ReadItemAsync<Family>("Wakefield.7", new PartitionKey("Wakefield"));
