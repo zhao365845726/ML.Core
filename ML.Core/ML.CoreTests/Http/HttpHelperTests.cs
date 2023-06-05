@@ -94,5 +94,21 @@ namespace ML.Core.Tests
             var result = HttpHelper.Get(param);
             Console.WriteLine(result);
         }
+
+        [TestMethod()]
+        public void HttpPostDataTest1()
+        {
+            string param = $"{{\"WarehouseId\":6,\"POReference\":\"PO-0764-2(Yonyou Test)\",\"Supplier\":\"Bellissimo Company Limited\",\"EstimatedDelivery\":\"2022-6-8 15:25:22\",\"Comments\":\"PO2228（S22-05-27)(Yonyou Test)\",\"GoodsInType\":\"Carton\",\"Quantity\":30,\"ProductSupplierId\":11,\"ClientId\":3,\"Items\":[{{\"ProductId\":2422,\"SKU\":\"10\",\"Quantity\":20}}]}}";
+            var result = HttpHelper.HttpPostData($"https://api.mintsoft.co.uk/api/ASN?APIKey=d0a925f7-9d97-49fb-b55e-efac39cd6ace", param, "application/json");
+            Console.WriteLine(result);
+        }
+
+        [TestMethod()]
+        public void HttpPutJsonStringTest()
+        {
+            string param = $"{{\"WarehouseId\":6,\"POReference\":\"PO-0764-2(Yonyou Test)\",\"Supplier\":\"Bellissimo Company Limited\",\"EstimatedDelivery\":\"2022-6-8 15:25:22\",\"Comments\":\"PO2228（S22-05-27)(Yonyou Test)\",\"GoodsInType\":\"Carton\",\"Quantity\":30,\"ProductSupplierId\":11,\"ClientId\":3,\"Items\":[{{\"ProductId\":2422,\"SKU\":\"10\",\"Quantity\":20}}]}}";
+            var result = HttpHelper.HttpPutJsonString($"https://api.mintsoft.co.uk/api/ASN?APIKey=d0a925f7-9d97-49fb-b55e-efac39cd6ace", param);
+            Console.WriteLine(result);
+        }
     }
 }
