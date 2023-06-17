@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;netstandard2.1;</TargetFrameworks>
 		<LangVersion>8.0</LangVersion>
-		<Version>1.0.87-beta1</Version>
+		<Version>1.0.89-beta1</Version>
 		<AssemblyName>ML.Core</AssemblyName>
 		<RootNamespace>ML.Core</RootNamespace>
 		<GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -42,8 +42,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-		<OutputPath>F:\local_nuget</OutputPath>
-		<!--<OutputPath>C:\Env\local-nuget</OutputPath>-->
+		<!--<OutputPath>F:\local_nuget</OutputPath>-->
+		<OutputPath>C:\Env\local-nuget</OutputPath>
 		<DocumentationFile>..\..\BuildOutPut\ML.Core.XML</DocumentationFile>
 		<DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
 		<Optimize>true</Optimize>
