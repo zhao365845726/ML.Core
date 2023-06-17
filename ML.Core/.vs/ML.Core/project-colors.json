@@ -1,9 +1,9 @@
 {
   "Version": 1,
   "ProjectMap": {
-    "6a3e2d99-f845-44a4-b4e3-0238231524b4": {
-      "ProjectGuid": "6a3e2d99-f845-44a4-b4e3-0238231524b4",
-      "DisplayName": "ML.Blend",
+    "3efa9c2c-572d-4079-8519-005aeba8e0b2": {
+      "ProjectGuid": "3efa9c2c-572d-4079-8519-005aeba8e0b2",
+      "DisplayName": "ConsoleApp1",
       "ColorIndex": 0
     },
     "e75a8388-4c25-48b0-bc0b-dfb81444c7ba": {
@@ -16,26 +16,21 @@
       "DisplayName": "杂项文件",
       "ColorIndex": -1
     },
-    "3efa9c2c-572d-4079-8519-005aeba8e0b2": {
-      "ProjectGuid": "3efa9c2c-572d-4079-8519-005aeba8e0b2",
-      "DisplayName": "ConsoleApp1",
+    "b8d4f078-3a4f-461c-be30-0256c772451d": {
+      "ProjectGuid": "b8d4f078-3a4f-461c-be30-0256c772451d",
+      "DisplayName": "ML.CoreTests",
       "ColorIndex": 2
+    },
+    "6a3e2d99-f845-44a4-b4e3-0238231524b4": {
+      "ProjectGuid": "6a3e2d99-f845-44a4-b4e3-0238231524b4",
+      "DisplayName": "ML.Blend",
+      "ColorIndex": 3
     },
     "fbe565b8-d461-4a57-a6ce-8d31011b1e4a": {
       "ProjectGuid": "fbe565b8-d461-4a57-a6ce-8d31011b1e4a",
       "DisplayName": "ML.BlendTests",
-      "ColorIndex": 3
-    },
-    "368a2094-2814-474b-aabf-ad9a8bfc3f6f": {
-      "ProjectGuid": "368a2094-2814-474b-aabf-ad9a8bfc3f6f",
-      "DisplayName": "ML.Pay",
       "ColorIndex": 4
-    },
-    "b8d4f078-3a4f-461c-be30-0256c772451d": {
-      "ProjectGuid": "b8d4f078-3a4f-461c-be30-0256c772451d",
-      "DisplayName": "ML.CoreTests",
-      "ColorIndex": 5
     }
   },
-  "NextColorIndex": 6
+  "NextColorIndex": 5
 }

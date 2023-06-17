@@ -17,12 +17,26 @@ namespace ML.Core
         public string FieldName { get; set; }
         public string FieldExplain { get; set; }
         public int FieldLen { get; set; }
+        /// <summary>
+        /// 表单的类型
+        /// </summary>
         public FormControllerType FormControllerType { get; set; }
+        /// <summary>
+        /// 表单的值
+        /// </summary>
         public string FormControllerValue { get; set; }
         /// <summary>
-        /// object类型可以是string|PropertyInfo
+        /// 关联字段
         /// </summary>
-        public object RelationField { get; set; }
+        public string RelationField { get; set; }
+        /// <summary>
+        /// 关联表
+        /// </summary>
+        public string RelationTable { get; set; }
+        /// <summary>
+        /// 是否需要关联
+        /// </summary>
+        public bool IsRelation { get; set; }
         public bool InParam { get; set; }
         public bool OutParam { get; set; }
         public bool Ignore { get; set; }
@@ -47,7 +61,7 @@ namespace ML.Core
             FormControllerValue = formControllerValue;
         }
 
-        public DatabaseAttribute(FieldType fieldType,string fieldName,string fieldExplain,int fieldLen,FormControllerType formControllerType, string formControllerValue, bool inParam, bool outParam )
+        public DatabaseAttribute(FieldType fieldType,string fieldName,string fieldExplain,int fieldLen,FormControllerType formControllerType, string formControllerValue, bool isRelation, string relationTable, string relationField, bool inParam, bool outParam )
         {
             FieldType = fieldType;
             FieldName = fieldName;
@@ -55,11 +69,14 @@ namespace ML.Core
             FieldLen = fieldLen;
             FormControllerType = formControllerType;
             FormControllerValue = formControllerValue;
+            IsRelation = isRelation;
+            RelationTable = relationTable;
+            RelationField = relationField;
             InParam = inParam;
             OutParam = outParam;
         }
 
-        public DatabaseAttribute(FieldType fieldType, string fieldName, string fieldExplain, int fieldLen, FormControllerType formControllerType, string formControllerValue,object relationField)
+        public DatabaseAttribute(FieldType fieldType, string fieldName, string fieldExplain, int fieldLen, FormControllerType formControllerType, string formControllerValue, bool isRelation, string relationTable, string relationField)
         {
             FieldType = fieldType;
             FieldName = fieldName;
@@ -67,6 +84,8 @@ namespace ML.Core
             FieldLen = fieldLen;
             FormControllerType = formControllerType;
             FormControllerValue = formControllerValue;
+            IsRelation = isRelation;
+            RelationTable = relationTable;
             RelationField = relationField;
         }
     }

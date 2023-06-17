@@ -466,7 +466,7 @@ namespace ML.Core
         }
         #endregion
 
-        #region "全球唯一码GUID"
+        #region 全球唯一码GUID
         /// <summary>
         /// 获取一个全球唯一码GUID字符串
         /// </summary>

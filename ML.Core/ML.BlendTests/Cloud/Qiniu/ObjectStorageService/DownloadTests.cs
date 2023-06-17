@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ML.Blend.Cloud.Qiniu.ObjectStorageService;
 using ML.BlendTests;
+using ML.BlendTests.Model.Monitor;
 using Qiniu.Common;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace ML.Blend.Cloud.Qiniu.ObjectStorageService.Tests
         [TestMethod()]
         public void DownloadPublicFileTest()
         {
-            var entity = GetEntities(ConfigFile, "qiniu");
+            var entity = GetEntities($"{Data.FilePath}{Data.FileName}", "qiniu");
             Download download = new Download(entity.accessKeyId, entity.accessKeySecret);
             string strObjectName = $"{DateTime.Now.ToString("yyyyMMddHHmmss")}";
             var result = download.DownloadPublicFile($"http://{entity.defaultEndPoint}/20211107163848", @"F:\source\download\qiniu\20211107163848.jpg");
@@ -25,7 +26,7 @@ namespace ML.Blend.Cloud.Qiniu.ObjectStorageService.Tests
         [TestMethod()]
         public void DownloadPrivateFileTest()
         {
-            var entity = GetEntities(ConfigFile, "qiniu");
+            var entity = GetEntities($"{Data.FilePath}{Data.FileName}", "qiniu");
             Download download = new Download(entity.accessKeyId, entity.accessKeySecret);
             string strObjectName = $"{DateTime.Now.ToString("yyyyMMddHHmmss")}";
             var result = download.DownloadPrivateFile(entity.bucketName,$"http://{entity.defaultEndPoint}/20211107163848", @"F:\source\download\qiniu\20211107163848.jpg", ZoneID.CN_North);

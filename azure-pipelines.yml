@@ -13,13 +13,27 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  nugetPackageName: 'ML.Core'
 
 steps:
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
+  inputs:
+    packageType: sdk
+    version: 3.1.402
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
+    
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    arguments: '--configuration $(buildConfiguration)'
+  displayName: 'dotnet build $(buildConfiguration)'
 
 - task: VSBuild@1
   inputs:
@@ -32,3 +46,15 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+    
+- script: dotnet pack /p:PackageVersion=$(version)  # define version variable elsewhere in your pipeline
+- task: NuGetAuthenticate@0
+  inputs:
+    nuGetServiceConnections: 'Nuget-$(nugetPackageName)'
+# - task: NuGetCommand@2
+#   inputs:
+#     command: push
+#     nuGetFeedType: external
+#     publishFeedCredentials: '$(nugetPackageName)'
+#     versioningScheme: byEnvVar
+#     versionEnvVar: version
