@@ -23,6 +23,7 @@
 			v1.0.21 增加Html帮助类
 			v1.0.50 增加程序集解析,自定义属性
 			v1.0.74 增加更多的Http请求的方法
+            v1.0.87 增加json转xml的方法
 		</PackageReleaseNotes>
 		<RepositoryUrl> https://github.com/zhao365845726/ML.Core </RepositoryUrl>
 		<Configurations>Debug;Release;Test</Configurations>
