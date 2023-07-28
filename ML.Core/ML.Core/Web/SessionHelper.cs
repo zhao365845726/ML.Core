@@ -1,6 +1,7 @@
 ﻿////=====================================================================================
 //// All Rights Reserved , Copyright © MLTechnology 2017-Now
 ////=====================================================================================
+//using Microsoft.AspNetCore.Http;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
@@ -27,7 +28,7 @@
 //        /// <param name="strValue">Session值</param>
 //        public static void Add(string strSessionName, object objValue)
 //        {
-//            HttpContext.Current.Session[strSessionName] = objValue;
+//            HttpContext.Session[strSessionName] = objValue;
 //        }
 //        #endregion
 
@@ -51,6 +52,12 @@
 //                HttpContext.Current.Session.Timeout = 60 * 24 * 365 * iYear;
 //            }
 //        }
+
+//        public void Set()
+//        {
+//            HttpContext httpContext = new HttpContext();
+//            httpContext.Session
+//        }
 //        #endregion
 
 //        #region 读取某个Session对象值
@@ -72,7 +79,7 @@
 //        /// <param name="strSessionName">Session对象名称</param>
 //        public static void Remove(string strSessionName)
 //        {
-//            HttpContext.Current.Session.Remove(strSessionName);
+//            HttpContext.Session.Remove(strSessionName);
 //        }
 //        #endregion
 //    }
