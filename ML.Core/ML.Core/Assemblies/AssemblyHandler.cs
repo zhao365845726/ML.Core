@@ -1,6 +1,8 @@
 ﻿using ML.Core.Enum;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -632,6 +634,83 @@ namespace ML.Core.Assemblies
                 value = string.Empty;
             }
             return value;
+        }
+
+        /// <summary>
+        /// PropertyInfo 获取实体类指定属性类型
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
+        public string GetPropertyType<T>(T t, string field)
+        {
+            string value = "9";
+            if (t == null)
+            {
+                return value;
+            }
+            PropertyInfo[] properties = t.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+
+            if (properties.Length <= 0)
+            {
+                return value;
+            }
+            var property = properties.Where(x => x.Name == field).FirstOrDefault();
+            value = property.GetType().Name;
+            return value;
+        }
+
+        /// <summary>
+        /// PropertyInfo 获取实体类指定属性值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
+        public string ConvertObject<T>(T t, string field)
+        {
+            string value = "9";
+            if (t == null)
+            {
+                return value;
+            }
+            PropertyInfo[] properties = t.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+
+            if (properties.Length <= 0)
+            {
+                return value;
+            }
+            var property = properties.Where(x => x.Name == field).FirstOrDefault();
+            var property_value = property.GetValue(t, null);
+            if (property_value != null)
+            {
+                value = property_value.ToString();
+            }
+            else
+            {
+                value = string.Empty;
+            }
+            return value;
+        }
+
+        public static List<Object> ConvertTableToObject(DataTable data)
+        {
+            var objectList = new List<Object>();
+            foreach (DataRow row in data.Rows)
+            {
+                dynamic dataItem = new ExpandoObject();
+                var dataItemDic = dataItem as IDictionary<string, object>;
+                foreach (DataColumn col in data.Columns)
+                {
+                    var name = col.ColumnName;
+                    var val = row[name].ToString();
+                    dataItemDic[name] = val;
+                }
+                objectList.Add(dataItem);
+            }
+
+            return objectList;
         }
     }
 }
