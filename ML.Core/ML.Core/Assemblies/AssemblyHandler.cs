@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -563,6 +564,67 @@ namespace ML.Core.Assemblies
             }
 
             return assemblyDictionaryResult;
+        }
+
+        /// <summary>
+        /// PropertyInfo 获取实体类的所有属性和值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public string GetProperties<T>(T t)
+        {
+            string tStr = string.Empty;
+            if (t == null)
+            {
+                return tStr;
+            }
+            PropertyInfo[] properties = t.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+
+            if (properties.Length <= 0)
+            {
+                return tStr;
+            }
+            foreach (PropertyInfo item in properties)
+            {
+                string name = item.Name;
+                object value = item.GetValue(t, null);
+                if (item.PropertyType.IsValueType || item.PropertyType.Name.StartsWith("String"))
+                {
+                    tStr += string.Format("{0}:{1},", name, value);
+                }
+                else
+                {
+                    GetProperties(value);
+                }
+            }
+            return tStr;
+        }
+
+        /// <summary>
+        /// PropertyInfo 获取实体类指定属性值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
+        public string GetPropertyValue<T>(T t, string field)
+        {
+            string value = "9";
+            if (t == null)
+            {
+                return value;
+            }
+            PropertyInfo[] properties = t.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+
+            if (properties.Length <= 0)
+            {
+                return value;
+            }
+            var property = properties.Where(x => x.Name == field).FirstOrDefault();
+            value = property.GetValue(t, null).ToString();
+
+            return value;
         }
     }
 }
