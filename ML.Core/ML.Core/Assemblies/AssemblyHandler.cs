@@ -622,8 +622,15 @@ namespace ML.Core.Assemblies
                 return value;
             }
             var property = properties.Where(x => x.Name == field).FirstOrDefault();
-            value = property.GetValue(t, null).ToString();
-
+            var property_value = property.GetValue(t, null);
+            if(property_value != null)
+            {
+                value = property_value.ToString();
+            }
+            else
+            {
+                value = string.Empty;
+            }
             return value;
         }
     }
