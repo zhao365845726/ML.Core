@@ -500,6 +500,12 @@ namespace ML.Core
                         req.ContentType = headers.SingleOrDefault(p => p.Key.ToLower() == "content-type").Value;
                     if (headers.Keys.Any(p => p.ToLower() == "accept"))
                         req.Accept = headers.SingleOrDefault(p => p.Key.ToLower() == "accept").Value;
+
+                    //req.Headers.Add("Content-Type", "application/json");
+                    foreach (var kvp in headers)
+                    {
+                        req.Headers.Add(kvp.Key, kvp.Value);
+                    }
                 }
 
                 var response = (HttpWebResponse)req.GetResponse();
