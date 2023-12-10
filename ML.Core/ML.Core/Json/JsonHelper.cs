@@ -169,6 +169,19 @@ namespace ML.Core
             return result;
         }
 
+        /// <summary>
+        /// 获取数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static T GetData<T>(string filePath)
+        {
+            string text = File.ReadAllText(filePath, Encoding.GetEncoding("UTF-8"));
+            var result = JsonConvert.DeserializeObject<T>(text);
+            return result;
+        }
+
 
         /// <summary>
         /// 广联达专用

@@ -556,5 +556,21 @@ namespace ML.Core
             return costtime.ToString();
         }
         #endregion
+
+        #region 数学计算
+        /// <summary>
+        /// 除法计算
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public static List<int> Divided(int x, int y)
+        {
+            List<int> list = new List<int>();
+            list.Add(x / y);
+            list.Add(x % y);
+            return list;
+        }
+        #endregion
     }
 }
