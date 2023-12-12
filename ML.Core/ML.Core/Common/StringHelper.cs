@@ -574,5 +574,24 @@ namespace ML.Core
             return false;
         }
         #endregion
+
+        #region 正则表达式操作
+        public static List<string> MatchingNumberList(string content,string pattern)
+        {
+            //string strDemo = "(13)+(14)";
+            if(string.IsNullOrEmpty(pattern))
+            {
+                pattern = @"(\d+)";
+            }
+            var matches = Regex.Matches(content, pattern);
+            List<string> result = new List<string>();
+            foreach (var item in matches)
+            {
+                //Console.WriteLine(item.ToString());
+                result.Add(item.ToString());
+            }
+            return result;
+        }
+        #endregion
     }
 }

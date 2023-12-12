@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace ConsoleApp1
 {
@@ -30,7 +31,19 @@ namespace ConsoleApp1
             //TestTuple();
             //TestValueTuple();
             //TestSystemInfo();
-            TestLambda();
+            //TestLambda();
+            TestRegex();
+        }
+
+        static void TestRegex()
+        {
+            string strDemo = "(13)+(14)";
+            var matches = Regex.Matches(strDemo, @"(\d+)");
+            foreach(var item in matches)
+            {
+                Console.WriteLine(item.ToString());
+            }
+
         }
 
         /// <summary>
