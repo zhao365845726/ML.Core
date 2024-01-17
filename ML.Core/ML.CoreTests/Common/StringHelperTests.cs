@@ -13,8 +13,8 @@ namespace ML.Core.Tests
         public void FindStrTest()
         {
             string strDemo = "(13)+(14)";
-            string result = StringHelper.FindStr(strDemo);
-            Console.WriteLine(result);
+            var result = StringHelper.MatchingNumberList(strDemo,"");
+            Console.WriteLine(result.ToJson());
         }
     }
 }

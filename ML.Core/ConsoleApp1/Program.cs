@@ -38,7 +38,7 @@ namespace ConsoleApp1
         static void TestRegex()
         {
             string strDemo = "(13)+(14)";
-            var matches = Regex.Matches(strDemo, @"(\d+)");
+            var matches = Regex.Matches(strDemo, @"\((\d+)\)");
             foreach(var item in matches)
             {
                 Console.WriteLine(item.ToString());

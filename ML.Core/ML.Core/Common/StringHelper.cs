@@ -581,7 +581,7 @@ namespace ML.Core
             //string strDemo = "(13)+(14)";
             if(string.IsNullOrEmpty(pattern))
             {
-                pattern = @"(\d+)";
+                pattern = @"\((\d+)\)";
             }
             var matches = Regex.Matches(content, pattern);
             List<string> result = new List<string>();

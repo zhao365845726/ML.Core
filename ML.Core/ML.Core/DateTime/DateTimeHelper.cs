@@ -985,5 +985,41 @@ namespace ML.Core
             System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1));
             return (int)(time - startTime).TotalSeconds;
         }
+
+        /// <summary>
+        /// 是否到期
+        /// </summary>
+        /// <param name="expireDate"></param>
+        /// <returns></returns>
+        public static bool IsExpire(string expireDate)
+        {
+            int nowTimeSpan = DateTimeHelper.ConvertDateTimeInt(DateTime.Now);
+            int oldTimeSpan = DateTimeHelper.ConvertDateTimeInt(DateTime.Parse(expireDate));
+            if (nowTimeSpan > oldTimeSpan)
+            {
+                Console.WriteLine("检测到系统有更新组件，程序需升级，请联系管理员处理.");
+                Console.ReadKey();
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 是否需要升级
+        /// </summary>
+        /// <param name="expireDate"></param>
+        /// <returns></returns>
+        public static bool IsNeedUpdate(string expireDate)
+        {
+            int nowTimeSpan = DateTimeHelper.ConvertDateTimeInt(DateTime.Now);
+            int oldTimeSpan = DateTimeHelper.ConvertDateTimeInt(DateTime.Parse(expireDate));
+            if (nowTimeSpan > oldTimeSpan)
+            {
+                Console.WriteLine("检测到系统有更新组件，程序需升级，请联系管理员处理.");
+                Console.ReadKey();
+                return true;
+            }
+            return false;
+        }
     }
 }
