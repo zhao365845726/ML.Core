@@ -44,6 +44,12 @@ namespace ML.Core.Tests
             Console.WriteLine(result);
         }
 
+        [TestMethod()]
+        public void SetSleepTest()
+        {
+            SysHelper.SetSleep(5);
+        }
+
         //[TestMethod()]
         //public void GetCustomDirectoryTest1()
         //{

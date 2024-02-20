@@ -261,5 +261,23 @@ namespace ML.Core
             return macAddress;
         }
         #endregion
+
+        /// <summary>
+        /// 休眠几秒
+        /// </summary>
+        /// <param name="SleepTime"></param>
+        public static void SetSleep(int SleepTime)
+        {
+            try
+            {
+                Console.WriteLine(string.Format("当前时间为:{0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
+                Thread.Sleep(SleepTime * 1000);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
     }
 }
