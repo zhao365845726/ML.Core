@@ -110,5 +110,74 @@ namespace ML.Core.Tests
             var result = HttpHelper.HttpPutJsonString($"https://api.mintsoft.co.uk/api/ASN?APIKey=d0a925f7-9d97-49fb-b55e-efac39cd6ace", param);
             Console.WriteLine(result);
         }
+
+        [TestMethod()]
+        public void HttpGetAsyncTest()
+        {
+            string strTS = DateTimeHelper.ConvertToUnix(DateTime.Now).ToString();
+
+            string requestUrl = "https://dbox.yonyoucloud.com/iuap-ipaas-base/openPortal/api/showApiList/yonsuite/productClassify";
+            Dictionary<string, string> dicParam = new Dictionary<string, string>();
+            dicParam.Add("shareKey", "");
+            dicParam.Add("ytenantId", "");
+            dicParam.Add("ts", strTS);
+            dicParam.Add("type", "originalIsv");
+            dicParam.Add("isAjax", "1");
+            Dictionary<string, string> dicHeader = new Dictionary<string, string>();
+            dicHeader.Add("Accept", "application/json, text/plain, */*");
+            dicHeader.Add("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6");
+            dicHeader.Add("Cache-Control", "no-cache");
+            dicHeader.Add("Connection", "keep-alive");
+            dicHeader.Add("Cookie", "_WorkbenchCross_=Ultraman; at=f4ebcbb5-f2df-4de9-9787-0406ba7a9e4c; HWWAFSESID=12703196f026b4a7b81; HWWAFSESTIME=1710347406507; JSESSIONID=87A95B48CAC0904872C444F3BFF9B500; yht_username_diwork=ST-3928837-BXWA5TmeFyFedgzd2D42-online__75fc5a66-d89f-463a-8377-a73add70fbe9; yht_usertoken_diwork=LDw0jVlSwa%2FkfRWGAxLx08H5baqRiDvhoZH4rePr8ZpbXNXasumH6EsH%2BUnGCvc4VNDeEI8ulzKgt%2FJKZXdeiA%3D%3D; yht_access_token=bttMHpDOFhtdGpwMkxGODQvM1RTYitPbTlJZEpucVp3ejdDcXp4NEdzYnYyKzJnTXJwUk5pQk1HVEtXODdPTWkxTl9fZXVjLnlvbnlvdWNsb3VkLmNvbQ..__cf4d8cf47ce522f496400cc1426eb5ae_1710347410204TGTGdccore2iuap-apcom-workbench5dd7e36eYT; multilingualFlag=false; timezone=UTC+08:00; language=001; locale=zh_CN; orgId=; defaultOrg=; tenantid=yfjz0nwh; theme=; languages=1_3; newArch=true; sysid=diwork; a00=KTF3IbQ_YFzlYMEsgF5U3ajMTAF1mggVtAUXcmtrEJ95Zmp6MG53aGAzMzkxMjI0NTc4ODA3NTY4YHlmanowbndoYDc1ZmM1YTY2LWQ4OWYtNDYzYS04Mzc3LWE3M2FkZDcwZmJlOWAxYGBlOGI1YjVlOTkzYWRlNTkzYjJgYGAxNzc3OTgwNDIyMjQ0Nzk0Mzc2YGZhbHNlYGAxNzEwMzQ3NDEwMjE0YHltc3NlczozODk0NDZjZmRiOWYyNmJiNDY1MzdlYTMzNTkyN2MyNGBkaXdvcmtg; a10=MDExMjY4MzU1NDA1MjM0MTAyMTQ; n_f_f=true; wb_at=LMjpvouuptj4QP3rMld8x8dcfyco6qojnmkhmd; c800=dccore2; jDiowrkTokenMock=bttMHpDOFhtdGpwMkxGODQvM1RTYitPbTlJZEpucVp3ejdDcXp4NEdzYnYyKzJnTXJwUk5pQk1HVEtXODdPTWkxTl9fZXVjLnlvbnlvdWNsb3VkLmNvbQ..__cf4d8cf47ce522f496400cc1426eb5ae_1710347410204TGTGdccore2iuap-apcom-workbench5dd7e36eYT; XSRF-TOKEN=AX_AOWSTDMSORIVNRWO0TCFCVJE1!003311; UBA_LAST_EID=dn07ltq0t840");
+            dicHeader.Add("Referer", "https://dbox.yonyoucloud.com/");
+            dicHeader.Add("Sec-Fetch-Dest", "empty");
+            dicHeader.Add("Sec-Fetch-Mode", "cors");
+            dicHeader.Add("Sec-Fetch-Site", "same-origin");
+            dicHeader.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0");
+            dicHeader.Add("X-Requested-With", "XMLHttpRequest");
+            dicHeader.Add("from", "diwork");
+            dicHeader.Add("sec-ch-ua", "\"Not_A Brand\";v=\"8\", \"Chromium\";v=\"120\", \"Microsoft Edge\";v=\"120\"");
+            dicHeader.Add("sec-ch-ua-mobile", "?0");
+            dicHeader.Add("sec-ch-ua-platform", "\"Windows\"");
+            dicHeader.Add("serviceCodeDiwork", "ipass0010");
+            dicHeader.Add("ts", strTS);
+            var result = HttpHelper.HttpGetAsync(requestUrl, dicParam, dicHeader);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod()]
+        public void HttpGetAsyncTest1()
+        {
+            string strTS = DateTimeHelper.ConvertToUnix(DateTime.Now).ToString();
+
+            string requestUrl = "https://dbox.yonyoucloud.com/iuap-ipaas-base/openPortal/api/showApiList/yonsuite/productClassify";
+            Dictionary<string, string> dicParam = new Dictionary<string, string>();
+            dicParam.Add("shareKey", "");
+            dicParam.Add("ytenantId", "");
+            dicParam.Add("ts", strTS);
+            dicParam.Add("type", "originalIsv");
+            dicParam.Add("isAjax", "1");
+            Dictionary<string, string> dicHeader = new Dictionary<string, string>();
+            dicHeader.Add("Accept", "application/json, text/plain, */*");
+            dicHeader.Add("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6");
+            dicHeader.Add("Cache-Control", "no-cache");
+            dicHeader.Add("Connection", "keep-alive");
+            dicHeader.Add("Cookie", "_WorkbenchCross_=Ultraman; at=f4ebcbb5-f2df-4de9-9787-0406ba7a9e4c; HWWAFSESID=12703196f026b4a7b81; HWWAFSESTIME=1710347406507; JSESSIONID=87A95B48CAC0904872C444F3BFF9B500; yht_username_diwork=ST-3928837-BXWA5TmeFyFedgzd2D42-online__75fc5a66-d89f-463a-8377-a73add70fbe9; yht_usertoken_diwork=LDw0jVlSwa%2FkfRWGAxLx08H5baqRiDvhoZH4rePr8ZpbXNXasumH6EsH%2BUnGCvc4VNDeEI8ulzKgt%2FJKZXdeiA%3D%3D; yht_access_token=bttMHpDOFhtdGpwMkxGODQvM1RTYitPbTlJZEpucVp3ejdDcXp4NEdzYnYyKzJnTXJwUk5pQk1HVEtXODdPTWkxTl9fZXVjLnlvbnlvdWNsb3VkLmNvbQ..__cf4d8cf47ce522f496400cc1426eb5ae_1710347410204TGTGdccore2iuap-apcom-workbench5dd7e36eYT; multilingualFlag=false; timezone=UTC+08:00; language=001; locale=zh_CN; orgId=; defaultOrg=; tenantid=yfjz0nwh; theme=; languages=1_3; newArch=true; sysid=diwork; a00=KTF3IbQ_YFzlYMEsgF5U3ajMTAF1mggVtAUXcmtrEJ95Zmp6MG53aGAzMzkxMjI0NTc4ODA3NTY4YHlmanowbndoYDc1ZmM1YTY2LWQ4OWYtNDYzYS04Mzc3LWE3M2FkZDcwZmJlOWAxYGBlOGI1YjVlOTkzYWRlNTkzYjJgYGAxNzc3OTgwNDIyMjQ0Nzk0Mzc2YGZhbHNlYGAxNzEwMzQ3NDEwMjE0YHltc3NlczozODk0NDZjZmRiOWYyNmJiNDY1MzdlYTMzNTkyN2MyNGBkaXdvcmtg; a10=MDExMjY4MzU1NDA1MjM0MTAyMTQ; n_f_f=true; wb_at=LMjpvouuptj4QP3rMld8x8dcfyco6qojnmkhmd; c800=dccore2; jDiowrkTokenMock=bttMHpDOFhtdGpwMkxGODQvM1RTYitPbTlJZEpucVp3ejdDcXp4NEdzYnYyKzJnTXJwUk5pQk1HVEtXODdPTWkxTl9fZXVjLnlvbnlvdWNsb3VkLmNvbQ..__cf4d8cf47ce522f496400cc1426eb5ae_1710347410204TGTGdccore2iuap-apcom-workbench5dd7e36eYT; XSRF-TOKEN=AX_AOWSTDMSORIVNRWO0TCFCVJE1!003311; UBA_LAST_EID=dn07ltq0t840");
+            dicHeader.Add("Referer", "https://dbox.yonyoucloud.com/");
+            dicHeader.Add("Sec-Fetch-Dest", "empty");
+            dicHeader.Add("Sec-Fetch-Mode", "cors");
+            dicHeader.Add("Sec-Fetch-Site", "same-origin");
+            dicHeader.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0");
+            dicHeader.Add("X-Requested-With", "XMLHttpRequest");
+            dicHeader.Add("from", "diwork");
+            dicHeader.Add("sec-ch-ua", "\"Not_A Brand\";v=\"8\", \"Chromium\";v=\"120\", \"Microsoft Edge\";v=\"120\"");
+            dicHeader.Add("sec-ch-ua-mobile", "?0");
+            dicHeader.Add("sec-ch-ua-platform", "\"Windows\"");
+            dicHeader.Add("serviceCodeDiwork", "ipass0010");
+            dicHeader.Add("ts", strTS);
+
+            var result = HttpHelper.HttpGetAsync(requestUrl, dicParam, dicHeader);
+            Console.WriteLine(result);
+        }
     }
 }

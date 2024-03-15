@@ -46,6 +46,29 @@ namespace ML.Core
             return dt.ToString("yyyy-MM-dd");
         }
 
+        /// <summary>
+        /// 获取上个月
+        /// </summary>
+        /// <returns></returns>
+        public static string GetLastMonth()
+        {
+            DateTime dt = DateTime.Now;
+            dt = dt.AddMonths(-1);
+            return dt.ToString("yyyy-MM");
+        }
+
+        /// <summary>
+        /// 获取指定月份的上个月
+        /// </summary>
+        /// <param name="current_month"></param>
+        /// <returns></returns>
+        public static string GetLastMonth(string current_month)
+        {
+            DateTime dt = DateTime.Parse($"{current_month}-01");
+            dt = dt.AddMonths(-1);
+            return dt.ToString("yyyy-MM");
+        }
+
         public static string GetNumberWeekDay(DateTime dt)
         {
             int y = dt.Year;

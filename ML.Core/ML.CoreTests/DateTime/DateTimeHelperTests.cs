@@ -14,5 +14,19 @@ namespace ML.Core.Tests
         {
             Console.WriteLine("hello");
         }
+
+        [TestMethod()]
+        public void GetLastMonthTest()
+        {
+            string res = DateTimeHelper.GetLastMonth();
+            Console.WriteLine(res);
+        }
+
+        [TestMethod()]
+        public void GetLastMonthTest1()
+        {
+            string res = DateTimeHelper.GetLastMonth("2024-01");
+            Console.WriteLine(res);
+        }
     }
 }

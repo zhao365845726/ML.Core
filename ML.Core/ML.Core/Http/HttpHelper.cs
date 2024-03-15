@@ -8,16 +8,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace ML.Core
 {
     public static class HttpHelper
     {
+        // HttpClient is intended to be instantiated once per application, rather than per-use. See Remarks.
+        public static readonly HttpClient client = new HttpClient();
+
         static HttpHelper()
         {
             ServicePointManager.DefaultConnectionLimit = 512;
@@ -366,6 +371,31 @@ namespace ML.Core
             StreamReader sr = new StreamReader(res.GetResponseStream(), Encoding.UTF8);
             string content = sr.ReadToEnd(); //响应转化为String字符串
             return content;
+        }
+
+        public static async Task<string> HttpGetAsync(string url, Dictionary<String, String> param,Dictionary<string,string> header)
+        {
+            // Call asynchronous network methods in a try/catch block to handle exceptions.
+            try
+            {
+                HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, url);
+                //添加请求头
+                foreach(var kv in header)
+                {
+                    httpRequestMessage.Headers.Add(kv.Key, kv.Value);
+                }
+                httpRequestMessage.Content = new StringContent(JsonConvert.SerializeObject(param.ToJson()), Encoding.UTF8, "application/json");
+
+                var res = await client.SendAsync(httpRequestMessage);
+
+                return res.Content.ToJson();
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine("\nException Caught!");
+                Console.WriteLine("Message :{0} ", e.Message);
+                return "";
+            }
         }
         #endregion
 
